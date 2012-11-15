@@ -1,0 +1,9 @@
+<stack>
+  <description brief="edufill_navigation">edufill_navigation</description>
+  <author>Maintained by Nemo Giftsun</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_navigation</url>
+  <depend stack="ros" />
+
+</stack>

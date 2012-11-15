@@ -1,0 +1,21 @@
+<package>
+  <description brief="test_scripts">
+
+     test_scripts
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/test_scripts</url>
+
+  <depend package="edufill_arm_navigation" />
+  <depend package="tf" />
+  <depend package="geometry_msgs" />
+  <depend package="move_base_msgs" />
+  <depend package="brics_actuator" />
+  <depend package="actionlib" />
+
+</package>
+
+

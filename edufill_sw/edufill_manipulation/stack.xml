@@ -1,0 +1,9 @@
+<stack>
+  <description brief="edufill_manipulation">edufill_manipulation</description>
+  <author>Maintained by Nemo Giftsun</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_manipulation</url>
+  <depend stack="ros" />
+
+</stack>

@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_env_config">
+
+     edufill_env_config
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_env_config</url>
+
+</package>
+
+

@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_bringup">
+
+     edufill_bringup
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_bringup</url>
+
+</package>
+
+

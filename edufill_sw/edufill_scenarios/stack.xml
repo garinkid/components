@@ -1,0 +1,9 @@
+<stack>
+  <description brief="edufill_scenarios">edufill_scenarios</description>
+  <author>Maintained by Nemo Giftsun</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_scenarios</url>
+  <depend stack="ros" />
+
+</stack>

@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_baseplacement">
+
+     edufill_baseplacement
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_baseplacement</url>
+
+</package>
+
+

@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_2dnav">
+
+     edufill_2dnav
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_2dnav</url>
+
+</package>
+
+
