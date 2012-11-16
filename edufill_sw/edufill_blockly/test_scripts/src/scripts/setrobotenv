@@ -1,0 +1,2 @@
+#!/bin/sh
+export ROBOT_ENV=brsu-iros2012
