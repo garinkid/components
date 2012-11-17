@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- base components -->
+   	<include file="$(find edufill_bringup_sim)/robots/robot.launch" />
+
+    <!-- motion controller -->
+    <include file="$(find edufill_relative_movements)/launch/base_controller.launch" />
+
+
+</launch>    
+
+

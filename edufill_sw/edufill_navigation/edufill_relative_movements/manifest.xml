@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_relative_movements">
+
+     edufill_relative_movements
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_relative_movements</url>
+
+</package>
+
+
