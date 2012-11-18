@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+	<node pkg="edufill_blockly" type="script_default.py" name="default_launch" cwd="node" respawn="false" output="screen" />
+</launch>

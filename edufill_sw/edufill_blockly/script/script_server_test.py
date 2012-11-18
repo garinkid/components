@@ -18,8 +18,8 @@ if __name__ == '__main__':
     
     
     #sss.play("alu")
-    sss.move("gripper", "open")
-    sss.move("gripper", "close")
+    #sss.move("gripper", "open")
+    #sss.move("gripper", "close")
     sss.move("arm", "zeroposition")
     sss.move("arm", "pregrasp_laying_mex")
     sss.move("arm","pregrasp_standing_mex")
