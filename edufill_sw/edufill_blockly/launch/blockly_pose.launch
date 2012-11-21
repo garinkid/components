@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 	<rosparam param="arm_pose" command="load" file="$(find edufill_default_config)/youbot-edufill1/arm_poses.yaml" />
-	<node pkg="edufill_blockly" type="script_default.py" name="default_launch" cwd="node" respawn="false" output="screen" />
+	<node pkg="edufill_blockly" type="arm_to_pose_test.py" name="default_launch" cwd="node" respawn="false" output="screen" />
 </launch>
+ 

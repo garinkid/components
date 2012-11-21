@@ -4,8 +4,10 @@ import rospy
 import brics_actuator.msg
 from brics_actuator.msg import JointPositions, JointValue, Poison
 
-#move arm to a joint position
-def move(joint_angle_1, joint_angle_2, joint_angle_3, joint_angle_4, joint_angle_5):
+# Move arm to a joint position
+
+# Move arm to a given joint positions
+def joint_positions(joint_angle_1, joint_angle_2, joint_angle_3, joint_angle_4, joint_angle_5):
     pub = rospy.Publisher('arm_1/arm_controller/position_command', JointPositions)
     rospy.init_node('move_arm_joint_position_components')
     rospy.sleep(0.5) 
@@ -52,5 +54,25 @@ def move(joint_angle_1, joint_angle_2, joint_angle_3, joint_angle_4, joint_angle
     except Exception, e:
         print e
 
+
+# Move arm to a given pose uploaded to rosparam 'arm_pose'
+# The poses are define in $(find edufill_default_config)/youbot-edufill1/arm_poses.yaml
+def pose(pose):
+	if type(pose) is not str:
+		print 'pose input should be string'
+		return
+	if not rospy.has_param('arm_pose'):
+		print 'no arm pose parameter defined'
+		return
+
+	pose_list = rospy.get_param('arm_pose')
+
+	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is 5:
+		print 'moving to pose ' + pose 
+		joints = pose_list[pose]
+		joint_positions(joints[0], joints[1], joints[2], joints[3], joints[4])			
+	else:
+		print 'pose ' + pose + ' is not defined'
+		return
 
 
