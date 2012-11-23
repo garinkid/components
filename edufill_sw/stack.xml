@@ -1,9 +1,0 @@
-<stack>
-  <description brief="edufill_sw">edufill_sw</description>
-  <author>Maintained by Nemo Giftsun</author>
-  <license>BSD</license>  
-  <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/edufill_sw</url>
-  <depend stack="ros" />
-
-</stack>
