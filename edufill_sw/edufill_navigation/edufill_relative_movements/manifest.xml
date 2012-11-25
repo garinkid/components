@@ -1,25 +1,25 @@
 <package>
-  <description brief="edufill_baseplacement">
+  <description brief="edufill_relative_movements">
 
-     edufill_baseplacement
+     edufill_relative_movements
 
   </description>
   <author>Nemo Giftsun</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/edufill_baseplacement</url>
-
+  <url>http://ros.org/wiki/edufill_relative_movements</url>
   <depend package="std_msgs"/>
   <depend package="rospy"/>
   <depend package="roscpp"/>
   <depend package="rospack"/>
-  <depend package="urdf"/>
+  <depend package="tf"/>  
   <depend package="edufill_srvs"/>
-  <depend package="tf"/>
-  <depend package="bullet"/>
   <depend package="std_srvs"/>
-  <depend package="edufill_script_server"/>
+  <depend package="actionlib"/>
+  <depend package="nav_msgs"/>
   <depend package="geometry_msgs"/>
+  <depend package="edufill_baseplacement"/>
+  <depend package="angles" />
 
 </package>
 

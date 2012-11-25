@@ -15,6 +15,7 @@ from move_base_msgs.msg import *
 
 # Move arm to a cartesian position
 def move_base_to_goal(goal):
+
     if (not rospy.has_param("script_server/base/" + goal)):
         rospy.logerr("location <<" + goal + ">> is not on the parameter server")
         return 'location_not_known'
