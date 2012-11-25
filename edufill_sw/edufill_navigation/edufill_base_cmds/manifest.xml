@@ -1,0 +1,21 @@
+<package>
+  <description brief="edufill_base_cmds">
+
+     edufill_base_cmds
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_base_cmds</url>
+
+  <depend package="tf" />
+  <depend package="geometry_msgs" />
+  <depend package="move_base_msgs" />
+  <depend package="brics_actuator" />
+  <depend package="actionlib" />
+
+
+</package>
+
+

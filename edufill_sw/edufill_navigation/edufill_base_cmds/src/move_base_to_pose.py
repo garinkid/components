@@ -39,6 +39,11 @@ def move_base_to_pose(x, y, yaw):
     client.wait_for_result()
     return client.get_result()
 
+    except Exception, e:
+    rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
+    return 'srv_call_failed'
+
+
 
 
 if __name__ == '__main__':

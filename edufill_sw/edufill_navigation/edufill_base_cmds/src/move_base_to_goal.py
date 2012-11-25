@@ -28,7 +28,7 @@ def move_base_to_goal(goal):
 
 if __name__ == '__main__':
     rospy.init_node('move_arm_joint_position_components')
-    result = move_base_to_goal('S2')
+    result = move_base_to_goal('S1')
     print result
 
 
