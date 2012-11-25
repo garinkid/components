@@ -9,6 +9,13 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/edufill_arm_cmds</url>
 
+  <depend package="edufill_arm_navigation" />
+  <depend package="tf" />
+  <depend package="geometry_msgs" />
+  <depend package="move_base_msgs" />
+  <depend package="brics_actuator" />
+  <depend package="actionlib" />
+
 </package>
 
 

@@ -21,7 +21,7 @@
   <depend package="youbot_arm_navigation" />  
   <depend package="control_msgs"/>
   <depend package="trajectory_msgs"/>
-  <depend package="raw_srvs"/>
+  <depend package="edufill_srvs"/>
 </package>
 
 

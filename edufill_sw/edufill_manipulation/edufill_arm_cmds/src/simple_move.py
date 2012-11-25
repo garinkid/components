@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('raw_arm_cmds')
+import roslib; roslib.load_manifest('edufill_arm_cmds')
 import rospy
 import brics_actuator.msg
 
@@ -20,7 +20,7 @@ if __name__=="__main__":
         
         jv1 = JointValue()
         jv1.joint_uri = "arm_joint_1"
-        jv1.value = 0.011
+        jv1.value = 0.5
         jv1.unit = "rad"
         
         jv2 = JointValue()

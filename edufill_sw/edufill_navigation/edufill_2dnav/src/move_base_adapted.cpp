@@ -36,8 +36,8 @@
  *         Mike Phillips (put the planner in its own thread)
  *         Praveen Ramanujam (orient towards goal, orient towards path,goal feasibility service and recovery behavior)
  *********************************************************************/
-#include <raw_2dnav/move_base_adapted.hpp>
-#include <raw_2dnav/orient_goal.hpp>
+#include <edufill_2dnav/move_base_adapted.hpp>
+#include <edufill_2dnav/orient_goal.hpp>
 #include <boost/algorithm/string.hpp>
 
 namespace basic_navigation {
@@ -289,7 +289,7 @@ bool MoveBaseAdapted::clearCostmapsService(std_srvs::Empty::Request &req, std_sr
 	controller_costmap_ros_->resetMapOutsideWindow(0,0);
 	return true;
 }
-/*bool BasicNavigation::goalfeasibilityService(raw_basic_navigation::GoalCheck::Request &req,raw_basic_navigation::GoalCheck::Response &resp)
+/*bool BasicNavigation::goalfeasibilityService(edufill_basic_navigation::GoalCheck::Request &req,edufill_basic_navigation::GoalCheck::Response &resp)
 {
 	base_local_planner::CostmapModel* world_model_;
 	costmap_2d::Costmap2D costmap_;

@@ -16,8 +16,9 @@ sss = simple_script_server()
 if __name__ == '__main__':
     rospy.init_node('script_server_test')
     
-    
+    sss.move("base", [0.5,0,0.1])
     #sss.play("alu")
+    '''
     sss.move("gripper", "open")
     sss.move("gripper", "close")
     sss.move("arm", "zeroposition")
@@ -68,4 +69,7 @@ if __name__ == '__main__':
     #rospy.sleep(2)
 
     #sss.move("arm", "initposition", mode="planned")
+    '''
+
+
     

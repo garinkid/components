@@ -1,0 +1,16 @@
+<package>
+  <description brief="edufill_srvs">
+
+     edufill_srvs
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_srvs</url>
+
+  <depend package="hbrs_msgs" />
+
+</package>
+
+

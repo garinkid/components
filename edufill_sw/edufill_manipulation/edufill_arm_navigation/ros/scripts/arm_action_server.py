@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('raw_arm_navigation')
+import roslib; roslib.load_manifest('edufill_arm_navigation')
 
 import rospy
 import sensor_msgs.msg
 import actionlib
 import brics_actuator.msg
-import raw_arm_navigation.msg
+import edufill_arm_navigation.msg
 import arm_navigation_msgs.msg
 import tf
 import control_msgs.msg
@@ -46,9 +46,9 @@ class ArmActionServer:
         self.pub_joint_positions = rospy.Publisher("position_command", brics_actuator.msg.JointPositions)
         
         # action server
-        self.as_move_joint_direct = actionlib.SimpleActionServer("MoveToJointConfigurationDirect", raw_arm_navigation.msg.MoveToJointConfigurationAction, execute_cb = self.execute_cb_move_joint_config_direct)
-        self.as_move_cart_direct = actionlib.SimpleActionServer("MoveToCartesianPoseDirect", raw_arm_navigation.msg.MoveToCartesianPoseAction, execute_cb = self.execute_cb_move_cartesian_direct)
-        self.as_move_cart_rpy_sampled_direct = actionlib.SimpleActionServer("MoveToCartesianRPYSampledDirect", raw_arm_navigation.msg.MoveToCartesianPoseAction, execute_cb = self.execute_cb_move_cartesian_rpy_sampled_direct)
+        self.as_move_joint_direct = actionlib.SimpleActionServer("MoveToJointConfigurationDirect", edufill_arm_navigation.msg.MoveToJointConfigurationAction, execute_cb = self.execute_cb_move_joint_config_direct)
+        self.as_move_cart_direct = actionlib.SimpleActionServer("MoveToCartesianPoseDirect", edufill_arm_navigation.msg.MoveToCartesianPoseAction, execute_cb = self.execute_cb_move_cartesian_direct)
+        self.as_move_cart_rpy_sampled_direct = actionlib.SimpleActionServer("MoveToCartesianRPYSampledDirect", edufill_arm_navigation.msg.MoveToCartesianPoseAction, execute_cb = self.execute_cb_move_cartesian_rpy_sampled_direct)
             
         # additional classes
         self.iks = SimpleIkSolver()
@@ -90,7 +90,7 @@ class ArmActionServer:
         rospy.loginfo("move arm to joint configuration DIRECT")
         self.time_start = rospy.get_rostime()#my line
         if not self.is_joint_configuration_not_in_limits(action_msgs.goal):
-            result = raw_arm_navigation.msg.MoveToJointConfigurationResult()
+            result = edufill_arm_navigation.msg.MoveToJointConfigurationResult()
             result.result.val = arm_navigation_msgs.msg.ArmNavigationErrorCodes.JOINT_LIMITS_VIOLATED
             self.as_move_joint_direct.set_aborted(result)
             return
@@ -102,7 +102,7 @@ class ArmActionServer:
                 break
           
             
-        result = raw_arm_navigation.msg.MoveToJointConfigurationResult()
+        result = edufill_arm_navigation.msg.MoveToJointConfigurationResult()
         result.result.val = arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS
         self.as_move_joint_direct.set_succeeded(result)
                   
@@ -114,7 +114,7 @@ class ArmActionServer:
         
         joint_config = self.iks.call_constraint_aware_ik_solver(action_msgs.goal)
         
-        result = raw_arm_navigation.msg.MoveToCartesianPoseResult()
+        result = edufill_arm_navigation.msg.MoveToCartesianPoseResult()
                 
         if (joint_config):
             rospy.loginfo("IK solution found")
@@ -157,7 +157,7 @@ class ArmActionServer:
     def execute_cb_move_cartesian_rpy_sampled_direct(self, action_msgs):
         rospy.loginfo("move to cartesian pose sampling for valid rpy DIRECT")
         
-        pose = raw_arm_navigation.msg.MoveToCartesianPoseGoal()
+        pose = edufill_arm_navigation.msg.MoveToCartesianPoseGoal()
         pose.goal.header.frame_id = action_msgs.goal.header.frame_id
         pose.goal.pose.position.x = action_msgs.goal.pose.position.x
         pose.goal.pose.position.y = action_msgs.goal.pose.position.y
@@ -193,7 +193,7 @@ class ArmActionServer:
                     break
 
 
-        result = raw_arm_navigation.msg.MoveToJointConfigurationResult()
+        result = edufill_arm_navigation.msg.MoveToJointConfigurationResult()
         
         if(joint_config and joints_not_in_limits):
 

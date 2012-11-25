@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('raw_arm_navigation')
+import roslib; roslib.load_manifest('edufill_arm_navigation')
 
 import rospy
 import sensor_msgs.msg
 import actionlib
 import brics_actuator.msg
-import raw_arm_navigation.msg
+import edufill_arm_navigation.msg
 import arm_navigation_msgs.msg
 import tf
-from raw_srvs.srv import *
+from edufill_srvs.srv import *
 
 
 class GripperActionServer:
@@ -47,7 +47,7 @@ class GripperActionServer:
 		self.pub_joint_positions = rospy.Publisher("position_command", brics_actuator.msg.JointPositions)
 		
 		# action server
-		self.as_move_joint_direct = actionlib.SimpleActionServer("MoveToJointConfigurationDirect", raw_arm_navigation.msg.MoveToJointConfigurationAction, execute_cb = self.execute_cb_move_joint_config_direct)
+		self.as_move_joint_direct = actionlib.SimpleActionServer("MoveToJointConfigurationDirect", edufill_arm_navigation.msg.MoveToJointConfigurationAction, execute_cb = self.execute_cb_move_joint_config_direct)
 	
 		# service server
 		self.srv_gripper_closed = rospy.Service('is_gripper_closed',  ReturnBool , self.is_gripper_closed)
@@ -69,7 +69,7 @@ class GripperActionServer:
 		rospy.loginfo("move gripper to joint configuration")
 		
 		if not self.is_joint_configuration_not_in_limits(action_msgs.goal):
-			result = raw_arm_navigation.msg.MoveToJointConfigurationResult()
+			result = edufill_arm_navigation.msg.MoveToJointConfigurationResult()
 			result.result.val = arm_navigation_msgs.msg.ArmNavigationErrorCodes.JOINT_LIMITS_VIOLATED
 			self.as_move_joint_direct.set_aborted(result)
 			return
@@ -81,7 +81,7 @@ class GripperActionServer:
 			if (self.is_goal_reached(action_msgs.goal)):
 				break
 					
-		result = raw_arm_navigation.msg.MoveToJointConfigurationResult()
+		result = edufill_arm_navigation.msg.MoveToJointConfigurationResult()
 		result.result.val = arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS
 		
 		self.as_move_joint_direct.set_succeeded(result)

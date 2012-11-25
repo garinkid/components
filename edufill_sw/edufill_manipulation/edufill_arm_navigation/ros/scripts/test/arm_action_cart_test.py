@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('raw_arm_navigation')
+import roslib; roslib.load_manifest('edufill_arm_navigation')
 import rospy
-import raw_arm_navigation.msg
+import edufill_arm_navigation.msg
 import brics_actuator.msg
 import actionlib
 import sys
@@ -10,12 +10,12 @@ import math
 
 
 def arm_action_test():
-    client = actionlib.SimpleActionClient('/arm_1/arm_controller/MoveToCartesianPoseDirect', raw_arm_navigation.msg.MoveToCartesianPoseAction)
+    client = actionlib.SimpleActionClient('/arm_1/arm_controller/MoveToCartesianPoseDirect', edufill_arm_navigation.msg.MoveToCartesianPoseAction)
     
     print 'wait for action server: MoveToCartesianPoseDirect'
 
     client.wait_for_server()
-    action_goal = raw_arm_navigation.msg.MoveToCartesianPoseGoal()
+    action_goal = edufill_arm_navigation.msg.MoveToCartesianPoseGoal()
 
    
     print 'establish action msg'
