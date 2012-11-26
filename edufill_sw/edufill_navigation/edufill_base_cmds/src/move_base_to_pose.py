@@ -38,14 +38,14 @@ def move_base_to_pose(x, y, yaw):
         # send goal
         client.send_goal(client_goal)
         client.wait_for_result()
-        return client.get_result()
+        return 'succeeded'
 
     except Exception, e:
         rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
         return 'srv_call_failed'
 
 if __name__ == '__main__':
-    rospy.init_node('move_arm_joint_position_components')
+    rospy.init_node('move_base_to_pose')
     result = move_base_to_pose(0.7, 0, 0)
     print result
 

@@ -38,7 +38,7 @@ def move_base_relative(x_distance, y_distance, angular_displacement):
         return 'srv_call_failed'
 
 if __name__ == '__main__':
-    rospy.init_node('move_base_relative')
+    rospy.init_node('move_base_relative_component')
     result = move_base_relative(0.1, 0.2, 0)
     print result
 

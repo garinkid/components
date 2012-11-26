@@ -28,8 +28,14 @@ def move_base_to_goal(goal):
 
 
 if __name__ == '__main__':
-    rospy.init_node('move_base_to_goal_component')
+    rospy.init_node('scenario_script')
     result = move_base_to_goal('S1')
+    if result == 'succeeded':
+        result = move_arm_cart_direct(0.4, 0.1, 0.15, 0, ((math.pi/2) + (math.pi/4)), 0, "/base_link")
+    if result == 'succeeded':
+        result = move_arm_cart_direct(0.4, 0.1, 0.15, 0, ((math.pi/2) + (math.pi/4)), 0, "/base_link")
+    if result ==  'succeeded'    
+        result = move_base_to_goal('S2')    
     print result
 
 
