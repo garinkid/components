@@ -9,10 +9,14 @@
         <!-- manipulation -->
 		<include file="$(find edufill_arm_navigation)/ros/launch/simple_manipulation.launch" />
 
-        <!-- perception -->
-		<include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />
+        <!-- perception 
+		<include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />-->
 
-        <!-- objects -->
+        <!-- objects 
+        <include file="$(find edufill_gazebo_objects)/ros/launch/simulation_objects.launch" /> -->
 
+        <param name="bluecube_description" command="$(find xacro)/xacro.py $(find edufill_gazebo_objects)/ros/objects/bluecube.urdf" />
+
+        <node name="bluecube_gazebo_model" pkg="gazebo" type="spawn_model" args="-urdf -param bluecube_description -model bluecube -x 1.7 -y 0.7 -z 0.2" respawn="false" output="screen" />
 
 </launch>

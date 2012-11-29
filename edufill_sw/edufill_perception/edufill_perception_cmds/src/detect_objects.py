@@ -3,9 +3,11 @@ import roslib; roslib.load_manifest('edufill_perception_cmds')
 import rospy
 import std_srvs.srv
 import edufill_srvs.srv
+import hbrs_srvs.srv
 
 # Move arm to a cartesian position
 def detect_objects():
+    '''
     object_finder_srv_start = rospy.ServiceProxy('/edufill_perception/object_segmentation/start',std_srvs.srv.Empty)    
     rospy.wait_for_service('/edufill_perception/object_segmentation/start', 30)
 
@@ -14,8 +16,8 @@ def detect_objects():
     except Exception, e:
         rospy.logerr("service call <<%s>> failed: %s", object_finder_srv_start, e)  
         return 'srv_call_failed'
-
-    object_finder_srv = rospy.ServiceProxy('/edufill_perception/object_segmentation/get_segmented_objects',raw_srvs.srv.GetObjects)    
+    '''
+    object_finder_srv = rospy.ServiceProxy('/edufill_perception/object_segmentation/get_segmented_objects',hbrs_srvs.srv.GetObjects)    
     rospy.wait_for_service('/edufill_perception/object_segmentation/get_segmented_objects', 30)
 
     rospy.sleep(3)

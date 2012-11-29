@@ -11,6 +11,7 @@
   <depend package="rospy" />
   <depend package="edufill_srvs" />
   <depend package="std_srvs" />
+  <depend package="hbrs_srvs" />
   <depend package="geometry_msgs" />
 </package>
 

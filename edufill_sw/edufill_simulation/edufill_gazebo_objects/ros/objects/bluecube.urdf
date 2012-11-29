@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot name="bluecube_model">
+
+<property name="cube_size" value="0.025" />
+<property name="cube_mass" value="0.01" />
+<property name="cube_inertia" value="0.001" />
+
+  <link name="world" />
+  
+  <joint name="cube1_joint" type="floating"> 
+    <parent link="world" />
+	<origin xyz="0.0 0.0 0.05" rpy="0 0 0" /> <!--   definition the orgin position of the object!! very important -->
+    <child link="bluecube1" />
+  </joint>
+  
+  <link name="bluecube1">
+    <inertial>
+      <origin xyz="${cube_size / 2.0} ${cube_size / 2.0} ${cube_size / 2.0}" /> 
+      <mass value="${cube_mass}" />
+      <inertia  ixx="${cube_inertia}" ixy="0.0"  ixz="0.0"  iyy="${cube_inertia}"  iyz="0.0"  izz="${cube_inertia}" />
+    </inertial>
+    <visual>
+      <origin xyz="${cube_size / 2.0} ${cube_size / 2.0} ${cube_size / 2.0}"/>
+      <geometry>
+        <box size="${cube_size} ${cube_size} ${cube_size}" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${cube_size / 2.0} ${cube_size / 2.0} ${cube_size / 2.0}"/>
+      <geometry>
+        <box size="${cube_size} ${cube_size} ${cube_size}" />
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="bluecube1">
+    <mu1 value="1500.0" />
+    <mu2 value="1500.0" />
+    <kp  value="10000000.0" />
+    <kd  value="1.0" /> 
+    <material>Gazebo/Blue</material>
+    <selfCollide>true</selfCollide>
+  </gazebo>
+
+</robot>
