@@ -8,6 +8,7 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/edufill_relative_movements</url>
+<<<<<<< HEAD
   <depend package="std_msgs"/>
   <depend package="rospy"/>
   <depend package="roscpp"/>
@@ -20,6 +21,8 @@
   <depend package="geometry_msgs"/>
   <depend package="edufill_baseplacement"/>
   <depend package="angles" />
+=======
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 
 </package>
 

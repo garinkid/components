@@ -9,9 +9,11 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 #  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
 #set(ROS_BUILD_TYPE RelWithDebInfo)
 
-rosbuild_init()
+rosbuild_find_ros_package(actionlib_msgs)
+include(${actionlib_msgs_PACKAGE_PATH}/cmake/actionbuild.cmake)
+genaction()
 
-rosbuild_find_ros_package(robot_srvs)
+rosbuild_init()
 
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
@@ -19,27 +21,14 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 #uncomment if you have defined messages
-#rosbuild_genmsg()
+rosbuild_genmsg()
 #uncomment if you have defined services
 #rosbuild_gensrv()
-
-include_directories(
-	${PROJECT_SOURCE_DIR}/include
-)
-
-#find_package(Eigen REQUIRED)
-#include_directories(${EIGEN_INCLUDE_DIRS})
-#add_definitions(${EIGEN_DEFINITIONS})
 
 #common commands for building c++ executables and libraries
 #rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
 #target_link_libraries(${PROJECT_NAME} another_library)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
-<<<<<<< HEAD:edufill_sw/edufill_navigation/edufill_relative_movements/CMakeLists.txt
 #rosbuild_add_executable(example examples/example.cpp)
-rosbuild_add_executable(base_controller src/relative_movements.cpp src/HomogenousTransform.cpp)
-=======
-#rosbuild_add_executable(createbash src/scripts/createbashscript.py)
->>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5:edufill_sw/edufill_blockly/test_scripts/CMakeLists.txt
 #target_link_libraries(example ${PROJECT_NAME})

@@ -2,9 +2,15 @@
 #include "std_msgs/String.h"
 #include <iostream>
 #include <sstream>
+<<<<<<< HEAD
 #include <edufill_srvs/SetPoseStamped.h>
 #include <edufill_srvs/SetMarkerFrame.h>
 #include <tf/transform_datatypes.h>s
+=======
+#include <raw_srvs/SetPoseStamped.h>
+#include <raw_srvs/SetMarkerFrame.h>
+#include <tf/transform_datatypes.h>
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 #include "tf/transform_listener.h"
 #include <LinearMath/btMatrix3x3.h>
 #include <XmlRpcValue.h>
@@ -13,7 +19,11 @@
 #include "geometry_msgs/Twist.h"
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
+<<<<<<< HEAD
 #include <edufill_baseplacement/OrientToBaseAction.h>
+=======
+#include <raw_base_placement/OrientToBaseAction.h>
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 
 
 using namespace std;
@@ -285,11 +295,19 @@ class BaseMotionController
         y_initodom = y_tempodom;
         theta_initodom = theta_tempodom;
 
+<<<<<<< HEAD
         actionlib::SimpleActionClient<edufill_baseplacement::OrientToBaseAction> ac("/scan_front_orientation", true);
 
         ac.waitForServer();
 
         edufill_baseplacement::OrientToBaseActionGoal goal;
+=======
+        actionlib::SimpleActionClient<raw_base_placement::OrientToBaseAction> ac("/scan_front_orientation", true);
+
+        ac.waitForServer();
+
+        raw_base_placement::OrientToBaseActionGoal goal;
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 
         goal.goal.distance = 0.1;
 
@@ -338,7 +356,11 @@ class BaseMotionController
 
 };
 
+<<<<<<< HEAD
 bool shiftbase(edufill_srvs::SetPoseStamped::Request  &req, edufill_srvs::SetPoseStamped::Response &res)
+=======
+bool shiftbase(raw_srvs::SetPoseStamped::Request  &req, raw_srvs::SetPoseStamped::Response &res)
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 {
     tf::Quaternion q;
     double roll, pitch, yaw;
@@ -363,7 +385,11 @@ bool shiftbase(edufill_srvs::SetPoseStamped::Request  &req, edufill_srvs::SetPos
     return true;
 } 
 
+<<<<<<< HEAD
 bool moveoptimalbase(edufill_srvs::SetPoseStamped::Request  &req, edufill_srvs::SetPoseStamped::Response &res)
+=======
+bool moveoptimalbase(raw_srvs::SetPoseStamped::Request  &req, raw_srvs::SetPoseStamped::Response &res)
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 {
     tf::Quaternion q;
     double roll, pitch, yaw;
@@ -384,7 +410,11 @@ bool moveoptimalbase(edufill_srvs::SetPoseStamped::Request  &req, edufill_srvs::
     return true;
 }
 
+<<<<<<< HEAD
 bool alignwithmarker(edufill_srvs::SetMarkerFrame::Request  &req, edufill_srvs::SetMarkerFrame::Response &res)
+=======
+bool alignwithmarker(raw_srvs::SetMarkerFrame::Request  &req, raw_srvs::SetMarkerFrame::Response &res)
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 {
     ros::NodeHandle alignmarker;
 

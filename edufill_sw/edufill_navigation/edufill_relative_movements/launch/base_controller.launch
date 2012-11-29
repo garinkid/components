@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <launch>
         
+<<<<<<< HEAD
   <node pkg="edufill_relative_movements" type="base_controller" name="edufill_relative_movements" ns="edufill_relative_movements" output="screen">
+=======
+  <node pkg="raw_relative_movements" type="base_controller" name="raw_relative_movements" ns="raw_relative_movements" output="screen">
+>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5
 
   </node>
 
