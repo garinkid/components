@@ -61,11 +61,11 @@ def pose(pose):
 	if type(pose) is not str:
 		print 'pose input should be string'
 		return
-	if not rospy.has_param('arm_pose'):
+	if not rospy.has_param('/script_server/arm'):
 		print 'no arm pose parameter defined'
 		return
 
-	pose_list = rospy.get_param('arm_pose')
+	pose_list = rospy.get_param('/script_server/arm')
 
 	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is 5:
 		print 'moving to pose ' + pose 
