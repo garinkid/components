@@ -13,5 +13,6 @@
   <depend package="brics_actuator" />
   <depend package="actionlib" />
   <depend package="edufill_arm_cmds" />
+  <depend package="edufill_base_cmds" />
 
 </package>

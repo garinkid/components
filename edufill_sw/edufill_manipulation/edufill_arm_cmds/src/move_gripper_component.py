@@ -7,7 +7,7 @@ from brics_actuator.msg import JointPositions, JointValue, Poison
 #Open or close the gripper
 def move(mode):
 	pub = rospy.Publisher("/arm_1/gripper_controller/position_command", JointPositions)
-	rospy.init_node("move_gripper_component")
+
 	rospy.sleep(0.5)
 	if mode == "OPEN":
 		gripper_value = 0.0115

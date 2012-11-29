@@ -9,7 +9,6 @@ from brics_actuator.msg import JointPositions, JointValue, Poison
 # Move arm to a given joint positions
 def joint_positions(joint_angle_1, joint_angle_2, joint_angle_3, joint_angle_4, joint_angle_5):
     pub = rospy.Publisher('arm_1/arm_controller/position_command', JointPositions)
-    rospy.init_node('move_arm_joint_position_components')
     rospy.sleep(0.5) 
     try:
         jp = JointPositions()

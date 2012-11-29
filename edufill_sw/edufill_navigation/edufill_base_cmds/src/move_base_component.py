@@ -13,7 +13,7 @@ from geometry_msgs.msg import *
 from move_base_msgs.msg import *
 
 # Move arm to a cartesian position
-def move_base_to_pose(x, y, yaw):
+def to_pose(x, y, yaw):
     
     try: 
         # convert to pose message
@@ -43,7 +43,7 @@ def move_base_to_pose(x, y, yaw):
         rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
         return 'srv_call_failed'
 
-def move_base_to_goal(goal):
+def to_goal(goal):
 
     if (not rospy.has_param("script_server/base/" + goal)):
         rospy.logerr("location <<" + goal + ">> is not on the parameter server")
@@ -51,14 +51,14 @@ def move_base_to_goal(goal):
     
     pose = rospy.get_param("script_server/base/" + goal)
    
-    result = move_base_to_pose(pose[0],pose[1],pose[2])  
+    result = to_pose(pose[0],pose[1],pose[2])  
   
     return result    
 
 
 if __name__ == '__main__':
     rospy.init_node('move_base_to_goal_component')
-    result = move_base_to_goal('S1')
+    result = to_goal('S1')
     print result
 
 
