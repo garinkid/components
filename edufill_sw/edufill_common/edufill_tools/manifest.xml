@@ -8,7 +8,9 @@
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/edufill_tools</url>
-
+	<depend package="rospy"/>
+        <depend package="tf"/>
+ 	<depend package="visualization_msgs"/>
 </package>
 
 

@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import roslib; roslib.load_manifest('raw_tools')
+import roslib; roslib.load_manifest('edufill_tools')
 import rospy
 import tf
 from visualization_msgs.msg import *
