@@ -2,7 +2,7 @@
 <launch>
 
 	<!-- send ROBOT_ENV parameters to parameter server -->
-	<rosparam command="load" ns="/script_server/arm" file="$(find edufill_default_config)/$(env ROBOT)/arm_joint_configurations.yaml"/>
+	<rosparam command="load" ns="/script_server/arm" file="$(find edufill_default_config)/$(env ROBOT)/arm_poses.yaml"/>
 	<rosparam command="load" ns="/script_server/gripper" file="$(find edufill_default_config)/$(env ROBOT)/gripper_joint_configurations.yaml"/>
 
 </launch>
