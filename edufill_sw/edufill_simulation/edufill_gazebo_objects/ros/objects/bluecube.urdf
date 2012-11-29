@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot name="bluecube_model">
 
-<property name="cube_size" value="0.025" />
+<property name="cube_size" value="0.015" />
 <property name="cube_mass" value="0.01" />
 <property name="cube_inertia" value="0.001" />
 
