@@ -46,7 +46,7 @@ def move_arm_cart_direct(x, y, z, roll, pitch, yaw, reference_frame):
 
 if __name__ == '__main__':
     rospy.init_node('move_arm_joint_position_components')
-    result = move_arm_cart_direct(0.4, 0.1, 0.15, 0, ((math.pi/2) + (math.pi/4)), 0, "/base_link")
+    result = move_arm_cart_direct(0.55, 0, 0.15, 0, ((math.pi/2) + (math.pi/4)), 0, "/base_link")
     print result
 
 

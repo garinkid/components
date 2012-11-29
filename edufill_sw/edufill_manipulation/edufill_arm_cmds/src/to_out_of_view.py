@@ -12,7 +12,7 @@ sss = simple_script_server()
 
 def main():
     rospy.init_node('move_to_zero')
-    sss.move("arm", "zeroposition")
+    sss.move("arm", "arm_out_of_view")
     rospy.sleep(1)
 
 ## Main routine for running the script server

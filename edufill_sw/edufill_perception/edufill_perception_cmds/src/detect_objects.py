@@ -35,16 +35,21 @@ def detect_objects():
         
     if (len(resp.objects) <= 0):
         rospy.logerr("no graspable objects found");
-        userdata.object_list = []            
+        object_list = []            
         return 'failed'   
     else:
-        userdata.object_list = resp.objects
-        return 'succeeded'
+        for obj in resp.objects:
+            if obj.pose.pose.position.z <=0.5 and obj.pose.pose.position.z >=30:
+                continue
+
+            object_list = obj
+
+            return object_list
 
 
 if __name__ == '__main__':
     rospy.init_node('detect_objects')
     obj_list = detect_objects()
-    print result
+    print obj_list.pose
 
 
