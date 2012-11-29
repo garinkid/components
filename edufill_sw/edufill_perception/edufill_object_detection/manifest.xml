@@ -9,6 +9,20 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/edufill_object_detection</url>
 
+  <depend package="roscpp"/>
+  <depend package="tf"/>
+  <depend package="pcl_ros"/>
+  <depend package="pcl"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
+  <depend package="sensor_msgs"/>
+  <depend package="geometry_msgs"/>
+  <depend package="std_srvs"/>
+  <depend package="hbrs_srvs"/>
+  <depend package="hbrs_msgs"/>
+  <depend package="object_manipulation_msgs"/>
+
+
 </package>
 
 
