@@ -32,7 +32,7 @@ class SimpleIkSolver:
 		rospy.wait_for_service('/youbot_arm_kinematics/get_constraint_aware_ik')
 		self.ciks = rospy.ServiceProxy('/youbot_arm_kinematics/get_constraint_aware_ik', kinematics_msgs.srv.GetConstraintAwarePositionIK)
 		rospy.loginfo("Service 'get_constraint_aware_ik' is ready")
-		
+	
 		rospy.loginfo("Waiting for 'set_planning_scene_diff' service")
 		rospy.wait_for_service('/environment_server/set_planning_scene_diff')
 		self.planning_scene = rospy.ServiceProxy('/environment_server/set_planning_scene_diff', arm_navigation_msgs.srv.SetPlanningSceneDiff)
