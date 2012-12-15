@@ -65,8 +65,8 @@ class KinematicsSolver:
 		res = self.planning_scene.call(req)
 
 
-	def call_fk_solver(self, j1,j2,j3,j4,j5):
-		configuration =[j1,j2,j3,j4,j5]
+	def get_fk_solution(self, joint_config):
+		configuration =[joint_config[0],joint_config[1],joint_config[2],joint_config[3],joint_config[4]]
 		while(not self.received_state):
 			time.sleep(0.1)
 		
@@ -116,15 +116,12 @@ class KinematicsSolver:
 		pose.goal.pose.orientation.y = qy
 		pose.goal.pose.orientation.z = qz
 		pose.goal.pose.orientation.w = qw
-		
 		return pose
 
 
-	def call_constraint_aware_ik_solver(self, x,y,z,roll,pitch,yaw,reference_frame):
-		param = [x,y,z,roll,pitch,yaw,reference_frame]
+	def call_constraint_aware_ik_solver(self, param_list):
 		# convert to pose message
-		pose = self.create_pose(param)
-
+		pose = self.create_pose(param_list)
 		while (not self.received_state):
 			time.sleep(0.1)
 		req = kinematics_msgs.srv.GetConstraintAwarePositionIKRequest()
@@ -136,35 +133,41 @@ class KinematicsSolver:
 		try:
 			resp = self.ciks(req)
 		except rospy.ServiceException, e:
-			rospy.logerr("Service did not process request: %s", str(e))		
-		joint_config = resp.solution.joint_state.position
-		print joint_config
-		if (resp.error_code.val == arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS):
-			rospy.loginfo("IK solution found")
-			jp = brics_actuator.msg.JointPositions()
-			for i in range(len(self.joint_names)):
-				jv = brics_actuator.msg.JointValue()
-				jv.joint_uri = self.joint_names[i]
-				jv.value = joint_config[i]
-				jv.unit = self.unit
-				jp.positions.append(jv)
-			return jp
-		else:
-			return None
+			rospy.logerr("Service did not process request: %s", str(e))				
+		return resp
 
+
+	def check_ik_solver_has_solution(self, xyzrpy,reference_frame):
+		param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5],reference_frame]
+		response = self.call_constraint_aware_ik_solver(param)
+		if (response.error_code.val == arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS):
+			return True
+		else:
+			return False
+
+	def get_ik_solution(self, xyzrpy,reference_frame):
+		param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5],reference_frame]
+		response = self.call_constraint_aware_ik_solver(param)
+		joint_config = response.solution.joint_state.position
+		if (response.error_code.val == arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS):
+			joint_config = response.solution.joint_state.position
+		else:
+			joint_config = []
+		return joint_config
 
 if __name__ == "__main__":
 	rospy.init_node('youbot_kinematic_solver')
 	time.sleep(0.5)
 	ks = KinematicsSolver()
 	# constraint aware kinematics
-	(conf) = ks.call_constraint_aware_ik_solver(0.024 + 0.033,0,0.535,0,0,0,"/base_link")
-	if (conf):
-		print("IK solver found a solution")
-		print conf.positions
+	xyzrpy = [0.024 + 0.033,0,0.535,0,0,0];
+	iksolver_state = ks.check_ik_solver_has_solution(xyzrpy,"/base_link")
+	if (iksolver_state):
+		ik_solution = ks.get_ik_solution(xyzrpy,"/base_link")
+		print ik_solution
 	else:
 		print("IK solver didn't find a solution")
-	cartesian_pose = ks.call_fk_solver(conf.positions[0].value,conf.positions[1].value,conf.positions[2].value,conf.positions[3].value,conf.positions[4].value)
+	cartesian_pose = ks.get_fk_solution(ik_solution)
 	print cartesian_pose
 
 
