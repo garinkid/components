@@ -37,6 +37,7 @@ rosbuild_add_library(raw_object_candidate_extraction ros/src/object_candidate_ex
 
 rosbuild_add_executable(object_segmentation_node
 	ros/src/nodes/object_segmentation_node.cpp
+	ros/src/nodes_modified/extract_planes.cpp
 	ros/src/object_segmentation.cpp
 	ros/src/roi_extraction.cpp
 )

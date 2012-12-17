@@ -21,7 +21,7 @@
   <depend package="hbrs_srvs"/>
   <depend package="hbrs_msgs"/>
   <depend package="object_manipulation_msgs"/>
-
+  <depend package="edufill_srvs"/>
 
 </package>
 
