@@ -289,7 +289,7 @@ bool MoveBaseAdapted::clearCostmapsService(std_srvs::Empty::Request &req, std_sr
 	controller_costmap_ros_->resetMapOutsideWindow(0,0);
 	return true;
 }
-/*bool BasicNavigation::goalfeasibilityService(edufill_basic_navigation::GoalCheck::Request &req,edufill_basic_navigation::GoalCheck::Response &resp)
+/*bool BasicNavigation::goalfeasibilityService(raw_basic_navigation::GoalCheck::Request &req,raw_basic_navigation::GoalCheck::Response &resp)
 {
 	base_local_planner::CostmapModel* world_model_;
 	costmap_2d::Costmap2D costmap_;
@@ -489,7 +489,7 @@ bool MoveBaseAdapted::isQuaternionValid(const geometry_msgs::Quaternion& q){
 	//next, we'll normalize the quaternion and check that it transforms the vertical vector correctly
 	tf_q.normalize();
 
-	btVector3 up(0, 0, 1);
+	tf::Vector3 up(0, 0, 1);
 
 	double dot = up.dot(up.rotate(tf_q.getAxis(), tf_q.getAngle()));
 

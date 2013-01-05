@@ -4,7 +4,7 @@
 #include <sstream>
 #include <edufill_srvs/GetPoseStamped.h>
 #include <tf/transform_datatypes.h>
-#include <LinearMath/btMatrix3x3.h>
+#include <tf/LinearMath/Matrix3x3.h>
 #include <XmlRpcValue.h>
 //#include <LinearMath/btQuaternion.h>
 
@@ -51,7 +51,7 @@ bool calculateOptimalBasePose(edufill_srvs::GetPoseStamped::Request  &req,
 	  float y_obj = req.object_pose.pose.position.y;
 	  float z_obj = req.object_pose.pose.position.z;
 	  tf::quaternionMsgToTF(req.object_pose.pose.orientation, q);
-	  btMatrix3x3(q).getRPY(roll_obj, pitch_obj, yaw_obj); 
+	  tf::Matrix3x3(q).getRPY(roll_obj, pitch_obj, yaw_obj); 
       
       //Roll and Pitch are not really necessary for evaluating the base position
       roll_obj  = 0;
