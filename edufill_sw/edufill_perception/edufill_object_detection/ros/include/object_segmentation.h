@@ -14,7 +14,7 @@
 
 class ObjectSegmentation {
 	public:		// functions
-		ObjectSegmentation(const std::string &node_name);
+		ObjectSegmentation();
 		virtual ~ObjectSegmentation();
 		void PointCloudCallback(const sensor_msgs::PointCloud2 &msg);
 		bool GetObjects(hbrs_srvs::GetObjects::Request &req,
@@ -24,9 +24,9 @@ class ObjectSegmentation {
 
 
 	private:	// functions
-		bool PreparePointCloud(sensor_msgs::PointCloud2 &input, pcl::PointCloud<pcl::PointXYZRGB> &output);
+		bool PreparePointCloud(sensor_msgs::PointCloud2::ConstPtr &input, pcl::PointCloud<pcl::PointXYZRGB> &output);
 		geometry_msgs::PoseStamped ExtractCentroid(const pcl::PointCloud<pcl::PointXYZRGBNormal> &object);
-		IplImage *ClusterToImage(const sensor_msgs::PointCloud2 &cluster);
+		IplImage *ClusterToImage(sensor_msgs::PointCloud2::ConstPtr &cluster);
 		sensor_msgs::ImagePtr ExtractRegionOfInterest(const sensor_msgs::PointCloud2 &cluster, IplImage *image);
 		void PublishPointClouds(std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> > &cloud, ros::Publisher &publisher);
 
@@ -39,14 +39,18 @@ class ObjectSegmentation {
 		ros::Publisher _objects_pub;
 		ros::Subscriber _cluster_sub;
 		ros::ServiceServer _get_segmented_objects_srv;
-		CObjectCandidateExtraction *_object_candidate_extractor;
+		CObjectCandidateExtraction* _object_candidate_extractor;
 		CToolBoxROS _tool_box;
 		tf::TransformListener _tf_listener;
 		std::string _node_name;
 		std::string _camera_frame;
+		std::string _camera_topic;
 		double _downsampling_distance;
 
-		RoiExtraction *_roi_extractor;
+        bool _do_moving_least_square_filtering;
+        double _moving_least_square_filtering_value;
+
+		RoiExtraction* _roi_extractor;
 		sensor_msgs::CvBridge _bridge;
 		hbrs_srvs::GetObjects::Response _last_segmented_objects;
 

@@ -6,6 +6,7 @@
  */
 #include "plane_extraction.h"
 #include <Eigen/StdVector>
+
 #define THRESHOLD_JOIN_PLANES_HEIGHT 0.01f
 //Difference of plane heights
 //0.01 worked fine!!
@@ -23,20 +24,22 @@
 #define Min_PLANE_CLUSTER_SIZE 5
 //30 worked fine
 
-#define MIN_PLANAR_AREA_SIZE 0.001f
+#define MIN_PLANAR_AREA_SIZE 0.02f
+//0.001
 //0.01f worked fine
 //0.02f worked fine
 
 //Above planar surface
 #define MAX_ROI_HEIGHT 5
 
-CPlaneExtraction::CPlaneExtraction() {
-	this->nodeName = "---/CPlaneExtraction";
-}
+#define DO_MULTI_PLANE false
 
-CPlaneExtraction::CPlaneExtraction(std::string nodeName) {
-	this->nodeName = nodeName + "/CPlaneExtraction";
-	srand ( time(NULL));
+#define NORMAL_THRESHOLD 0.5
+//lab 0.9
+//biba 0.5
+
+CPlaneExtraction::CPlaneExtraction() {
+	srand(time(NULL));
 }
 
 pcl::PointCloud<pcl::PointXYZRGBNormal> CPlaneExtraction::extractHorizontalSurface(
@@ -62,7 +65,9 @@ pcl::PointCloud<pcl::PointXYZRGBNormal> CPlaneExtraction::extractHorizontalSurfa
 	seg.setProbability(0.99);
 	seg.setMaxIterations(10000);
 
-	seg.setInputCloud(boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(point_cloud));
+	seg.setInputCloud(
+			boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(
+					point_cloud));
 	seg.segment(inliers, coefficients);
 
 	if (inliers.indices.size() == 0) {
@@ -73,9 +78,9 @@ pcl::PointCloud<pcl::PointXYZRGBNormal> CPlaneExtraction::extractHorizontalSurfa
 	pcl::ProjectInliers<pcl::PointXYZRGBNormal> proj;
 	//proj.setModelType (pcl::SACMODEL_PARALLEL_PLANE);
 	proj.setModelType(pcl::SACMODEL_PERPENDICULAR_PLANE);
-	proj.setInputCloud(boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(point_cloud));
-	proj.setModelCoefficients(boost::make_shared<pcl::ModelCoefficients>(
-			coefficients));
+	proj.setInputCloud(point_cloud.makeShared());
+	proj.setModelCoefficients(
+			boost::make_shared<pcl::ModelCoefficients>(coefficients));
 	proj.filter(cloud_projected);
 
 	//ROS_DEBUG("after in %d", (int)point_cloud.points.size ());
@@ -109,8 +114,11 @@ pcl::PointCloud<pcl::PointXYZRGB> CPlaneExtraction::extractHorizontalSurfaceFrom
 	seg.setDistanceThreshold(0.1); //0.1 //must be low to get a really restricted horizontal plane
 	//seg.setProbability(0.99);
 
-	seg.setInputCloud(point_cloud.makeShared());
-	seg.setInputNormals(cloud_normals.makeShared());
+	seg.setInputCloud(
+			boost::make_shared<pcl::PointCloud<pcl::PointXYZRGB> >(
+					point_cloud));
+	seg.setInputNormals(
+			boost::make_shared<pcl::PointCloud<pcl::Normal> >(cloud_normals));
 
 	seg.segment(inliers, coefficients);
 
@@ -121,9 +129,11 @@ pcl::PointCloud<pcl::PointXYZRGB> CPlaneExtraction::extractHorizontalSurfaceFrom
 
 	pcl::ProjectInliers<pcl::PointXYZRGB> proj;
 	proj.setModelType(pcl::SACMODEL_NORMAL_PLANE);
-	proj.setInputCloud(point_cloud.makeShared());
-	proj.setModelCoefficients(boost::make_shared<pcl::ModelCoefficients>(
-			coefficients));
+	proj.setInputCloud(
+			boost::make_shared<pcl::PointCloud<pcl::PointXYZRGB> >(
+					point_cloud));
+	proj.setModelCoefficients(
+			boost::make_shared<pcl::ModelCoefficients>(coefficients));
 	proj.filter(cloud_projected);
 
 	//ROS_DEBUG("after in %d", (int)cloud_projected.points.size ());
@@ -136,7 +146,7 @@ pcl::PointCloud<pcl::PointXYZRGB> CPlaneExtraction::extractHorizontalSurfaceFrom
 //axis = 0 = x
 //axis = 1 = y
 //axis = 2 = z
-std::vector<structPlanarSurface> CPlaneExtraction::extractMultiplePlanes(
+std::vector<StructPlanarSurface*> CPlaneExtraction::extractMultiplePlanes(
 		pcl::PointCloud<pcl::PointXYZRGBNormal> &point_cloud_normal,
 		pcl::PointCloud<pcl::PointXYZRGBNormal> &planar_point_cloud_normal,
 		std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> > &clustered_planes,
@@ -150,35 +160,36 @@ std::vector<structPlanarSurface> CPlaneExtraction::extractMultiplePlanes(
 
 	if (point_cloud_normal.points.size() == 0) {
 		ROS_DEBUG("[extractMultiplePlanes] Point cloud size (point_cloud_normal) is empty");
-		return std::vector<structPlanarSurface>();
+		return std::vector<StructPlanarSurface*>();
 	}
 
-	for (unsigned int iter = 0; iter < point_cloud_normal.points.size(); iter++) {
-		if (point_cloud_normal.points[iter].normal[axis] < -0.9
-				|| point_cloud_normal.points[iter].normal[axis] > 0.9) {
-			planar_inliers.indices.push_back(iter);
-		}
+	for (unsigned int iter = 0; iter < point_cloud_normal.points.size();
+			iter++) {
+		//std::cout<<"Point "<<point_cloud_normal.points[iter<]
+		if (point_cloud_normal.points[iter].normal[axis]
+				< (NORMAL_THRESHOLD * (-1))|| point_cloud_normal.points[iter].normal[axis] > NORMAL_THRESHOLD) //0.9
+				{planar_inliers.indices.push_back(iter);
 	}
+}
 
 	if (planar_inliers.indices.size() == 0) {
 		ROS_DEBUG("[extractMultiplePlanes] planar_inliers is empty");
-		return std::vector<structPlanarSurface>();
+		return std::vector<StructPlanarSurface*>();
 	}
 
-
 	extractIndices.setInputCloud(point_cloud_normal.makeShared());
-	extractIndices.setIndices(boost::make_shared<const pcl::PointIndices>(
-			planar_inliers));
+	extractIndices.setIndices(
+			boost::make_shared<const pcl::PointIndices>(planar_inliers));
 	extractIndices.filter(planar_point_cloud_normal);
 
 	//remove if not necessary, if you change this is will affect the minClusterSize of clustering!!!!
-	toolBox.subsampling(planar_point_cloud_normal, 0.02f);//0.02f worked fined //0.01
+	toolBox.subsampling(planar_point_cloud_normal, 0.02f); //0.02 0.02f worked fined //0.01
 	//------------------------------------------------------
 	// Clustering planar point inliers
-	pcl::EuclideanClusterExtraction<pcl::PointXYZRGBNormal>
-			euclideanClusterExtractor;
+	pcl::EuclideanClusterExtraction<pcl::PointXYZRGBNormal> euclideanClusterExtractor;
 	std::vector<pcl::PointIndices> clusteredObjectIndices;
-	euclideanClusterExtractor.setInputCloud(planar_point_cloud_normal.makeShared());
+	euclideanClusterExtractor.setInputCloud(
+			planar_point_cloud_normal.makeShared());
 	euclideanClusterExtractor.setClusterTolerance(0.025); //(0.025);
 	euclideanClusterExtractor.setMinClusterSize(Min_PLANE_CLUSTER_SIZE); //worked fine 30/0.02 sampling
 	euclideanClusterExtractor.extract(clusteredObjectIndices);
@@ -188,117 +199,132 @@ std::vector<structPlanarSurface> CPlaneExtraction::extractMultiplePlanes(
 
 
 	clustered_planes.clear();
-	clustered_planes.resize(clusteredObjectIndices.size());
+	clustered_planes.resize((int) clusteredObjectIndices.size());
 
-
-
-
-	for (unsigned int iterCluster = 0; iterCluster
-			< clusteredObjectIndices.size(); iterCluster++) {
+	for (unsigned int iterCluster = 0;
+			iterCluster < clusteredObjectIndices.size(); iterCluster++) {
 		pcl::copyPointCloud(planar_point_cloud_normal,
-				clusteredObjectIndices.at(iterCluster), clustered_planes.at(
-						iterCluster));
+				clusteredObjectIndices.at(iterCluster),
+				clustered_planes.at(iterCluster));
 	}
 	//------------------------------------------------------
 	// Perform RANSAC clustered planar candidates
 
-	for (unsigned int iterCluster = 0; iterCluster < clustered_planes.size(); iterCluster++) {
+	for (unsigned int iterCluster = 0; iterCluster < clustered_planes.size();
+			iterCluster++) {
 		clustered_planes.at(iterCluster) = this->extractHorizontalSurface(
 				clustered_planes.at(iterCluster), true);
+		ROS_DEBUG("[extractMultiplePlanes] clustered planes %d : %d points", iterCluster, clustered_planes.at(iterCluster).size());
 	}
 	//-------------------------------------------------------
 	//Check planar relations
 
 	finish = ros::Time::now();
-	std::vector<structPlanarSurface> surfacesPH = this->createPlanarHierarchy(
-			clustered_planes, axis);
+	std::vector<StructPlanarSurface*> surfacesPH = this->createPlanarHierarchy(
+			clustered_planes, DO_MULTI_PLANE);
 	ROS_DEBUG("[extractMultiplePlanes] Execution time = %lf", (finish.toSec() - start.toSec() ));
 	return surfacesPH;
 
 	//--------------------------------
 }
 
-bool compareHeights(structPlanarSurface i, structPlanarSurface j) {
-	return (i.plane_height < j.plane_height);
+bool compareHeights(StructPlanarSurface* i, StructPlanarSurface* j) {
+	return (i->plane_height < j->plane_height);
 }
-std::vector<structPlanarSurface> CPlaneExtraction::createPlanarHierarchy(
+std::vector<StructPlanarSurface*> CPlaneExtraction::createPlanarHierarchy(
 		std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> > &clustered_planes,
-		int axis) {
-	ROS_DEBUG("[createPlanarHierarch] started ... ");
+		bool doMultiplane) {
+	ROS_DEBUG("createPlanarHierarch] started ... ");
 	ros::Time start, finish;
 	start = ros::Time::now();
-	pcl::ConvexHull<pcl::PointXYZRGBNormal>	convexHullExtractor;
-	std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> >
-			filtered_clustered_planes;
+	pcl::ConvexHull<pcl::PointXYZRGBNormal> convexHullExtractor;
+	std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> > filtered_clustered_planes;
 
-	std::vector<structPlanarSurface> planarSurfaces;
+	std::vector<StructPlanarSurface*> planarSurfaces;
 	bool isJoined = false; //whether the plane has been merged with an other due to similarity
 
-	for (unsigned int iterCluster = 0; iterCluster < clustered_planes.size(); iterCluster++) {
+	for (unsigned int iterCluster = 0; iterCluster < clustered_planes.size();
+			iterCluster++) {
 		isJoined = false;
-		structPlanarSurface planarSurface;
-		planarSurface.id = iterCluster;
-		planarSurface.pointCloud = clustered_planes.at(iterCluster);
+		StructPlanarSurface* planarSurface = new StructPlanarSurface;
+		planarSurface->id = iterCluster;
+		planarSurface->pointCloud = clustered_planes.at(iterCluster);
 
-		convexHullExtractor.setInputCloud(planarSurface.pointCloud.makeShared());
-		convexHullExtractor.reconstruct(planarSurface.convexHull);
+		convexHullExtractor.setInputCloud(
+				boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(
+						planarSurface->pointCloud));
+		convexHullExtractor.reconstruct(planarSurface->convexHull);
 		//reconstruct does not fill width and height of the pointcloud
 
-		planarSurface.area = toolBox.areaConvexHull2d(planarSurface.convexHull);
-		if (planarSurface.area < MIN_PLANAR_AREA_SIZE) //minimum 0.01f area size
+		ROS_DEBUG("[createPlanarHierarchy] Surface %d: ConvexHull Size: %d", planarSurface->id, planarSurface->convexHull.points.size());
+		planarSurface->area = toolBox.areaConvexHull2d(
+				planarSurface->convexHull);
+		if (planarSurface->area < MIN_PLANAR_AREA_SIZE) //minimum 0.01f area size
 		{
-			ROS_DEBUG("[createPlanarHierarchy] Surface %d skipped -> area=%f < %f",planarSurface.id,planarSurface.area,MIN_PLANAR_AREA_SIZE);
+			ROS_DEBUG("[createPlanarHierarchy] Surface %d skipped -> area=%f < %f (points %d)", iterCluster, planarSurface->area, MIN_PLANAR_AREA_SIZE, planarSurface->pointCloud.points.size());
 			continue;
 		}
-		planarSurface.centroid = toolBox.centroidHull2d(
-				planarSurface.convexHull, planarSurface.area);
-		planarSurface.plane_height = toolBox.avgValuePointCloud3d(
-				planarSurface.convexHull, 2);
-		planarSurface.ROI_height = MAX_ROI_HEIGHT; //TODO 5m? it must be set by some max height!
+		planarSurface->centroid = toolBox.centroidHull2d(
+				planarSurface->convexHull, planarSurface->area);
 
-		planarSurface.limited_ROI_height = false;
+		planarSurface->plane_height = toolBox.avgValuePointCloud3d(planarSurface->convexHull, 2);
+		//planarSurface->plane_height = toolBox.maxValuePointCloud3d(planarSurface->convexHull, 2);
 
-		planarSurface.tree = boost::make_shared<pcl::KdTreeFLANN<
-				pcl::PointXYZRGBNormal> >();
-		planarSurface.tree->setInputCloud(planarSurface.pointCloud.makeShared());
+		planarSurface->ROI_height = MAX_ROI_HEIGHT; //TODO 5m? it must be set by some max height!
+
+		planarSurface->limited_ROI_height = false;
+
+		planarSurface->tree = boost::make_shared<
+				pcl::KdTreeFLANN<pcl::PointXYZRGBNormal> >();
+		planarSurface->tree->setInputCloud(
+				boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(
+						planarSurface->pointCloud));
 
 		//!!check whether to join surface since they are similar (object can split surfaces due to their shadow)
 		//ToDo Currently all planes on the same height are joined!!!!!
-		for (unsigned int iterCheckJoin = 0; iterCheckJoin
-				< planarSurfaces.size(); iterCheckJoin++) {
-			if ((fabs(planarSurface.plane_height
-					- planarSurfaces[iterCheckJoin].plane_height)
+		for (unsigned int iterCheckJoin = 0;
+				iterCheckJoin < planarSurfaces.size(); iterCheckJoin++) {
+			if ((fabs(
+					planarSurface->plane_height
+							- planarSurfaces[iterCheckJoin]->plane_height)
 					< THRESHOLD_JOIN_PLANES_HEIGHT)
-					&& (toolBox.distanceBetweenPlane2d(planarSurface,
-							planarSurfaces[iterCheckJoin],
+					&& (toolBox.distanceBetweenPlane2d(*planarSurface,
+							*planarSurfaces[iterCheckJoin],
 							THRESHOLD_JOIN_PLANES_DISTANCE))) {
 
-				ROS_DEBUG("[createPlanarHierarchy] Joining Candidate found (%f)!",fabs(planarSurface.plane_height
-								- planarSurfaces[iterCheckJoin].plane_height));
-				planarSurfaces[iterCheckJoin].pointCloud
-						+= planarSurface.pointCloud;
-				convexHullExtractor.setInputCloud(boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(planarSurfaces[iterCheckJoin].pointCloud));
+				ROS_DEBUG(
+						"[createPlanarHierarchy] Joining Candidate found (%f)!", fabs(planarSurface->plane_height - planarSurfaces[iterCheckJoin]->plane_height));
+				planarSurfaces[iterCheckJoin]->pointCloud +=
+						planarSurface->pointCloud;
+				convexHullExtractor.setInputCloud(
+						boost::make_shared<
+								pcl::PointCloud<pcl::PointXYZRGBNormal> >(
+								planarSurfaces[iterCheckJoin]->pointCloud));
 				convexHullExtractor.reconstruct(
-						planarSurfaces[iterCheckJoin].convexHull);
+						planarSurfaces[iterCheckJoin]->convexHull);
 				//reconstruct does not fill width and height of the pointcloud
 
+				//
+				planarSurfaces[iterCheckJoin]->area = toolBox.areaConvexHull2d(
+						planarSurfaces[iterCheckJoin]->convexHull);
 
-				//planarSurfaces[iterCheckJoin].area = toolBox.areaConvexHull2d(planarSurfaces[iterCheckJoin].convexHull);
+				planarSurfaces[iterCheckJoin]->centroid =
+						toolBox.centroidHull2d(
+								planarSurfaces[iterCheckJoin]->convexHull,
+								planarSurface->area);
+				planarSurfaces[iterCheckJoin]->plane_height =
+						toolBox.avgValuePointCloud3d(
+								planarSurfaces[iterCheckJoin]->convexHull, 2);
+				planarSurfaces[iterCheckJoin]->ROI_height = MAX_ROI_HEIGHT; //TODO 5m? it must be set by some max height!
 
-				planarSurfaces[iterCheckJoin].centroid
-						= toolBox.centroidHull2d(
-								planarSurfaces[iterCheckJoin].convexHull,
-								planarSurface.area);
-				planarSurfaces[iterCheckJoin].plane_height
-						= toolBox.avgValuePointCloud3d(
-								planarSurfaces[iterCheckJoin].convexHull, 2);
-				planarSurfaces[iterCheckJoin].ROI_height = MAX_ROI_HEIGHT; //TODO 5m? it must be set by some max height!
+				planarSurfaces[iterCheckJoin]->limited_ROI_height = false;
 
-				planarSurfaces[iterCheckJoin].limited_ROI_height = false;
-
-				planarSurfaces[iterCheckJoin].tree = boost::make_shared<
+				planarSurfaces[iterCheckJoin]->tree = boost::make_shared<
 						pcl::KdTreeFLANN<pcl::PointXYZRGBNormal> >();
-				planarSurfaces[iterCheckJoin].tree->setInputCloud(boost::make_shared<pcl::PointCloud<pcl::PointXYZRGBNormal> >(planarSurfaces[iterCheckJoin].pointCloud));
+				planarSurfaces[iterCheckJoin]->tree->setInputCloud(
+						boost::make_shared<
+								pcl::PointCloud<pcl::PointXYZRGBNormal> >(
+								planarSurfaces[iterCheckJoin]->pointCloud));
 
 				isJoined = true;
 				break;
@@ -326,13 +352,34 @@ std::vector<structPlanarSurface> CPlaneExtraction::createPlanarHierarchy(
 	}
 	//!!!clustered_planes = filtered_clustered_planes; // this is the input parameter which is replaced by the filtered planes
 
-
 	//sort plane by their heights
+	//planes are sorted in descending order
 	sort(planarSurfaces.begin(), planarSurfaces.end(), compareHeights);
+
+	//if no multi plane delete all others
+	if (!doMultiplane && planarSurfaces.size() > 1) {
+
+		std::vector<StructPlanarSurface*> newPlanarSurfaces;
+
+		//Take the last element since it is the element with the lowest height.
+		//newPlanarSurfaces.push_back(planarSurfaces[planarSurfaces.size() - 1]);
+		newPlanarSurfaces.push_back(planarSurfaces[0]);
+
+		//delete all other elements
+		//for (unsigned int iter = 0; iter < planarSurfaces.size() - 1; iter++) {
+		for (unsigned int iter = 1; iter < planarSurfaces.size(); iter++) {
+			delete planarSurfaces[iter];
+			planarSurfaces[iter] = NULL;
+		}
+		planarSurfaces.clear();
+
+		planarSurfaces = newPlanarSurfaces;
+		newPlanarSurfaces.clear();
+	}
 
 	unsigned int numberplanarSurfaces = planarSurfaces.size();
 	for (unsigned int iter = 0; iter < numberplanarSurfaces; iter++) {
-		ROS_DEBUG("[createPlanarHierarchy] %d. planarSurfaces height = %f, area = %f", planarSurfaces.at(iter).id,planarSurfaces.at(iter).plane_height,planarSurfaces.at(iter).area);
+		ROS_DEBUG("[createPlanarHierarchy] %d. planarSurfaces height = %f, area = %f", planarSurfaces.at(iter)->id, planarSurfaces.at(iter)->plane_height, planarSurfaces.at(iter)->area);
 	}
 
 	//check if planar surfaces are overlapping
@@ -340,27 +387,29 @@ std::vector<structPlanarSurface> CPlaneExtraction::createPlanarHierarchy(
 	//then we check the next surfaces in the vector which are acendingly sorted by their height.
 	//the checking is done by checking whether the centroid of a upper surface is within the convex hull of the lower one
 	bool overlap = false;
-	for (unsigned int iterLowerPlanes = 0; iterLowerPlanes
-			< numberplanarSurfaces; iterLowerPlanes++) {
-		for (unsigned int iterUpperPlanes = iterLowerPlanes + 1; iterUpperPlanes
-				< numberplanarSurfaces; iterUpperPlanes++) {
+	for (unsigned int iterLowerPlanes = 0;
+			iterLowerPlanes < numberplanarSurfaces; iterLowerPlanes++) {
+		for (unsigned int iterUpperPlanes = iterLowerPlanes + 1;
+				iterUpperPlanes < numberplanarSurfaces; iterUpperPlanes++) {
 
 			//if(toolBox.pointInsideConvexHull2d(planarSurfaces[iterLowerPlanes].convexHull, planarSurfaces[iterUpperPlanes].centroid))
 			//if(toolBox.overlapConvexHull2d(planarSurfaces[iterLowerPlanes],planarSurfaces[iterUpperPlanes]))
-			if (toolBox.overlapConvexHull2d2(planarSurfaces[iterLowerPlanes],
-					planarSurfaces[iterUpperPlanes])) {
+			if (toolBox.overlapConvexHull2d2(*planarSurfaces[iterLowerPlanes],
+					*planarSurfaces[iterUpperPlanes])) {
 				overlap = false;
 				//check whether upper surfaces are overlapping; remember surfaces are sorted by size already, so if there is an overlap dont add current one
 				//since current one is higher than the one added in upperPlanarSurface
-				if (planarSurfaces[iterLowerPlanes].upperPlanarSurfaces.size()
+				if (planarSurfaces[iterLowerPlanes]->upperPlanarSurfaces.size()
 						> 0) {
 					//  start = ros::Time::now();
-					for (unsigned int iterOverlap = 0; iterOverlap
-							< planarSurfaces[iterLowerPlanes].upperPlanarSurfaces.size(); iterOverlap++) {
+					for (unsigned int iterOverlap = 0;
+							iterOverlap
+									< planarSurfaces[iterLowerPlanes]->upperPlanarSurfaces.size();
+							iterOverlap++) {
 						if (toolBox.overlapConvexHull2d2(
-								planarSurfaces[iterLowerPlanes].upperPlanarSurfaces[iterOverlap],
-								planarSurfaces[iterUpperPlanes])) {
-							ROS_DEBUG("[createPlanarHierarchy] %d. planarSurfaces overlap %d(%d) lower plane",planarSurfaces[iterUpperPlanes].id,planarSurfaces[iterLowerPlanes].upperPlanarSurfaces[iterOverlap].id,planarSurfaces[iterLowerPlanes].id);
+								*planarSurfaces[iterLowerPlanes]->upperPlanarSurfaces[iterOverlap],
+								*planarSurfaces[iterUpperPlanes])) {
+							ROS_DEBUG("[createPlanarHierarchy] %d. planarSurfaces overlap %d(%d) lower plane", planarSurfaces[iterUpperPlanes]->id, planarSurfaces[iterLowerPlanes]->upperPlanarSurfaces[iterOverlap]->id, planarSurfaces[iterLowerPlanes]->id);
 							overlap = true;
 							break;
 						}
@@ -390,9 +439,9 @@ std::vector<structPlanarSurface> CPlaneExtraction::createPlanarHierarchy(
 					//  ROS_WARN("It took %lf", (finish.toSec() - start.toSec() ));
 				}
 				if (!overlap) { //Add upper to lower plane!
-					planarSurfaces[iterLowerPlanes].upperPlanarSurfaces.push_back(
+					planarSurfaces[iterLowerPlanes]->upperPlanarSurfaces.push_back(
 							planarSurfaces[iterUpperPlanes]);
-					ROS_DEBUG("[createPlanarHierarchy] %d. planarSurfaces is inside in %d lower plane --> %d plane added",planarSurfaces[iterUpperPlanes].id,planarSurfaces[iterLowerPlanes].id,planarSurfaces[iterUpperPlanes].id);
+					ROS_DEBUG("[createPlanarHierarchy] %d. planarSurfaces is inside in %d lower plane --> %d plane added", planarSurfaces[iterUpperPlanes]->id, planarSurfaces[iterLowerPlanes]->id, planarSurfaces[iterUpperPlanes]->id);
 				}
 				//check if the ROI height of the lowerPlans needs to be limited
 				/* unsigned int numberLowerPlanarSurfacePoints = planarSurfaces[iterLowerPlanes].pointCloud.points.size();
@@ -407,6 +456,6 @@ std::vector<structPlanarSurface> CPlaneExtraction::createPlanarHierarchy(
 	}
 
 	finish = ros::Time::now();
-	ROS_DEBUG("[createPlanarHierarchy] Execution time = %lf",(finish.toSec() - start.toSec() ));
+	ROS_DEBUG("[createPlanarHierarchy] Execution time = %lf", (finish.toSec() - start.toSec() ));
 	return planarSurfaces;
 }

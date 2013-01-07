@@ -11,8 +11,6 @@
 #define EIGEN_DONT_VECTORIZE
 #define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT
 
-#include <ros/ros.h>
-
 #include "pcl/filters/statistical_outlier_removal.h"
 #include "pcl/filters/passthrough.h"
 #include "pcl/filters/voxel_grid.h"
@@ -23,8 +21,10 @@
 #include "pcl/segmentation/extract_polygonal_prism_data.h"
 
 #include "sensor_msgs/Image.h"
+#include "image_transport/image_transport.h"
 #include "sensor_msgs/PointCloud.h"
 #include "sensor_msgs/PointCloud2.h"
+//#include "/opt/ros/cturtle/stacks/vision_opencv/cv_bridge/include/cv_bridge/CvBridge.h"
 
 #include "pcl/ModelCoefficients.h"
 #include "pcl/io/pcd_io.h"
@@ -38,6 +38,7 @@
 #include "pcl/common/common_headers.h"
 #include "pcl/range_image/range_image.h"
 
+#include "struct_planar_surface.h"
 #include "toolbox_ros.h"
 #include "plane_extraction.h"
 
@@ -52,37 +53,34 @@
 
 #include <string>
 
-#include "struct_planar_surface.h" //since we need the structPlanarSurface
-
-//#define EIGEN_DONT_ALIGN_STATICALLY
-
-
-class CObjectCandidateExtraction {
+class CObjectCandidateExtraction
+{
 
 private:
 	CToolBoxROS toolBox;
 	CPlaneExtraction horizontalSurfaceExtractor;
-	std::string nodeName;
-	ros::NodeHandle nh;
+    ros::NodeHandle nh;
 	double threshold_point_above_lower_plane;
 	int min_points_per_objects;
 
 	float fDistance; /*max distance from camera*/
+	double mlsFilering;
 	float dZAxisOffSet; /*distance(height) to compensate difference between object and plane*/
 
 	std::vector<pcl::PointCloud<pcl::PointXYZRGB> > clusteredObjects; /*last extracted object candidates*/
 	pcl::PointCloud<pcl::PointXYZRGB> clusteredObjectsRGB;
 
 public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	CObjectCandidateExtraction();
-	CObjectCandidateExtraction(ros::NodeHandle &nh, std::string nodeName, float fDistance);
-	void extractObjectCandidates(
-			pcl::PointCloud<pcl::PointXYZRGB> &point_cloud, pcl::PointCloud<
-					pcl::PointXYZRGBNormal> &planar_point_cloud, std::vector<
-					structPlanarSurface> &hierarchyPlanes);
+    CObjectCandidateExtraction(ros::NodeHandle &nh, float fDistance);
+	void extractObjectCandidates(pcl::PointCloud<pcl::PointXYZRGB> &point_cloud, pcl::PointCloud<pcl::PointXYZRGBNormal> &planar_point_cloud, std::vector<StructPlanarSurface*> &hierarchyPlanes);
+	void releaseObjectCandidates(std::vector<StructPlanarSurface*> &hierarchyPlanes);
 	void saveClusteredObjects(std::string filename);
 	void setDistance(float fDistance);
+	void setMlsFiltering(double setMls)
+	{
+		mlsFilering = setMls;
+	}
 };
 
 #endif

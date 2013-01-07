@@ -7,10 +7,9 @@
 #ifndef CPlaneExtraction_H
 #define CPlaneExtraction_H
 
-#define EIGEN_DONT_VECTORIZE 
+#define EIGEN_DONT_VECTORIZE
 #define EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT
 
-#include <ros/ros.h>
 #include "sensor_msgs/Image.h"
 
 //#include "image_transport/image_transport.h"
@@ -40,34 +39,30 @@
 
 #include "pcl_ros/segmentation/extract_clusters.h"
 
-#include "struct_planar_surface.h" //since we need the structPlanarSurface
+#include "struct_planar_surface.h"
 #include "toolbox_ros.h"
 #include <time.h>
 #include <algorithm>
 #include <vector>
 
-//#define EIGEN_DONT_ALIGN_STATICALLY
-
 class CPlaneExtraction {
 private:
 	CToolBoxROS toolBox;
-	std::string nodeName;
 public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+	EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 	CPlaneExtraction();
-	CPlaneExtraction(std::string nodeName);
 	pcl::PointCloud<pcl::PointXYZRGBNormal> extractHorizontalSurface(
 			pcl::PointCloud<pcl::PointXYZRGBNormal> &point_cloud, bool surface);
 	pcl::PointCloud<pcl::PointXYZRGB> extractHorizontalSurfaceFromNormals(
 			pcl::PointCloud<pcl::PointXYZRGB> &point_cloud, bool surface);
-	std::vector<structPlanarSurface> extractMultiplePlanes(pcl::PointCloud<
-			pcl::PointXYZRGBNormal> &point_cloud_normal, pcl::PointCloud<
-			pcl::PointXYZRGBNormal> &planar_point_cloud_normal, std::vector<
-			pcl::PointCloud<pcl::PointXYZRGBNormal> > &clustered_planes,
+	std::vector<StructPlanarSurface*> extractMultiplePlanes(
+			pcl::PointCloud<pcl::PointXYZRGBNormal> &point_cloud_normal,
+			pcl::PointCloud<pcl::PointXYZRGBNormal> &planar_point_cloud_normal,
+			std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> > &clustered_planes,
 			int axis);
-	std::vector<structPlanarSurface> createPlanarHierarchy(std::vector<
-			pcl::PointCloud<pcl::PointXYZRGBNormal> > &clustered_planes,
-			int axis);
+	std::vector<StructPlanarSurface*> createPlanarHierarchy(
+			std::vector<pcl::PointCloud<pcl::PointXYZRGBNormal> > &clustered_planes,
+			bool doMultiplane = true);
 	void setDistance(float fDistance);
 
 };
