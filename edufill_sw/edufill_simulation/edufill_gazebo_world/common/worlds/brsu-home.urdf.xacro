@@ -12,7 +12,7 @@
 									Wall 3
 -->
 
-<robot name="arena">	
+<robot name="brsu-c025-arena">	
 
   	<link name="wall_1">
     		<inertial>
@@ -323,50 +323,50 @@
 
   <gazebo reference="wall_1">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_2">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_3">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_4">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_5">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_6">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_7">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_8">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_9">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_10">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_11">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
   <gazebo reference="wall_12">
 	<material>Gazebo/White</material>
-	<selfCollide>true</selfCollide>
+	<selfCollide>false</selfCollide>
   </gazebo>
 </robot>
