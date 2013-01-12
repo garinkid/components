@@ -1,0 +1,5 @@
+move_arm_cartesian_position_component.py 
+
+move_arm_joint_position_component.py
+
+depends on arm_navigation_action_server
