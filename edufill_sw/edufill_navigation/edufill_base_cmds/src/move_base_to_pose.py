@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import roslib; roslib.load_manifest('edufill_arm_cmds')
 import rospy
-import edufill_arm_navigation.msg
 import brics_actuator.msg
 import actionlib
 import sys
@@ -46,7 +45,7 @@ def move_base_to_pose(x, y, yaw):
 
 if __name__ == '__main__':
     rospy.init_node('move_base_to_pose')
-    result = move_base_to_pose(0.7, 0, 0)
+    result = move_base_to_pose(0, 0, 0)
     print result
 
 

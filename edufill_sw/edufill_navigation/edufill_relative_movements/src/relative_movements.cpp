@@ -8,17 +8,15 @@
 #include "tf/transform_listener.h"
 #include <tf/LinearMath/Matrix3x3.h>
 #include <XmlRpcValue.h>
-#include "HomogenousTransform.h"
 #include <nav_msgs/Odometry.h>
 #include "geometry_msgs/Twist.h"
 #include <actionlib/client/simple_action_client.h>
 #include <actionlib/client/terminal_state.h>
-#include <edufill_baseplacement/OrientToBaseAction.h>
 #include <angles/angles.h>
 
 using namespace std;
 
-double Velocity = 0.1;
+double Velocity = 0.05;
 
 
 class BaseMotionController
@@ -85,9 +83,9 @@ class BaseMotionController
 
    void movebase()
    {
-	   if( rotate() )
-		   if( moveX() )
-			   moveY();
+	   if( moveX() )
+		   if( moveY() )
+			   rotate();
 
    } 
    bool moveX()
@@ -120,6 +118,7 @@ class BaseMotionController
             base_velocities_publisher.publish(zero_vel);
 
             float valuediff = (x_currentodom-x_initodom);
+            
             if( fabs(valuediff) >= fabs(xval))
             {
             	youbot_base_velocities.linear.x = 0.0;
@@ -232,6 +231,7 @@ class BaseMotionController
         while(isReached != true)
         {
             float valuediff = (theta_currentodom-theta_initodom);
+            std::cout << "diff theta: " << valuediff << std::endl;
             if(fabs(valuediff)>3.1416){valuediff=theta_currentodom+theta_initodom;}
             if( fabs(valuediff) >= fabs(yawval))
             {
@@ -273,69 +273,7 @@ class BaseMotionController
 	    odom_received = true; 
     } 
       
-   bool moveoptimal()
-   {
-        ros::spinOnce();
-        while(!odom_received)
-        {
-           	ros::spinOnce();   
-        }
-        odom_received = false;
-        x_initodom = x_tempodom;
-        y_initodom = y_tempodom;
-        theta_initodom = theta_tempodom;
-
-        actionlib::SimpleActionClient<edufill_baseplacement::OrientToBaseAction> ac("/edufill_baseplacement/adjust_to_workspace", true);
-
-        ac.waitForServer();
-
-        edufill_baseplacement::OrientToBaseActionGoal goal;
-
-        goal.goal.distance = 0.1;
-
-        ac.sendGoal(goal.goal);
-        
-        bool finished_before_timeout = ac.waitForResult(ros::Duration(1.0));
-
-        while(!finished_before_timeout)
-        {
-           finished_before_timeout = ac.waitForResult(ros::Duration(0.5));  
-        }
-
-        bool base_reached = false;
-
-        if (finished_before_timeout)
-        {
-            actionlib::SimpleClientGoalState state = ac.getState();
-            ROS_INFO("Action finished: %s",state.toString().c_str());
-  
-            ros::spinOnce();
-            x_currentodom = x_tempodom;
-            y_currentodom = y_tempodom;
-            theta_currentodom = theta_tempodom;
-
-            HomogenousTransform Objecttf = ht_from_xyzrpy(xval,yval,0,rollval,pitchval,yawval);
-
-            float xdiff = x_initodom-y_currentodom;
-            float ydiff = y_initodom-y_currentodom;
-            float yawdiff = theta_initodom-theta_currentodom;
-
-            HomogenousTransform OdomTf = ht_from_xyzrpy(xdiff,ydiff,0,0,0,yawdiff);
-            HomogenousTransform finalTf = OdomTf*Objecttf;
-            yval = (finalTf.translation())(1); 
-
-            base_reached = moveY();
-        }
-        else  
-        {
-            ROS_INFO("Action did not finish before the time out.");
-        } 
-        
-        return base_reached;
-
-   }
-
-
+   
 };
 
 bool move_base_relative(edufill_srvs::SetPoseStamped::Request  &req, edufill_srvs::SetPoseStamped::Response &res)
@@ -346,7 +284,7 @@ bool move_base_relative(edufill_srvs::SetPoseStamped::Request  &req, edufill_srv
     float X_dist = req.pose.pose.position.x ;
     float Y_dist = req.pose.pose.position.y ;
 
-    Velocity = req.pose.pose.position.z;
+    //Velocity = req.pose.pose.position.z;
 
     tf::quaternionMsgToTF(req.pose.pose.orientation, q);
     tf::Matrix3x3(q).getRPY(roll, pitch, yaw);  
@@ -363,161 +301,6 @@ bool move_base_relative(edufill_srvs::SetPoseStamped::Request  &req, edufill_srv
     return true;
 } 
 
-bool moveoptimalbase(edufill_srvs::SetPoseStamped::Request  &req, edufill_srvs::SetPoseStamped::Response &res)
-{
-    tf::Quaternion q;
-    double roll, pitch, yaw;
-
-    float X = req.pose.pose.position.x ;
-
-    float Y = req.pose.pose.position.y ;
-
-    tf::quaternionMsgToTF(req.pose.pose.orientation, q);
-    tf::Matrix3x3(q).getRPY(roll, pitch, yaw);  
-
-    ros::NodeHandle node;
-
-    BaseMotionController bm(node,X,Y,(float)roll,(float)pitch,(float)yaw);
-
-    bm.moveoptimal();
-
-    return true;
-}
-
-bool alignwithmarker(edufill_srvs::SetMarkerFrame::Request  &req, edufill_srvs::SetMarkerFrame::Response &res)
-{
-
-    bool is_rotation_done = false;
-    bool is_x_done = false;
-    bool is_y_done = false;
-    ros::NodeHandle alignmarker;
-
-    ros::Publisher base_velocities_publisher = alignmarker.advertise<geometry_msgs::Twist>( "/cmd_vel", 1 );
-    
-    tf::TransformListener listener;
-  
-    ros::Duration rate(20.0);
-
-    bool isreached = false;
-
-    geometry_msgs::Twist zero;
-
-    ros::Duration max_time(50);
-   
-    ros::Time stamp = ros::Time::now();
-
-    while (!isreached)
-   {
-
-    tf::StampedTransform transform;
-
-    double roll, pitch, yaw;
-
-       try
-       {
-           
-           listener.lookupTransform(req.marker_frame, "/base_link", ros::Time(0), transform);
-         
-           geometry_msgs::Twist cmd;
-
-           tf::Matrix3x3(transform.getRotation()).getRPY(roll, pitch, yaw);
-
-           
-
-           double x = transform.getOrigin().x();
- 
-           
-           double y = transform.getOrigin().y();
-
-          
-         
-           cmd = zero;
-
-           yaw = angles::normalize_angle(yaw);
-           yaw = angles::shortest_angular_distance(0, yaw);
-
-           ROS_INFO("yaw %lf, x %lf, y %lf",yaw,x,y); 
-/*
-           if(fabs(yaw) > 0.1 && !is_rotation_done)
-           {
-                
-                if(yaw>0)
-                    cmd.angular.z = -0.025; 
-                else
-                    cmd.angular.z = 0.025;
-                
-                ROS_INFO("Anglular displacement"); 
-
-           }
-           else if (fabs(yaw) <= 0.1)*/
-                is_rotation_done = true;
-           
-            if(fabs(y)>0.01 && !is_y_done && is_rotation_done)
-           {
-                
-                if(y>0)
-                cmd.linear.y = -0.02;
-                else
-                cmd.linear.y = 0.02;
-
-                ROS_INFO("y displacement");
-
-           } 
-            else  if (fabs(y) <= 0.01)
-            {
-                is_y_done = true;
-          
-              if(fabs(x)>0.01 && !is_x_done && is_rotation_done && is_y_done)
-               {          
-                    if(x>0)
-                    cmd.linear.x = -0.02;
-                    else
-                    cmd.linear.x = +0.02;
-
-                    ROS_INFO("x displacement");
-               }
-               else if (fabs(x) <= 0.01)
-                {    
-
-                    is_x_done = true;
-                    
-               }
-            }
-
-            if(!is_rotation_done || !is_x_done || !is_y_done)
-                base_velocities_publisher.publish(cmd);
-        
-            if(is_rotation_done && is_x_done && is_y_done)
-            {
-                base_velocities_publisher.publish(zero);
-            
-                isreached =  true;
-
-                ROS_INFO(" Base reached Marker Target frame");
-           
-                return true; 
-            }
-
-       }
-       catch (tf::TransformException ex)
-       {
-          base_velocities_publisher.publish(zero);  
-          ROS_ERROR("%s",ex.what());
-       }
-
-
-        if  (stamp + max_time < ros::Time::now()) {
-        base_velocities_publisher.publish(zero);
-        ROS_INFO("Marker alignment Time out");
-		return false;
-		break;
-		}
-       
-    }
-
-    return true;
-
- }
 
 
  
@@ -530,9 +313,6 @@ int main(int argc, char **argv)
 
   ros::ServiceServer shift_base = n.advertiseService( "move_base_relative", move_base_relative);
 
-  ros::ServiceServer move_optimal_base = n.advertiseService( "movetooptimalbase", moveoptimalbase);
-
-  ros::ServiceServer align_with_marker = n.advertiseService( "alignwithmarker", alignwithmarker);
 
   ROS_INFO("Ready to move base position");
 

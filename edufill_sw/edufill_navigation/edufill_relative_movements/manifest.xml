@@ -18,7 +18,6 @@
   <depend package="actionlib"/>
   <depend package="nav_msgs"/>
   <depend package="geometry_msgs"/>
-  <depend package="edufill_baseplacement"/>
   <depend package="angles" />
 
 

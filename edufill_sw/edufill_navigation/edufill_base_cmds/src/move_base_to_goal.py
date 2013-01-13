@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import roslib; roslib.load_manifest('edufill_arm_cmds')
 import rospy
-import edufill_arm_navigation.msg
 import brics_actuator.msg
 import actionlib
 import sys

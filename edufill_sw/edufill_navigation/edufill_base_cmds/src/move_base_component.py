@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import roslib; roslib.load_manifest('edufill_arm_cmds')
 import rospy
-import edufill_arm_navigation.msg
 import brics_actuator.msg
 import actionlib
 import sys
@@ -13,7 +12,10 @@ from geometry_msgs.msg import *
 from move_base_msgs.msg import *
 
 # Move arm to a cartesian position
-def to_pose(x, y, yaw):
+def to_pose(pose):
+    x = pose[0]
+    y = pose[1]
+    yaw = pose[2] 
     
     try: 
         # convert to pose message
@@ -58,7 +60,11 @@ def to_goal(goal):
 
 if __name__ == '__main__':
     rospy.init_node('move_base_to_goal_component')
-    result = to_goal('S1')
+    x_pose = 0
+    y_pose = 0
+    theta  = 0
+    pose = [x_pose,y_pose,theta]
+    result = to_pose(pose)
     print result
 
 
