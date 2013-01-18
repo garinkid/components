@@ -9,7 +9,7 @@
   <review status="unreviewed" notes=""/>
   <url>http://ros.org/wiki/raw_script_server</url>
   
-  <depend package="edufill_arm_navigation" />
+
   <depend package="tf" />
   <depend package="geometry_msgs" />
   <depend package="move_base_msgs" />
