@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-
-	<node pkg="edufill_baseplacement" type="placement_wrt_platform_service_server" name="edufill_baseplacement_wrt_platform_as" ns="edufill_baseplacement" respawn="false" output="screen" /> 
-	<node pkg="edufill_baseplacement" type="placement_wrt_platform_action_server" name="edufill_baseplacement_wrt_platform_ss" ns="edufill_baseplacement" respawn="false" output="screen" /> 
-
-</launch>
