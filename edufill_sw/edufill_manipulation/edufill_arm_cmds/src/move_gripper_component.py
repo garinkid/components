@@ -1,7 +1,8 @@
 #! /usr/bin/python
 
 import rospy 
-import brics_actuator.msg
+import roslib
+roslib.load_manifest('edufill_arm_cmds')
 from brics_actuator.msg import JointPositions, JointValue, Poison
 
 #Open or close the gripper

@@ -2,6 +2,7 @@
 import time
 
 import roslib
+import move_gripper_component
 roslib.load_manifest('edufill_arm_cmds')
 import rospy
 import actionlib
@@ -12,9 +13,9 @@ import actionlib
 #sss = simple_script_server()
 
 def main():
-    rospy.init_node('close_gripper')
+    rospy.init_node('open_gripper')
     #sss.move("gripper", "open")
-    move_gripper_component.move("CLOSE")
+    move_gripper_component.move("OPEN")
     rospy.sleep(1)
 
 ## Main routine for running the script server
