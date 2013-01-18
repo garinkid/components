@@ -8,6 +8,7 @@ import tf
 import math
 import edufill_srvs.srv
 import std_srvs.srv
+from move_base_local import publish_velocity_command
 
 # msg imports
 from geometry_msgs.msg import *
@@ -20,6 +21,7 @@ def to_pose(pose):
     yaw = pose[2] 
     
     try: 
+        publish_velocity_command("stop")
         # convert to pose message
         pose = PoseStamped()
         pose.header.stamp = rospy.Time.now()
@@ -41,6 +43,7 @@ def to_pose(pose):
         # send goal
         client.send_goal(client_goal)
         client.wait_for_result()
+        publish_velocity_command("start")
         return 'succeeded'
 
     except Exception, e:
@@ -55,7 +58,7 @@ def to_goal(goal):
     
     pose = rospy.get_param("script_server/base/" + goal)
    
-    result = to_pose(pose[0],pose[1],pose[2])  
+    result = to_pose([pose[0],pose[1],pose[2]])  
   
     return result    
 
@@ -83,6 +86,7 @@ def relative(goal_behaviour):
     except Exception, e:
         rospy.logerr("service call <<%s>> failed: %s", move_base_relative_srv_name, e)  
         return 'srv_call_failed'
+
 
 if __name__ == '__main__':
     rospy.init_node('move_base_to_goal_component')
