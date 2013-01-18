@@ -7,7 +7,12 @@ from brics_actuator.msg import JointPositions, JointValue, Poison
 # Move arm to a joint position
 
 # Move arm to a given joint positions
-def joint_positions(joint_angle_1, joint_angle_2, joint_angle_3, joint_angle_4, joint_angle_5):
+def joint_positions(joint_angles):
+    joint_angle_1 = joint_angles[0]
+    joint_angle_2 = joint_angles[1]
+    joint_angle_3 = joint_angles[2]
+    joint_angle_4 = joint_angles[3]
+    joint_angle_5 = joint_angles[4]
     pub = rospy.Publisher('arm_1/arm_controller/position_command', JointPositions)
     rospy.sleep(0.5) 
     try:
@@ -69,7 +74,7 @@ def pose(pose):
 	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is 5:
 		print 'moving to pose ' + pose 
 		joints = pose_list[pose]
-		joint_positions(joints[0], joints[1], joints[2], joints[3], joints[4])			
+		joint_positions([joints[0], joints[1], joints[2], joints[3], joints[4]])			
 	else:
 		print 'pose ' + pose + ' is not defined'
 		return
