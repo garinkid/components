@@ -313,9 +313,9 @@ int main(int argc, char **argv)
 
   ros::ServiceServer shift_base = n.advertiseService( "move_base_relative", move_base_relative);
 
-
   ROS_INFO("Ready to move base position");
 
   ros::spin();
+
   return 0;
 }

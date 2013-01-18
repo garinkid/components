@@ -13,7 +13,7 @@ def extract_planes_cmd():
     rospy.sleep(3)
 
     for i in range(20): 
-        print "find object try: ", i
+        print "find planes try: ", i
         resp = plane_extractor_srv()
           
         if (len(resp.planarpolygons) <= 0):
