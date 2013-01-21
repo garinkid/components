@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import roslib; roslib.load_manifest('edufill_arm_cmds')
+import roslib; roslib.load_manifest('edufill_base_cmds')
 import rospy
 import brics_actuator.msg
 import actionlib
@@ -8,7 +8,9 @@ import tf
 import math
 import edufill_srvs.srv
 import std_srvs.srv
-from move_base_local import publish_velocity_command
+# msg imports
+from geometry_msgs.msg import *
+from move_base_msgs.msg import *
 
 # msg imports
 from geometry_msgs.msg import *
@@ -19,11 +21,9 @@ def to_pose(pose):
     x = pose[0]
     y = pose[1]
     yaw = pose[2] 
-    
     try: 
-        publish_velocity_command("stop")
         # convert to pose message
-        pose = PoseStamped()
+
         pose.header.stamp = rospy.Time.now()
         pose.header.frame_id = "/map"
         pose.pose.position.x = x
@@ -43,11 +43,10 @@ def to_pose(pose):
         # send goal
         client.send_goal(client_goal)
         client.wait_for_result()
-        publish_velocity_command("start")
         return 'succeeded'
 
     except Exception, e:
-        rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
+        rospy.logerr("service call <<%s>> failed: %s",self.action_server_name, e)  
         return 'srv_call_failed'
 
 def to_goal(goal):
@@ -58,7 +57,7 @@ def to_goal(goal):
     
     pose = rospy.get_param("script_server/base/" + goal)
    
-    result = to_pose([pose[0],pose[1],pose[2]])  
+    result = to_pose(pose)  
   
     return result    
 
@@ -84,18 +83,60 @@ def relative(goal_behaviour):
         move_base_relative_srv(goalpose)
         return 'succeeded'
     except Exception, e:
-        rospy.logerr("service call <<%s>> failed: %s", move_base_relative_srv_name, e)  
+        rospy.logerr("service call <<%s>> failed: %s",move_base_relative_srv_name, e)  
         return 'srv_call_failed'
 
+def command(motion_command):
+    base_velocity = 0.1
+    motion_direction = motion_command[0]
+    time = motion_command[1]
+    pub = rospy.Publisher("/cmd_vel",Twist)
+    youbot_base_velocity = Twist()
+    zero_vel = Twist()
+    youbot_base_velocity = zero_vel
+    if(motion_direction == "forward"):
+        youbot_base_velocity.linear.x = base_velocity
+    elif(motion_direction == "backward"):
+        youbot_base_velocity.linear.x = -base_velocity
+    elif(motion_direction == "right"):
+        youbot_base_velocity.linear.y = -base_velocity
+    elif(motion_direction == "left"):
+        youbot_base_velocity.linear.y = base_velocity
+    elif(motion_direction == "rotate_anticlockwise"):
+        youbot_base_velocity.angular.z = base_velocity
+    elif(motion_direction == "rotate_clockwise"):
+        youbot_base_velocity.angular.z = -base_velocity
+    elif(motion_direction == "stop"):
+        youbot_base_velocity = zero_vel
+    else:
+        return 'failure'  
+    time_taken = 0
+    init_time = rospy.get_rostime().secs 
+    while(init_time <= 0):
+        init_time = rospy.get_rostime().secs  
+    print 'init time recorded is ' + repr(init_time) +' secs'
+    #timer = rospy.Timer(rospy.Duration(1), my_callback)
+    while(time_taken<time):
+        now = rospy.get_rostime().secs 
+        time_taken =  now - init_time
+        #print time_taken
+        pub.publish(youbot_base_velocity)
+        #rospy.sleep(0.1)
+    #timer.shutdown()
+    print 'latest time recorded is ' + repr(now) +' secs'
+    print 'base command successfully published for '+ repr(time_taken) +' secs'
+    return 'success'
+
+def my_callback(event):
+    print 'Timer called at '+str(event.current_real)
+ 
 
 if __name__ == '__main__':
-    rospy.init_node('move_base_to_goal_component')
-    x_pose = 0
-    y_pose = 0
-    theta  = 0
-    pose = [x_pose,y_pose,theta]
-    result = to_pose(pose)
-    print result
+    rospy.init_node('movebase')
+    motion_direction = 'rotate_clockwise'
+    time = 5.0
+    result = command([motion_direction,time])
+    
 
 
 
