@@ -6,4 +6,5 @@ from ._ReturnBool import *
 from ._GetPoseStamped import *
 from ._GetDominantPlane import *
 from ._SetMarkerFrame import *
+from ._SetVelocity import *
 from ._MotionCommand import *

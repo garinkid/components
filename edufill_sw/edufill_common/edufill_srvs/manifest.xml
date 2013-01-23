@@ -10,6 +10,7 @@
   <url>http://ros.org/wiki/edufill_srvs</url>
 
   <depend package="hbrs_msgs" />
+<depend package="std_msgs" /> 
 
 </package>
 

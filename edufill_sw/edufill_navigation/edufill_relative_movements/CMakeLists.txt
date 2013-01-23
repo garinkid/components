@@ -38,8 +38,8 @@ include_directories(
 #rosbuild_link_boost(${PROJECT_NAME} thread)
 #<<<<<<< HEAD:edufill_sw/edufill_navigation/edufill_relative_movements/CMakeLists.txt
 #rosbuild_add_executable(example examples/example.cpp)
-rosbuild_add_executable(base_controller src/relative_movements.cpp )
-rosbuild_add_executable(demo_local src/demo_local.cpp )
+rosbuild_add_executable(base_controller src/base_controller.cpp )
+#rosbuild_add_executable(demo_local src/demo_local.cpp )
 #=======
 #rosbuild_add_executable(createbash src/scripts/createbashscript.py)
 #>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5:edufill_sw/edufill_blockly/test_scripts/CMakeLists.txt

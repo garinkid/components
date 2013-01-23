@@ -25,7 +25,7 @@ class demo_controller
         base_velocities_publisher = node_handler.advertise<geometry_msgs::Twist>( "/cmd_vel", 1 );
         //Advertise service
         update_command_server = node_handler.advertiseService("update_motion_command",&demo_controller::update_motion_command,this);
-        ROS_INFO("youbot base velocity is %ld",(long int)youbot_base_velocity.linear.x);
+        //ROS_INFO("youbot base velocity is %ld",(long int)youbot_base_velocity.linear.x);
         //Publish velocity
         //publishVelocity();
    }

@@ -86,10 +86,8 @@ def relative(goal_behaviour):
         rospy.logerr("service call <<%s>> failed: %s",move_base_relative_srv_name, e)  
         return 'srv_call_failed'
 
-def command(motion_command):
+def command(motion_direction,time):
     base_velocity = 0.1
-    motion_direction = motion_command[0]
-    time = motion_command[1]
     pub = rospy.Publisher("/cmd_vel",Twist)
     youbot_base_velocity = Twist()
     zero_vel = Twist()
@@ -135,7 +133,7 @@ if __name__ == '__main__':
     rospy.init_node('movebase')
     motion_direction = 'rotate_clockwise'
     time = 5.0
-    result = command([motion_direction,time])
+    result = command(motion_direction,time)
     
 
 

@@ -2,14 +2,15 @@
 import roslib; roslib.load_manifest('edufill_blockly')
 import rospy
 #import move_base_relative
-from move_base_command import move_base_command
+import move_base_component
 
 if __name__=="__main__":
     rospy.init_node('move_base_command')
-    goal_behaviour = "forward"
-    result = move_base_command(goal_behaviour)
-    goal_behaviour = "left"
-    result = move_base_command(goal_behaviour)
+    # "forward","backward","right","left","rotate_anticlockwise","rotate_clockwise"
+    motion_direction = "forward"
+    # duration in seconds
+    duration = 10
+    result = move_base_component.command(motion_direction,duration)
     print result
 
 
