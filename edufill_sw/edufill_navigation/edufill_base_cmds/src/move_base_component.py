@@ -22,8 +22,9 @@ def to_pose(pose):
     y = pose[1]
     yaw = pose[2] 
     try: 
-        # convert to pose message
 
+        # convert to pose message
+        pose = PoseStamped()
         pose.header.stamp = rospy.Time.now()
         pose.header.frame_id = "/map"
         pose.pose.position.x = x
@@ -46,7 +47,7 @@ def to_pose(pose):
         return 'succeeded'
 
     except Exception, e:
-        rospy.logerr("service call <<%s>> failed: %s",self.action_server_name, e)  
+        rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
         return 'srv_call_failed'
 
 def to_goal(goal):
@@ -55,8 +56,7 @@ def to_goal(goal):
         rospy.logerr("location <<" + goal + ">> is not on the parameter server")
         return 'location_not_known'
     
-    pose = rospy.get_param("script_server/base/" + goal)
-   
+    pose = rospy.get_param("script_server/base/" + goal)   
     result = to_pose(pose)  
   
     return result    
@@ -133,7 +133,7 @@ if __name__ == '__main__':
     rospy.init_node('movebase')
     motion_direction = 'rotate_clockwise'
     time = 5.0
-    result = command(motion_direction,time)
+    result = to_goal("S1")
     
 
 
