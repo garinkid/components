@@ -133,7 +133,7 @@ if __name__ == '__main__':
     rospy.init_node('movebase')
     motion_direction = 'rotate_clockwise'
     time = 5.0
-    result = to_goal("S1")
+    result = relative([0,0.2,0])
     
 
 
