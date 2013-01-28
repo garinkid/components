@@ -1,11 +1,11 @@
 - git:
     local-name: hbrs-ros-pkg
-    uri: git@github.com:EduFill/hbrs-ros-pkg.git
+    uri: https://github.com/EduFill/hbrs-ros-pkg.git
     version: master
 
 - git:
     local-name: third-party-software
-    uri: git@github.com:b-it-bots/third-party-software.git
+    uri: https://github.com/b-it-bots/third-party-software.git
     version: master
 
 - git:
@@ -30,12 +30,12 @@
 
 - git:
     local-name: youbot-ros-pkg
-    uri: git@github.com:b-it-bots/youbot-ros-pkg.git
+    uri: https://github.com/b-it-bots/youbot-ros-pkg.git
     version: master
 
 - git:
     local-name: youbot-manipulation
-    uri: git@github.com:b-it-bots/youbot-manipulation.git
+    uri: https://github.com/b-it-bots/youbot-manipulation.git
     version: master
 
 - git:
