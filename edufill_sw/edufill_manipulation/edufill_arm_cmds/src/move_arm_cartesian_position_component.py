@@ -12,7 +12,7 @@ import math
 from edufill_arm_navigation.msg import *
 
 # Move arm to a cartesian position
-def move_arm_cart_direct(x, y, z, roll, pitch, yaw, reference_frame):
+def joint_positions(x, y, z, roll, pitch, yaw, reference_frame):
     # init
     param = [x,y,z,roll,pitch,yaw,reference_frame]
     

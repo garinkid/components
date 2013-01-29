@@ -66,7 +66,7 @@ def to_cartesian_pose(xyzrpy,reference_frame):
         iksolver_state = ks.check_ik_solver_has_solution(xyzrpy,"/base_link")
 	if (iksolver_state):
 		ik_solution = ks.get_ik_solution(xyzrpy,"/base_link")
-		status_move = joint_positions(ik_solution)
+		status_move = to_joint_positions(ik_solution)
                 return status_move          
 	else:
 		return 'no solution found'
@@ -93,6 +93,13 @@ def to_pose(pose):
 		return
 if __name__ == '__main__':
     rospy.init_node('move_arm_component')
-    #result = cartesian_pose([0.57, -0.04, 0, 0.2, ((math.pi/2) + (math.pi/4)), 0], "/base_link")
+    # Pointing upwards (internal home position of inverse kinematics)
+    x = 0.024 + 0.033
+    y = 0
+    z = 0.535
+    roll = 0 
+    pitch = 0
+    yaw = 0
+    result = to_cartesian_pose([x,y,z,roll,pitch,yaw], "/base_link")
     print result
 

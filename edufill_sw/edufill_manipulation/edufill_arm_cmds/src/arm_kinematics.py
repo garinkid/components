@@ -13,7 +13,8 @@ import kinematics_msgs.msg
 import sensor_msgs.msg
 import arm_navigation_msgs.msg
 import arm_navigation_msgs.srv
-import edufill_arm_navigation.msg
+import edufill_msg.msg
+#import edufill_arm_navigation.msg
 
 class KinematicsSolver:
 
@@ -66,10 +67,10 @@ class KinematicsSolver:
 
 
 	def get_fk_solution(self, joint_config):
-		configuration =[joint_config[0],joint_config[1],joint_config[2],joint_config[3],joint_config[4]]
+		#configuration =[joint_config[0],joint_config[1],joint_config[2],joint_config[3],joint_config[4]]
+                configuration = joint_config
 		while(not self.received_state):
 			time.sleep(0.1)
-		
 		req = kinematics_msgs.srv.GetPositionFKRequest()
 		req.header.frame_id = "base_link"
 		req.header.stamp = rospy.Time.now()
@@ -85,7 +86,7 @@ class KinematicsSolver:
 			return (resp.pose_stamped[0], True)
 		else:
 			return (geometry_msgs.msg.PoseStamped(), False)
-
+		
 
 	def call_ik_solver(self, goal_pose):
 		while(not self.received_state):
@@ -104,7 +105,7 @@ class KinematicsSolver:
 		return (resp.solution.joint_state.position, resp.error_code.val == arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS)
 
 	def create_pose(self, param):
-		pose = edufill_arm_navigation.msg.MoveToCartesianPoseGoal()
+		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
 		pose.goal.header.frame_id = param[6]
 		pose.goal.pose.position.x = param[0]
@@ -156,6 +157,9 @@ class KinematicsSolver:
 		return joint_config
 
 if __name__ == "__main__":
+        a = (1,3,2)
+        b =[a[0],a[1],a[2]]
+        print b
 	rospy.init_node('youbot_kinematic_solver')
 	time.sleep(0.5)
 	ks = KinematicsSolver()
@@ -167,7 +171,8 @@ if __name__ == "__main__":
 		print ik_solution
 	else:
 		print("IK solver didn't find a solution")
-	cartesian_pose = ks.get_fk_solution(ik_solution)
+        ik_solution_list = [ik_solution[0],ik_solution[1],ik_solution[2],ik_solution[3],ik_solution[4]]
+	cartesian_pose = ks.get_fk_solution(ik_solution_list)
 	print cartesian_pose
 
 
