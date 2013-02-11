@@ -16,6 +16,20 @@ from move_base_msgs.msg import *
 from geometry_msgs.msg import *
 from move_base_msgs.msg import *
 
+
+def twist(base_velocity):
+    # base_velocity = [lx,ly,lz,ax,ay,az]
+    pub = rospy.Publisher("/cmd_vel",Twist)
+    youbot_base_velocity = Twist()
+    youbot_base_velocity.linear.x = base_velocity[0]
+    youbot_base_velocity.linear.y = base_velocity[1]
+    youbot_base_velocity.linear.z = base_velocity[2]
+    youbot_base_velocity.angular.x = 0
+    youbot_base_velocity.angular.y = 0
+    youbot_base_velocity.angular.z = base_velocity[5]
+    pub.publish(youbot_base_velocity)
+
+
 # Move arm to a cartesian position
 def to_pose(pose):
     x = pose[0]
@@ -121,6 +135,8 @@ def command(motion_direction,time):
         pub.publish(youbot_base_velocity)
         #rospy.sleep(0.1)
     #timer.shutdown()
+    youbot_base_velocity = zero_vel
+    pub.publish(youbot_base_velocity)
     print 'latest time recorded is ' + repr(now) +' secs'
     print 'base command successfully published for '+ repr(time_taken) +' secs'
     return 'success'
@@ -133,7 +149,16 @@ if __name__ == '__main__':
     rospy.init_node('movebase')
     motion_direction = 'rotate_clockwise'
     time = 5.0
-    result = relative([0,0.2,0])
+    time_taken = 0
+    init_time = rospy.get_rostime().secs 
+    while(init_time <= 0):
+        init_time = rospy.get_rostime().secs  
+    print 'init time recorded is ' + repr(init_time) +' secs'
+    #timer = rospy.Timer(rospy.Duration(1), my_callback)
+    while(time_taken<time):
+        now = rospy.get_rostime().secs 
+        time_taken =  now - init_time
+        result = twist([0.1,0,0,0,0,0.1])
     
 
 
