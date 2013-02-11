@@ -4,7 +4,7 @@ import rospy
 import math
 import arm_kinematics
 import brics_actuator.msg
-from brics_actuator.msg import JointPositions, JointValue, Poison
+from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
 
 # Move arm to a joint position
 
@@ -59,7 +59,56 @@ def to_joint_positions(joint_angles):
     except Exception, e:
         print e
         return 'arm move failure'
+def joint_velocities(joint_velocities):
+    joint_velocity_1 = joint_velocities[0]
+    joint_velocity_2 = joint_velocities[1]
+    joint_velocity_3 = joint_velocities[2]
+    joint_velocity_4 = joint_velocities[3]
+    joint_velocity_5 = joint_velocities[4]
+    pub = rospy.Publisher('arm_1/arm_controller/velocity_command', JointVelocities)
+    rospy.sleep(0.5) 
+    try:
+        jv = JointVelocities()
+        
+        jv1 = JointValue()
+        jv1.joint_uri = "arm_joint_1"
+        jv1.value = joint_velocity_1
+        jv1.unit = "s^-1 rad"
+        
+        jv2 = JointValue()
+        jv2.joint_uri = "arm_joint_2"
+        jv2.value = joint_velocity_2
+        jv2.unit = "s^-1 rad"
 
+        jv3 = JointValue()
+        jv3.joint_uri = "arm_joint_3"
+        jv3.value = joint_velocity_3
+        jv3.unit = "s^-1 rad"
+        
+        jv4 = JointValue()
+        jv4.joint_uri = "arm_joint_4"
+        jv4.value = joint_velocity_4
+        jv4.unit = "s^-1 rad"
+        
+        jv5 = JointValue()
+        jv5.joint_uri = "arm_joint_5"
+        jv5.value = joint_velocity_5
+        jv5.unit = "s^-1 rad"
+        
+        p = Poison()
+        #print p
+       
+        jv.poisonStamp = p
+        
+        jv.velocities = [jv1, jv2, jv3, jv4, jv5]
+       
+        pub.publish(jv)
+
+        return 'arm moved successfully'
+
+    except Exception, e:
+        print e
+        return 'arm move failure'
 # Move arm to a given joint positions
 def to_cartesian_pose(xyzrpy,reference_frame):
         ks = arm_kinematics.KinematicsSolver()
@@ -93,6 +142,7 @@ def to_pose(pose):
 		return
 if __name__ == '__main__':
     rospy.init_node('move_arm_component')
+    '''
     # Pointing upwards (internal home position of inverse kinematics)
     x = 0.024 + 0.033
     y = 0
@@ -102,4 +152,17 @@ if __name__ == '__main__':
     yaw = 0
     result = to_cartesian_pose([x,y,z,roll,pitch,yaw], "/base_link")
     print result
+    '''
+    time = 5.0
+    time_taken = 0
+    init_time = rospy.get_rostime().secs 
+    while(init_time <= 0):
+        init_time = rospy.get_rostime().secs  
+    print 'init time recorded is ' + repr(init_time) +' secs'
+    #timer = rospy.Timer(rospy.Duration(1), my_callback)
+    while(time_taken<time):
+        now = rospy.get_rostime().secs 
+        time_taken =  now - init_time
+        result = joint_velocities([0.05,0.0,0.0,0,0])
+    result = joint_velocities([0.0,0,0,0,0])
 

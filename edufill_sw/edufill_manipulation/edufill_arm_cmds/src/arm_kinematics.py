@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import roslib; roslib.load_manifest('edufill_arm_cmds')
-
 import rospy
 import threading
 import tf
