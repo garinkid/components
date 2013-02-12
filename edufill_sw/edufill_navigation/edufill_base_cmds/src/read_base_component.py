@@ -17,26 +17,23 @@ last_message = 0
 odom_received = 'false'
 
 
-
-#def odom_listener():
-
-    #if odom_received == 'false':
-    
-    
-    
+     
 def odom_callback(msg):
     global last_message
     global odom_received
     last_message = msg
     odom_received = 'true'
+    rospy.core.signal_shutdown('I got it')
     #print last_message
 def odometry():
-    global last_message
+    #global last_message
     global odom_received
     sub = rospy.Subscriber("/odom", Odometry, odom_callback)
     rospy.spin()
+    #print last_message
+    #rospy.on_shutdown()
+
     if odom_received == 'true': 
-       rospy.signal_shutdown('I got it')
        return last_message  
     else:    
        print 'trying'
@@ -66,9 +63,11 @@ def location():
 
 
 if __name__ == '__main__':
-    rospy.init_node('readbase')
-    location = location()
-    print location
+    rospy.init_node('readbase',disable_signals=False)
+    Odometry = odometry()
+    print Odometry
+
+
 
 
 
