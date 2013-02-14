@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+import roslib; roslib.load_manifest('edufill_blockly')
+import rospy
+import move_base_component
+
+# move_base_component example script
+
+#### 1.result = move_base_component.command(command_string,duration) 
+######### command_string - "forward","backward","right","left","rotate_anticlockwise","rotate_clockwise"
+######### duration - duration in seconds
+######### result - 'success'/'failure'
+
+#### 2.move_base_component.to_pose(pose) 
+######### pose - [x,y,yaw]
+
+#### 3.move_base_component.to_goal(goal_string) 
+######### goal_string- 'S1'/'S2'/'D1' etc depending upon the environment/map loaded
+
+#### 4.move_base_component.twist(base_velocity) 
+######### base_velocity = [lx,ly,lz,ax,ay,az]
+
+#### 4.move_base_component.relative(goal_behaviour) 
+######### goal_behaviour = [x_rel,y_rel,yaw_rel]
+
+if __name__=="__main__":
+    rospy.init_node('move_base_component') 
+    '''
+    ### start
+    pose = [0,0,0]
+    result = move_base_component.to_pose(pose)
+    '''
+    #### 1.move_base_component.command(command_string,duration)
+    motion_direction = "forward"
+    duration = 2
+    result = move_base_component.command(motion_direction,duration)
+    print result
+    #### 2.move_base_component.to_pose(pose) 
+    pose = [1,0.5,0.1]
+    result = move_base_component.to_pose(pose)
+    print result
+    #### 2.move_base_component.to_goal(goal_string) 
+    goal = 'S2'
+    result = move_base_component.to_goal(goal)
+    print result
+    x_move = 0
+    y_move = 0.5
+    theta_rotate = 0
+    goal_behaviour = [x_move,y_move,theta_rotate]
+    result = move_base_component.relative(goal_behaviour)
+    print result
+    #### 4.move_base_component.twist(base_velocity) 
+    base_velocity = [0,0.1,0,0,0,0]
+    time = 1.0
+    time_taken = 0
+    init_time = rospy.get_rostime().secs 
+    while(init_time <= 0):
+        init_time = rospy.get_rostime().secs  
+    while(time_taken<time):
+        now = rospy.get_rostime().secs 
+        time_taken =  now - init_time
+        # this is the where the real component gets called. It is in a loop to visualize
+        # in gazebo as it would be difficult to see a response when you publish velocity for
+        # one instant
+        result = move_base_component.twist(base_velocity)
+
+
