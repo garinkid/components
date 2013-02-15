@@ -23,5 +23,5 @@ if __name__=="__main__":
   right_gripper_value = 0.0100
   # input argument list
   gripper_value = [left_gripper_value,right_gripper_value]
-  move_gripper_component.to_positions(gripper_value) # component 'to_positions()'
+  move_gripper_component.to_joint_positions(gripper_value) # component 'to_positions()'
   move_gripper_component.to_pose('CLOSE')

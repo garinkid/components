@@ -8,4 +8,6 @@ import move_gripper_component  #/edufill_manipulation/edufill_arm_cmds/src/move_
 if __name__=="__main__":
   rospy.init_node('edufill_blockly_node')
 
+  move_gripper_component.move("CLOSE")
   move_gripper_component.move("OPEN")
+  move_gripper_component.move("CLOSE")
