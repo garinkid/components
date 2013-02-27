@@ -51,7 +51,7 @@ def to_joint_positions(joint_angles):
         jp.poisonStamp = p
         
         jp.positions = [jv1, jv2, jv3, jv4, jv5]
-       
+        
         pub.publish(jp)
 
         return 'arm moved successfully'
@@ -136,7 +136,7 @@ def to_pose(pose):
 	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is 5:
 		print 'moving to pose ' + pose 
 		joints = pose_list[pose]
-		joint_positions([joints[0], joints[1], joints[2], joints[3], joints[4]])			
+		to_joint_positions([joints[0], joints[1], joints[2], joints[3], joints[4]])			
 	else:
 		print 'pose ' + pose + ' is not defined'
 		return
@@ -153,6 +153,7 @@ if __name__ == '__main__':
     result = to_cartesian_pose([x,y,z,roll,pitch,yaw], "/base_link")
     print result
     '''
+    '''
     time = 5.0
     time_taken = 0
     init_time = rospy.get_rostime().secs 
@@ -165,4 +166,9 @@ if __name__ == '__main__':
         time_taken =  now - init_time
         result = joint_velocities([0.05,0.0,0.0,0,0])
     result = joint_velocities([0.0,0,0,0,0])
+    '''
+    joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
+    result = to_joint_positions(joint_angles)
+    result = to_pose('zeroposition')
+    print result
 
