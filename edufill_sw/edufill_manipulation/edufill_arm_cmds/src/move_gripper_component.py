@@ -6,7 +6,7 @@ roslib.load_manifest('edufill_arm_cmds')
 from brics_actuator.msg import JointPositions, JointValue, Poison
 
 #open or close the gripper
-def to_pose(command):
+def move(command):
     if isinstance(command,str):
         if command == "OPEN":
 	    gripper_value = 0.0115  
