@@ -15,10 +15,10 @@ import read_arm_component
 if __name__=="__main__":
     rospy.init_node('read_base_component_test',disable_signals=False)
     # read the current joint angle of arm
-    result = read_base_component.arm_joint_positions() 
+    result = read_arm_component.arm_joint_positions() 
     print result
     # read the current gripper positions 
-    result = read_base_component.gripper_joint_positions()
+    result = read_arm_component.gripper_joint_positions()
     print result
 
 
