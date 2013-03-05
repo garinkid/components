@@ -7,7 +7,6 @@
         <remap from="/base_odometry/odom" to="/odom" />
     </node>
 
-	
     <!-- send world urdf to param server -->
 	<param name="arena_description" command="$(find xacro)/xacro.py $(find edufill_gazebo_world)/common/worlds/$(env ROBOT_ENV).urdf.xacro" />
 
