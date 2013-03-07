@@ -71,7 +71,7 @@ def angle_of_closest_distance():
     else: 
         index_closest_diatance = array_closest_distance
     closest_distance_angle = angles_list[index_closest_diatance]
-    return [closest_distance_angle,closest_distance]
+    return [closest_distance, closest_distance_angle]
 
 def distances(angles):
     obj_laser_data = laser_scan_data()

@@ -9,7 +9,7 @@ import read_laser_scan_component
 ######### result is a list of lists [(ranges,angles)]
 
 #### 2.result = read_laser_scan_component.angle_of_closest_distance()
-######### result is a list [closest_distance_angle,closest_distance]
+######### result is a list [closest_distance, closest_distance_angle]
 
 #### 3.result = read_laser_scan_component.distances(-1.3,1.0)
 ######### result is a list of lists [(ranges,angles)]
