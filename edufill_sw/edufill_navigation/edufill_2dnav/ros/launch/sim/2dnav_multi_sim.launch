@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="/use_sim_time" value="true"/>
+
+    <!-- navigation goals -->
+    <include file="$(find edufill_env_config)/upload_param.launch" />
+    
+    <!-- visualize navigation goals -->
+    <node pkg="edufill_tools" type="navigation_goals_as_marker.py" name="edufill_navigation_goals_as_marker"/>
+
+   <arg name="map" default="$(find edufill_env_config)/$(env ROBOT_ENV)/map.yaml" />
+
+	<!--- Run map_server -->
+   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map)">
+<param name="frame_id" value="/map" />
+</node>
+
+  <group ns="robot1">
+    <!-- Run AMCL -->
+    <include file="$(find edufill_2dnav)/ros/launch/sim/amcl_multi_sim.launch" />
+    <param name="tf_prefix" value="robot1_tf" />
+    <param name="amcl/initial_pose_x" value="1" />
+    <param name="amcl/initial_pose_y" value="1" />
+    <include file="$(find edufill_2dnav)/ros/launch/sim/move_base_multi_sim.launch" />
+    <include file="$(find edufill_2dnav)/ros/launch/ekf.launch" />
+  </group>
+
+  <group ns="robot2">
+    <!-- Run AMCL -->
+    <include file="$(find edufill_2dnav)/ros/launch/sim/amcl_multi_sim.launch" />
+    <param name="tf_prefix" value="robot2_tf" />
+    <param name="amcl/initial_pose_x" value="-1" />
+    <param name="amcl/initial_pose_y" value="1" />
+    <include file="$(find edufill_2dnav)/ros/launch/sim/move_base_multi_sim.launch" />
+    <include file="$(find edufill_2dnav)/ros/launch/ekf.launch" />
+  </group>
+
+
+</launch>
