@@ -38,11 +38,11 @@ class youbot_subscriber:
 		if(msg.name[i] == joint_name):
 		    self.configuration[k] = msg.position[i]
 		    self.received_state = True
+
     def odom_callback(self,msg):
         self.odom_data = msg
 
     def read_arm_joint_positions(self,req):
-        print 'yes'
         return edufill_srvs.srv.ReadJointPositionsResponse(self.configuration)
 
     def read_odometry_data(self,req):

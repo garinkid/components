@@ -18,7 +18,7 @@ if __name__=="__main__":
     result = read_base_component.location()
     print result
     # read the odometry data of the robot 
-    #result = read_base_component.odometry()
+    result = read_base_component.odometry()
     print result
 
 

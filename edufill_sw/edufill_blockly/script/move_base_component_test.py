@@ -28,29 +28,34 @@ if __name__=="__main__":
     ### start
     pose = [0,0,0]
     result = move_base_component.to_pose(pose)
-    '''
+    
     #### 1.move_base_component.command(command_string,duration)
-    motion_direction = "forward"
-    duration = 2
+    motion_direction = "left"
+    duration = 3
     result = move_base_component.command(motion_direction,duration)
     print result
+    '''
+    '''
     #### 2.move_base_component.to_pose(pose) 
     pose = [1,0.5,0.1]
     result = move_base_component.to_pose(pose)
     print result
+    '''
     #### 2.move_base_component.to_goal(goal_string) 
-    goal = 'S2'
+    goal = 'EXIT'
     result = move_base_component.to_goal(goal)
     print result
+    '''
     x_move = 0
     y_move = 0.5
     theta_rotate = 0
     goal_behaviour = [x_move,y_move,theta_rotate]
     result = move_base_component.relative(goal_behaviour)
     print result
+    
     #### 4.move_base_component.twist(base_velocity) 
     base_velocity = [0,0.1,0,0,0,0]
-    time = 1.0
+    time = 7.0
     time_taken = 0
     init_time = rospy.get_rostime().secs 
     while(init_time <= 0):
@@ -62,5 +67,8 @@ if __name__=="__main__":
         # in gazebo as it would be difficult to see a response when you publish velocity for
         # one instant
         result = move_base_component.twist(base_velocity)
+    print 'success'
+    move_base_component.command('stop',1)
+     '''
 
 

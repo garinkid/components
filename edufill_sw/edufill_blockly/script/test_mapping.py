@@ -18,12 +18,14 @@ def main():
     ##sss.move("arm", "pregrasp_front_init")
     
     # BASE PLACEMENT   
-    test_srv = rospy.ServiceProxy('/read_arm_joint_position', edufill_srvs.srv.ReadJointPositions) 
-    print "wait for service: read_arm_joint_position"   
-    rospy.wait_for_service('read_arm_joint_position', 30)
+
+    test_srv = rospy.ServiceProxy('/set_mapping_action', edufill_srvs.srv.SetMapAction)    
+    rospy.wait_for_service('set_mapping_action', 30)
     # call base placement service
-    response = test_srv()
-    print "value", response
+    req = edufill_srvs.srv.SetMapActionRequest()
+    req.action = 'stop'
+    req.file_name = 'null'
+    resp = test_srv(reqs)
 
 if __name__ == '__main__':
     main()

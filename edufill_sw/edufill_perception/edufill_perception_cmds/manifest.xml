@@ -13,6 +13,8 @@
   <depend package="std_srvs" />
   <depend package="hbrs_srvs" />
   <depend package="geometry_msgs" />
+  <depend package="roslaunch" />
+roslaunch.scriptapi 
 </package>
 
 

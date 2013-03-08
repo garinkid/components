@@ -13,59 +13,42 @@ from geometry_msgs.msg import *
 from move_base_msgs.msg import *
 from nav_msgs.msg import *
 
-last_message = 0
-odom_received = 'false'
 
-
-     
-def odom_callback(msg):
-    global last_message
-    global odom_received
-    last_message = msg
-    odom_received = 'true'
-    rospy.core.signal_shutdown('I got it')
-    #print last_message
 def odometry():
-    #global last_message
-    global odom_received
-    sub = rospy.Subscriber("/odom", Odometry, odom_callback)
-    rospy.spin()
-    #print last_message
-    #rospy.on_shutdown()
-
-    if odom_received == 'true': 
-       return last_message  
-    else:    
-       print 'trying'
+    odom_srv = rospy.ServiceProxy('/read_odometry_data', edufill_srvs.srv.ReadOdom) 
+    print "wait for service: read_odometry_data"   
+    rospy.wait_for_service('read_odometry_data', 30)
+    # call base placement service
+    response = odom_srv()
+    return response
     
-
 
 def location():
     tf_listener = tf.TransformListener()
-    tf_received = False
-    if(not tf_received):
-            try:
-		    tf_listener.waitForTransform('map', '/base_link', rospy.Time.now(), rospy.Duration(1))
-		    (trans, rot) = tf_listener.lookupTransform('/map', '/base_link', rospy.Time(0))
-		    location = PoseStamped()
-		    location.pose.position.x = trans[0]
-		    location.pose.position.y = trans[1]
-		    location.pose.position.z = trans[2]
-		    location.pose.orientation.x = rot[0] 
-		    location.pose.orientation.y = rot[1] 
-		    location.pose.orientation.z = rot[2] 
-		    location.pose.orientation.w = rot[3] 
-		    return location
-            except Exception, e:
-                    rospy.sleep(1)
-                    tf_received = False
-            tf_received = False
-
+    transforms_received = False
+    while(not transforms_received):
+        try:
+            tf_listener.waitForTransform('map', '/base_link', rospy.Time.now(), rospy.Duration(1))
+            (trans, rot) = tf_listener.lookupTransform('/map', '/base_link', rospy.Time(0))
+            location = PoseStamped()
+            location.pose.position.x = trans[0]
+            location.pose.position.y = trans[1]
+            location.pose.position.z = trans[2]
+            location.pose.orientation.x = rot[0] 
+            location.pose.orientation.y = rot[1] 
+            location.pose.orientation.z = rot[2] 
+            location.pose.orientation.w = rot[3] 
+            transforms_received = False
+	    return location
+        except Exception, e:
+            rospy.sleep(1)
+            print 'trying to get tf'
+            transforms_received = False
 
 if __name__ == '__main__':
     rospy.init_node('readbase',disable_signals=False)
-    Odometry = odometry()
-    print Odometry
+    #Odometry = odometry()
+    #print Odometry
 
 
 

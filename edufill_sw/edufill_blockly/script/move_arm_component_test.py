@@ -22,13 +22,16 @@ import move_arm_component  #import component
 
 if __name__=="__main__":
     rospy.init_node('move_arm_component_test')
+    '''
     #### 1.move_arm_component.to_pose(pose_string) 
     move_arm_component.to_pose('initposition') 
     rospy.sleep(5.0)
+    '''
     #### 2.move_arm_component.to_joint_positions(joint_positions) 
-    joint_positions = [0.1,0.1,0.1,0.1,0.1]
+    joint_positions = [0.4100692,2.61799,0.1,0.1,0.1]
     move_arm_component.to_joint_positions(joint_positions)
     rospy.sleep(5.0)
+    '''
     #### 3.move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame)
     x = 0.024 + 0.033
     y = 0
@@ -52,4 +55,5 @@ if __name__=="__main__":
         result = move_arm_component.joint_velocities([0.05,0.0,0.0,0,0])
     result = move_arm_component.joint_velocities([0.0,0,0,0,0])
     rospy.sleep(5.0)
+    '''
 
