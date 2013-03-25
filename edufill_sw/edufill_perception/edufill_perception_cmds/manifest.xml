@@ -13,14 +13,9 @@
   <depend package="std_srvs" />
   <depend package="hbrs_srvs" />
   <depend package="geometry_msgs" />
-<<<<<<< HEAD
   <depend package="roslaunch" />
-roslaunch.scriptapi 
-=======
   <depend package="sensor_msgs" />
   <depend package="actionlib" />
-
->>>>>>> 704b5cccb698e4ac207f76045c7fe935f213b9f0
 </package>
 
 
