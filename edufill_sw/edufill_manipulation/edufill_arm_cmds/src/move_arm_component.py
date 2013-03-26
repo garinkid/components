@@ -3,6 +3,7 @@
 import rospy
 import math
 import arm_kinematics
+from geometry_msgs.msg import TwistStamped
 import brics_actuator.msg
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
 
@@ -120,9 +121,34 @@ def to_cartesian_pose(xyzrpy,reference_frame):
 	else:
 		return 'no solution found'
 
+def cartesian_velocities(xyzrpy_vel,reference_frame):
+    linx  = xyzrpy_vel[0]
+    liny  = xyzrpy_vel[1]
+    linz  = xyzrpy_vel[2]
+    angx  = xyzrpy_vel[3]
+    angy  = xyzrpy_vel[4]
+    angz  = xyzrpy_vel[5]
+    pub = rospy.Publisher('/hbrs_manipulation/arm_cart_control/cartesian_velocity_command',TwistStamped)
+    rospy.sleep(0.5) 
+    try:
+        cv = TwistStamped()
+        cv.header.frame_id = reference_frame
+        cv.twist.linear.x = linx
+        cv.twist.linear.y = liny
+        cv.twist.linear.z = linz
+        cv.twist.angular.x = angx
+        cv.twist.angular.y = angy
+        cv.twist.angular.z = angz
+        pub.publish(cv)
+        return 'cartesian velocity command published'
+    except Exception, e:
+        print e
+        return 'cartesian velocity command not published'
+
 
 # Move arm to a given pose uploaded to rosparam 'arm_pose'
 # The poses are define in $(find edufill_default_config)/youbot-edufill1/arm_poses.yaml
+
 def to_pose(pose):
 	if type(pose) is not str:
 		print 'pose input should be string'
@@ -153,7 +179,6 @@ if __name__ == '__main__':
     result = to_cartesian_pose([x,y,z,roll,pitch,yaw], "/base_link")
     print result
     '''
-    '''
     time = 5.0
     time_taken = 0
     init_time = rospy.get_rostime().secs 
@@ -164,11 +189,14 @@ if __name__ == '__main__':
     while(time_taken<time):
         now = rospy.get_rostime().secs 
         time_taken =  now - init_time
-        result = joint_velocities([0.05,0.0,0.0,0,0])
-    result = joint_velocities([0.0,0,0,0,0])
+        result = cartesian_velocities([0,0.05,0.0,0,0,0],"/arm_link_0")
+    
+    #result = cartesian_velocities([1,0,1,0,0,0],"/base_link")
+    #joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
+    #result = to_joint_positions(joint_angles)
+    #result = to_pose('zeroposition')
+    print result
     '''
     joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
     result = to_joint_positions(joint_angles)
-    result = to_pose('zeroposition')
-    print result
-
+    '''
