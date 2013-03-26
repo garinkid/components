@@ -16,18 +16,23 @@ def start():
     os.system('rosparam set use_sim_time true')
     start_slam = 'roslaunch edufill_2dslam 2dslam.launch'
     global slam_proc
-    slam_proc = subprocess.Popen(start_slam, shell=True,cwd="../common")
+    slam_proc = subprocess.Popen(start_slam, shell=True)
+    rospy.sleep(5)
     return 1
 
-def stop(file_name):
-    os.system('rosrun map_server map_saver -f'+' '+ file_name)
+def stop():
     os.system('rosnode kill /slam_gmapping')
     global slam_proc
     return 1
 
+def store(file_name):
+    os.chdir(roslib.packages.get_pkg_dir('edufill_blockly') + '/map')
+    os.system('rosrun map_server map_saver -f'+' '+ file_name)
+
 if __name__ == '__main__':
-    #result = start_mapping()
-    #result = stop_mapping('')
+    result = start()
+    result = store('test_map')
+    result = stop()
     print 1
 
 
