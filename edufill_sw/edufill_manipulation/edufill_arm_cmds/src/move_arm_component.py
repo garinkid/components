@@ -128,7 +128,7 @@ def cartesian_velocities(xyzrpy_vel,reference_frame):
     angx  = xyzrpy_vel[3]
     angy  = xyzrpy_vel[4]
     angz  = xyzrpy_vel[5]
-    pub = rospy.Publisher('/hbrs_manipulation/arm_cart_control/cartesian_velocity_command',TwistStamped)
+    pub = rospy.Publisher('arm_1/arm_cart_control/cartesian_velocity_command',TwistStamped)
     rospy.sleep(0.5) 
     try:
         cv = TwistStamped()
@@ -168,6 +168,8 @@ def to_pose(pose):
 		return
 if __name__ == '__main__':
     rospy.init_node('move_arm_component')
+    #to_pose('pregrasp_standing_mex')
+    #rospy.sleep(6) 
     '''
     # Pointing upwards (internal home position of inverse kinematics)
     x = 0.024 + 0.033
@@ -189,9 +191,8 @@ if __name__ == '__main__':
     while(time_taken<time):
         now = rospy.get_rostime().secs 
         time_taken =  now - init_time
-        result = cartesian_velocities([0,0.05,0.0,0,0,0],"/arm_link_0")
-    
-    #result = cartesian_velocities([1,0,1,0,0,0],"/base_link")
+        result = cartesian_velocities([0,0.5,0.0,0,0,0],"/base_link")
+    result = cartesian_velocities([0,0,0,0,0,0],"/base_link")
     #joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
     #result = to_joint_positions(joint_angles)
     #result = to_pose('zeroposition')

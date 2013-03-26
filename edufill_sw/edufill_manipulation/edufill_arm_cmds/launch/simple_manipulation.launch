@@ -14,4 +14,10 @@
 		<arg name="use_collision_map" value="false" />
 	</include>
 
+    <node pkg="hbrs_arm_cart_control" type="arm_cart_control" ns="arm_1" name="arm_cart_control" output="screen" respawn="false">
+      <param name="root_name" value="arm_link_0"/>
+      <param name="tip_name" value="arm_link_5"/>
+      <remap from="~joint_velocity_command" to="arm_controller/velocity_command"/>
+    </node>
+
 </launch>
