@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import roslib; roslib.load_manifest('edufill_objdetector')
+import roslib; roslib.load_manifest('edufill_object_detection')
 import rospy
 from std_msgs.msg import Int64
 from std_msgs.msg import String
@@ -16,7 +16,7 @@ from sys import exit, argv, stderr
 from histogram import Histogram
 from myutils import calc_back_proj, draw_cross, hsv_filter_mask, draw_debug_messages
 from numpy.random import randint
-from edufill_objdetector.srv import *
+from edufill_object_detection.srv import *
 
 DEBUG = False
 DETECT_PERF = False
@@ -79,7 +79,8 @@ class CubeColorDetector:
 
         img_hsv = cv2.cvtColor(self.img, cv2.COLOR_BGR2HSV)
         mask = hsv_filter_mask(img_hsv)
-        back = calc_back_proj(img_hsv, self.known_histograms[req.color].hist, True)
+        print self.known_histograms[req.color]
+        back = calc_back_proj(img_hsv, self.known_histograms[req.color][1].hist, True)
         back &= mask
         back[np.where(back < 200)] = 0
         back_filt = cv2.medianBlur(back, 5)
