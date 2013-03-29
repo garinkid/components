@@ -3,6 +3,7 @@
 import rospy
 import math
 import arm_kinematics
+import arm_kinematics_geometrical_solution
 import brics_actuator.msg
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
 
@@ -120,6 +121,19 @@ def to_cartesian_pose(xyzrpy,reference_frame):
 	else:
 		return 'no solution found'
 
+def to_cartesian_pose(xyzrpy):
+        ks = arm_kinematics_geometrical_solution.KinematicsControl()
+    # xyzrpy = [0.024 + 0.033,0,0.535,0,0,0]
+        iksolver_state = ks.check_ik_solver_has_solution(xyzrpy)
+        if (iksolver_state):
+            ik_solution = ks.get_ik_solution(xyzrpy)
+            print ik_solution
+            status_move = to_joint_positions(ik_solution)
+            return status_move          
+        else:
+            print 'no solution found'
+            # return 'no solution foun'
+
 
 # Move arm to a given pose uploaded to rosparam 'arm_pose'
 # The poses are define in $(find edufill_default_config)/youbot-edufill1/arm_poses.yaml
@@ -167,8 +181,9 @@ if __name__ == '__main__':
         result = joint_velocities([0.05,0.0,0.0,0,0])
     result = joint_velocities([0.0,0,0,0,0])
     '''
-    joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
-    result = to_joint_positions(joint_angles)
-    result = to_pose('zeroposition')
+    # joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
+    # result = to_joint_positions(joint_angles)
+    # result = to_pose('zeroposition')
+    result = to_cartesian_pose([0.024, 0.033 + 0.3, 0.115, 0, math.pi / 2.0, math.pi / 2.0])
     print result
 
