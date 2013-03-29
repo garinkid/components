@@ -100,6 +100,21 @@ def relative(goal_behaviour):
         rospy.logerr("service call <<%s>> failed: %s",move_base_relative_srv_name, e)  
         return 'srv_call_failed'
 
+def relative(goal):
+    while not rospy.is_shutdown():
+        pose = PoseStamped()
+        pose.header.frame_id = "/map"
+        pose.header.stamp = rospy.Time.now()
+        pose.pose.position.x = goal[0]
+        pose.pose.position.y = goal[1]
+        pose.pose.position.z = goal[2]    
+        pose.pose.orientation.x = goal[3]
+        pose.pose.orientation.y = goal[4]
+        pose.pose.orientation.z = goal[5]
+        pose.pose.orientation.w = goal[6]
+        pub= rospy.Publisher("/move_base_simple/goal", PoseStamped)
+        pub.publish(pose)
+
 def command(motion_direction,time):
     base_velocity = 0.1
     pub = rospy.Publisher("/cmd_vel",Twist)
@@ -147,18 +162,19 @@ def my_callback(event):
 
 if __name__ == '__main__':
     rospy.init_node('movebase')
-    motion_direction = 'rotate_clockwise'
-    time = 5.0
-    time_taken = 0
-    init_time = rospy.get_rostime().secs 
-    while(init_time <= 0):
-        init_time = rospy.get_rostime().secs  
-    print 'init time recorded is ' + repr(init_time) +' secs'
-    #timer = rospy.Timer(rospy.Duration(1), my_callback)
-    while(time_taken<time):
-        now = rospy.get_rostime().secs 
-        time_taken =  now - init_time
-        result = twist([0.1,0,0,0,0,0.1])
+    # motion_direction = 'rotate_clockwise'
+    # time = 5.0
+    # time_taken = 0
+    # init_time = rospy.get_rostime().secs 
+    # while(init_time <= 0):
+    #     init_time = rospy.get_rostime().secs  
+    # print 'init time recorded is ' + repr(init_time) +' secs'
+    # #timer = rospy.Timer(rospy.Duration(1), my_callback)
+    # while(time_taken<time):
+    #     now = rospy.get_rostime().secs 
+    #     time_taken =  now - init_time
+        # result = twist([0.1,0,0,0,0,0.1])
+    relative([0.6,0.8,1.3,0.4,1.9,2.7,0.5])
     
 
 
