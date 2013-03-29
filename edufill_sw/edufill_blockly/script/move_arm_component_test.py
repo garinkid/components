@@ -16,7 +16,10 @@ import move_arm_component  #import component
 #### 3.move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame)
 ######### reference_frame = "/base_link" (or) any defined frame of reference
 
-#### 4.move_arm_component.joint_velocities(joint_velocities)
+#### 4.move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw])
+######### [x,y,z,roll,pitch,yaw] cartesian coordinats
+
+#### 5.move_arm_component.joint_velocities(joint_velocities)
 ######### joint_velocities = [jv1,jv2,jv3,jv4,jv5]
 
 
@@ -38,7 +41,10 @@ if __name__=="__main__":
     yaw = 0
     move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw], "/base_link")
     rospy.sleep(5.0)
-    #### 4.move_arm_component.joint_velocities(joint_velocities)
+    #### 4.move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw])
+    move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw])
+    rospy.sleep(5.0)
+    #### 5.move_arm_component.joint_velocities(joint_velocities)
     time = 5.0
     time_taken = 0
     init_time = rospy.get_rostime().secs 
