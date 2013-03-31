@@ -58,7 +58,7 @@ def to_pose(pose):
         # send goal
         client.send_goal(client_goal)
         client.wait_for_result()
-        return 'succeeded'
+        return 'success'
 
     except Exception, e:
         rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
@@ -95,7 +95,7 @@ def relative(goal_behaviour):
         goalpose.pose.orientation.w = quat[3]
         print goalpose        
         move_base_relative_srv(goalpose)
-        return 'succeeded'
+        return 'success'
     except Exception, e:
         rospy.logerr("service call <<%s>> failed: %s",move_base_relative_srv_name, e)  
         return 'srv_call_failed'
@@ -150,7 +150,7 @@ def command(motion_direction,time):
         pub.publish(youbot_base_velocity)
         #rospy.sleep(0.1)
     #timer.shutdown()
-    youbot_base_velocity = zero_vel
+    youbot_base_velocity = Twist()
     pub.publish(youbot_base_velocity)
     print 'latest time recorded is ' + repr(now) +' secs'
     print 'base command successfully published for '+ repr(time_taken) +' secs'
@@ -175,7 +175,25 @@ if __name__ == '__main__':
     #     time_taken =  now - init_time
         # result = twist([0.1,0,0,0,0,0.1])
     relative([0.6,0.8,1.3,0.4,1.9,2.7,0.5])
-    
+
+    motion_direction = 'rotate_clockwise'
+    time = 1.0
+    time_taken = 0
+    init_time = rospy.get_rostime().secs 
+    while(init_time <= 0):
+        init_time = rospy.get_rostime().secs  
+    print 'init time recorded is ' + repr(init_time) +' secs'
+    #timer = rospy.Timer(rospy.Duration(1), my_callback)
+    while(time_taken<time):
+        now = rospy.get_rostime().secs 
+        time_taken =  now - init_time
+        result = twist([0.1,0,0,0,0,0.1])
+    '''
+    to_goal('S1')
+    to_goal('S2')
+    to_goal('S3')
+    to_goal('D1') 
+    to_goal('EXIT')   
 
 
 

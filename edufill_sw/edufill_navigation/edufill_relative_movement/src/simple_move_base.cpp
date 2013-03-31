@@ -40,10 +40,12 @@ class simple_move_base
 		ros::Time last_time;
 		float x_g, y_g, z_g, theta_g;
 		float x_r, y_r, z_r, theta_r, vx_r, vy_r, omega_r;
-		float k_align, k_distance;
-		float align_err, distance_err;
+		float k_p_align, k_p_distance, k_i_align, k_i_distance, k_d_align, k_d_distance;
+		float align_err, distance_err, distance_err_last,align_err_last;
 		float dx, dy, linear_speed[3], angular_speed[3], beta, alpha;
-	  float vx,vy, omega, d_vx, d_vy, d_omega;
+	  float vx,vy, omega;
+    float vx_p,vy_p, omega_p, vx_i,vy_i, omega_i, vx_d,vy_d, omega_d; 
+    float d_vx, d_vy, d_omega;
 	
 		geometry_msgs::Quaternion goal_quat;
 		geometry_msgs::Quaternion robot_quat;
@@ -62,8 +64,16 @@ simple_move_base::simple_move_base()
 	z_g = 0.0;
 	theta_g = 0.0;
 	
-	k_align = 1.25;
-	k_distance = 0.25;
+	k_p_align = 1.25;
+	k_p_distance = 0.25;
+  k_i_align = 2/5;                   
+  k_i_distance = 2/5;                   
+  k_d_align = 0.001; 
+  k_d_distance = 0.001;
+
+  distance_err_last = 0;
+  align_err_last = 0; 
+
 	
 	// temporal gains: limit in gains per message (@50Hz)
 	d_vx = 0.0175;
@@ -135,10 +145,23 @@ void simple_move_base::odomCallback(const nav_msgs::Odometry::ConstPtr& msg)
       alpha = atan2(dy,dx) - theta_r;
       
       // compute new velocity commands
-      vx = k_distance * cos(alpha) * distance_err;
-      vy = k_distance * sin(alpha) * distance_err;
-      omega = k_align * align_err;
+      vx_p = k_p_distance * distance_err;
+      vx_i = k_i_distance  * (vy_i + distance_err); 
+      vx_d = k_d_distance * (distance_err - distance_err_last);
+      vx = cos(alpha) * (vx_p + vx_i + vx_d);
+
+      vy_p = k_p_distance * distance_err;
+      vy_i = k_i_distance  * (vy_i + distance_err); 
+      vy_d = k_d_distance * (distance_err - distance_err_last);
+      vy = sin(alpha) * (vy_p + vy_i + vy_d);
       
+      omega_p = k_p_align * align_err;
+      omega_i = k_i_align * (omega_i - align_err);
+      omega_d = k_d_align * (align_err - align_err_last);
+      omega = omega_p + omega_i + omega_d ; 
+      
+      distance_err_last = distance_err;
+      align_err_last = align_err;
       // filter the commands to avoid control spikes (only in acceleration)
       if (abs(vx - vx_r) > d_vx)
       {

@@ -13,6 +13,6 @@
     <include file="$(find edufill_bringup_sim)/robots/$(env ROBOT).launch" />
 
     <!-- start gui -->
-    <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/>
+    <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/> 
     
 </launch>

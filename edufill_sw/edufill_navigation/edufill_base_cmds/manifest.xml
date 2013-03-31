@@ -17,6 +17,8 @@
   <depend package="edufill_relative_movements" />
   <depend package="edufill_srvs" />
   <depend package="std_srvs"/>
+  <depend package="edufill_subscriber"/>
+
 </package>
 
 
