@@ -14,6 +14,8 @@
   <depend package="actionlib" />
   <depend package="edufill_arm_cmds" />
   <depend package="edufill_base_cmds" />
+  <depend package="edufill_laser_scan" />
   <depend package="edufill_perception_cmds" />
+
 
 </package>
