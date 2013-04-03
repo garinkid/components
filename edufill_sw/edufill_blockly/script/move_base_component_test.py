@@ -19,8 +19,6 @@ import move_base_component
 #### 4.move_base_component.twist(base_velocity) 
 ######### base_velocity = [lx,ly,lz,ax,ay,az]
 
-#### 5.move_base_component.relative(goal_behaviour) 
-######### goal_behaviour = [x_rel,y_rel,yaw_rel]
 
 #### 6.move_base_component.relative(goal_behaviour) 
 ######### goal_behaviour = [x_translation,y_translation,z_translation,x_orientation, y_orientation,z_orientation, w_orientation]
@@ -46,13 +44,6 @@ if __name__=="__main__":
     #### 3.move_base_component.to_goal(goal_string) 
     goal = 'S2'
     result = move_base_component.to_goal(goal)
-    print result
-    #### 5.move_base_component.relative(goal_behaviour) 
-    x_move = 0
-    y_move = 0.5
-    theta_rotate = 0
-    goal_behaviour = [x_move,y_move,theta_rotate]
-    result = move_base_component.relative(goal_behaviour)
     print result
     #### 6.move_base_component.relative(goal_behaviour) 
     x_move = 0
