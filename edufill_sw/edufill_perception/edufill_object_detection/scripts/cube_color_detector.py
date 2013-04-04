@@ -42,8 +42,11 @@ def cv_image_from_ros_msg(msg, dtype = 'bgr8'):
 class CubeColorDetector:
     def __init__(self):
         self.known_histograms = { 'red': ['../histograms/red_cube.hst', None], \
-                     'yellow': ['../histograms/yellow_cube.hst', None], \
-                     'green': ['../histograms/green_cube.hst', None] }
+                                  'green': ['../histograms/green_cube.hst', None], \
+                                  'blue': ['../histograms/blue_cube.hst', None], \
+                                  'yellow': ['../histograms/yellow_cube.hst', None], \
+                                  'cyan': ['../histograms/cyan_cube.hst', None], \
+                                  'magenta': ['../histograms/magenta_cube.hst', None] }
         rospy.init_node('cube_color_detector', anonymous=True)
         self.hists = []
         self.img = None
