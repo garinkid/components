@@ -5,7 +5,8 @@ import rospy
 from std_msgs.msg import Int64
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
-from geometry_msgs.msg import Pose2D
+from sensor_msgs.msg import PointCloud2
+from geometry_msgs.msg import PoseStamped
 from cv_bridge import CvBridge, CvBridgeError
 import cv2
 from cv2.cv import CV_FOURCC, RGB
@@ -17,6 +18,7 @@ from histogram import Histogram
 from myutils import calc_back_proj, draw_cross, hsv_filter_mask, draw_debug_messages
 from numpy.random import randint
 from edufill_object_detection.srv import *
+from point_cloud2 import read_points
 
 DEBUG = False
 DETECT_PERF = False
@@ -24,6 +26,7 @@ DETECT_PERF_FILE = 'detect_perf.txt'
 OUT_DIR = 'out/'
 
 DEF_RGB_TOPIC    = '/camera/rgb/image_rect_color'
+DEF_CLOUD_TOPIC    = '/camera/depth_registered/points'
 DEF_RES_SERVICE  = '/edufill_objdetector/detect_cube'
 
 bridge = CvBridge()
@@ -60,11 +63,14 @@ class CubeColorDetector:
     def set_rgb_topic(self, topic_name):
         self.rgb_subscriber = rospy.Subscriber(topic_name, Image, self.rgb_cb)
 
+    def set_cloud_topic(self, topic_name):
+        self.cloud_subscriber = rospy.Subscriber(topic_name, PointCloud2, self.cloud_cb)
+
     def err_resp(self):
         resp = DetectCubeResponse()
         resp.size = -1
-        resp.pose.x = -1
-        resp.pose.y = -1
+        resp.pose.pose.position.x = -1
+        resp.pose.pose.position.y = -1
         return resp
 
     def detect_cube_cb(self, req):
@@ -96,15 +102,20 @@ class CubeColorDetector:
         try:
             cube_rect = self.detect_cube(conts_img, conts, back_filt, req)
             resp.size = max(cube_rect[2], cube_rect[3])
-            resp.pose.x = cube_rect[0] + cube_rect[2] / 2
-            resp.pose.y = cube_rect[1] + cube_rect[3] / 2
+            u =  cube_rect[0] + cube_rect[2] / 2
+            v =  cube_rect[1] + cube_rect[3] / 2
+            for i in read_points(self.cloud, uvs=[[u, v]]):
+                p = i
+            resp.pose.pose.position.x = p[0]
+            resp.pose.pose.position.y = p[1]
+            resp.pose.pose.position.z = p[2]
             if DEBUG:
                 print cube_rect
         except IndexError, e:
             cube_rect = (30, 30, self.img.shape[1] - 60, self.img.shape[0] - 60)
             resp.size = -1
-            resp.pose.x = -1
-            resp.pose.y = -1
+            resp.pose.pose.position.x = -1
+            resp.pose.pose.position.y = -1
             if DEBUG:
                 print 'NOT FOUND'
             
@@ -185,10 +196,14 @@ class CubeColorDetector:
             self.img = cv_image_from_ros_msg(img_data)
         else:#from video file
             self.img = img_data
+
+    def cloud_cb(self, cloud):
+       self.cloud = cloud
        
 def do_detection():
     ccd = CubeColorDetector()
     ccd.set_rgb_topic(DEF_RGB_TOPIC)
+    ccd.set_cloud_topic(DEF_CLOUD_TOPIC)
     ccd.load_hue_histograms()
     ccd.run()
 
