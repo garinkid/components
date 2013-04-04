@@ -12,7 +12,7 @@
 	<node name="gazebo_arena_model" pkg="gazebo" type="spawn_model" args="-file $(find edufill_gazebo_world)/common/worlds/$(env ROBOT_ENV).urdf -urdf -x 0.0 -y 0.0 -z 0.2 -model world " respawn="false" output="screen" /> 
 
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(find edufill_hardware_config)/$(env ROBOT)/urdf/$(env ROBOT).urdf.xacro'"/>
-	<node name="gazebo_youbot_model" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -model youBot -x -5.0 -y 5.0 -z 0.2" respawn="false" output="screen" />
+	<node name="gazebo_youbot_model" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -model youBot -x 1.0 -y -4.0 -z 0.2" respawn="false" output="screen" />
 
 
 </launch>

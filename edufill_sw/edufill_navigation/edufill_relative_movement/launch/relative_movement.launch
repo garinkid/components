@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node pkg="edufill_relative_movement" type="simple_move_base" name="simple_move_base" cwd="node" respawn="false" output="screen" /> 
+
+
+</launch>
