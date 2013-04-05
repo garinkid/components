@@ -6,11 +6,15 @@
 	<!-- navigation -->
 	<include file="$(find edufill_2dnav)/ros/launch/sim/2dnav_sim.launch" />
 
+	<include file="$(find edufill_relative_movement)/launch/relative_movement.launch" />
+
         <!-- manipulation -->
-		<include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" />
+	<include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" />
+
+	<include file="$(find edufill_relative_movement)/launch/relative_movement.launch" />
 
         <!-- perception 
-		<include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />-->
+                <include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />-->
 
         <!-- objects 
         <include file="$(find edufill_gazebo_objects)/ros/launch/simulation_objects.launch" /> -->
