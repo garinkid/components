@@ -145,25 +145,65 @@ import genpy
 import struct
 
 import geometry_msgs.msg
+import std_msgs.msg
 
 class DetectCubeResponse(genpy.Message):
-  _md5sum = "6d5c4d37eaa613fdb36d2d2435c7a4b2"
+  _md5sum = "b02a2719fd1c8e4ce2c0f7bf78b6ad8c"
   _type = "edufill_object_detection/DetectCubeResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """geometry_msgs/Pose2D pose
+  _full_text = """geometry_msgs/PoseStamped pose
 int16 size
 
 
 ================================================================================
-MSG: geometry_msgs/Pose2D
-# This expresses a position and orientation on a 2D manifold.
+MSG: geometry_msgs/PoseStamped
+# A Pose with reference coordinate frame and timestamp
+Header header
+Pose pose
+
+================================================================================
+MSG: std_msgs/Header
+# Standard metadata for higher-level stamped data types.
+# This is generally used to communicate timestamped data 
+# in a particular coordinate frame.
+# 
+# sequence ID: consecutively increasing ID 
+uint32 seq
+#Two-integer timestamp that is expressed as:
+# * stamp.secs: seconds (stamp_secs) since epoch
+# * stamp.nsecs: nanoseconds since stamp_secs
+# time-handling sugar is provided by the client library
+time stamp
+#Frame this data is associated with
+# 0: no frame
+# 1: global frame
+string frame_id
+
+================================================================================
+MSG: geometry_msgs/Pose
+# A representation of pose in free space, composed of postion and orientation. 
+Point position
+Quaternion orientation
+
+================================================================================
+MSG: geometry_msgs/Point
+# This contains the position of a point in free space
+float64 x
+float64 y
+float64 z
+
+================================================================================
+MSG: geometry_msgs/Quaternion
+# This represents an orientation in free space in quaternion form.
 
 float64 x
 float64 y
-float64 theta
+float64 z
+float64 w
+
 """
   __slots__ = ['pose','size']
-  _slot_types = ['geometry_msgs/Pose2D','int16']
+  _slot_types = ['geometry_msgs/PoseStamped','int16']
 
   def __init__(self, *args, **kwds):
     """
@@ -183,11 +223,11 @@ float64 theta
       super(DetectCubeResponse, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
       if self.pose is None:
-        self.pose = geometry_msgs.msg.Pose2D()
+        self.pose = geometry_msgs.msg.PoseStamped()
       if self.size is None:
         self.size = 0
     else:
-      self.pose = geometry_msgs.msg.Pose2D()
+      self.pose = geometry_msgs.msg.PoseStamped()
       self.size = 0
 
   def _get_types(self):
@@ -203,7 +243,15 @@ float64 theta
     """
     try:
       _x = self
-      buff.write(_struct_3dh.pack(_x.pose.x, _x.pose.y, _x.pose.theta, _x.size))
+      buff.write(_struct_3I.pack(_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs))
+      _x = self.pose.header.frame_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self
+      buff.write(_struct_7dh.pack(_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -214,12 +262,25 @@ float64 theta
     """
     try:
       if self.pose is None:
-        self.pose = geometry_msgs.msg.Pose2D()
+        self.pose = geometry_msgs.msg.PoseStamped()
       end = 0
       _x = self
       start = end
-      end += 26
-      (_x.pose.x, _x.pose.y, _x.pose.theta, _x.size,) = _struct_3dh.unpack(str[start:end])
+      end += 12
+      (_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.pose.header.frame_id = str[start:end].decode('utf-8')
+      else:
+        self.pose.header.frame_id = str[start:end]
+      _x = self
+      start = end
+      end += 58
+      (_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size,) = _struct_7dh.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -233,7 +294,15 @@ float64 theta
     """
     try:
       _x = self
-      buff.write(_struct_3dh.pack(_x.pose.x, _x.pose.y, _x.pose.theta, _x.size))
+      buff.write(_struct_3I.pack(_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs))
+      _x = self.pose.header.frame_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.pack('<I%ss'%length, length, _x))
+      _x = self
+      buff.write(_struct_7dh.pack(_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -245,20 +314,34 @@ float64 theta
     """
     try:
       if self.pose is None:
-        self.pose = geometry_msgs.msg.Pose2D()
+        self.pose = geometry_msgs.msg.PoseStamped()
       end = 0
       _x = self
       start = end
-      end += 26
-      (_x.pose.x, _x.pose.y, _x.pose.theta, _x.size,) = _struct_3dh.unpack(str[start:end])
+      end += 12
+      (_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.pose.header.frame_id = str[start:end].decode('utf-8')
+      else:
+        self.pose.header.frame_id = str[start:end]
+      _x = self
+      start = end
+      end += 58
+      (_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size,) = _struct_7dh.unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_3dh = struct.Struct("<3dh")
+_struct_7dh = struct.Struct("<7dh")
+_struct_3I = struct.Struct("<3I")
 class DetectCube(object):
   _type          = 'edufill_object_detection/DetectCube'
-  _md5sum = '02a54a8a8c4bbfc7f3b0d623d0c6675d'
+  _md5sum = '8c82a0be35e19552f36195e00a21658c'
   _request_class  = DetectCubeRequest
   _response_class = DetectCubeResponse
