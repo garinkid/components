@@ -18,8 +18,8 @@
   <depend package="sensor_msgs" />
   <depend package="arm_navigation_msgs" />
   <depend package="actionlib" />
-<depend package="edufill_msg" />
-
+  <depend package="edufill_msg" />
+  <depend package="edufill_arm_geometrical_solution" />
 </package>
 
 
