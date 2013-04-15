@@ -2,11 +2,13 @@
 
 import rospy
 import math
-import arm_kinematics
+
+from geometry_msgs.msg import TwistStamped
 
 import arm_kinematics_geometrical_solution
 
-from geometry_msgs.msg import TwistStamped
+import arm_kinematics_analytical_solution
+
 
 import brics_actuator.msg
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
@@ -114,29 +116,7 @@ def joint_velocities(joint_velocities):
     except Exception, e:
         print e
         return 'arm move failure'
-# Move arm to a given joint positions
-def to_cartesian_pose(xyzrpy,reference_frame):
-        ks = arm_kinematics.KinematicsSolver()
-        iksolver_state = ks.check_ik_solver_has_solution(xyzrpy,"/base_link")
-	if (iksolver_state):
-		ik_solution = ks.get_ik_solution(xyzrpy,"/base_link")
-		status_move = to_joint_positions(ik_solution)
-                return status_move          
-	else:
-		return 'no solution found'
 
-def to_cartesian_pose(xyzrpy):
-        ks = arm_kinematics_geometrical_solution.KinematicsControl()
-    # xyzrpy = [0.024 + 0.033,0,0.535,0,0,0]
-        iksolver_state = ks.check_ik_solver_has_solution(xyzrpy)
-        if (iksolver_state):
-            ik_solution = ks.get_ik_solution(xyzrpy)
-            print ik_solution
-            status_move = to_joint_positions(ik_solution)
-            return status_move          
-        else:
-            print 'no solution found'
-            # return 'no solution found'
 def cartesian_velocities(xyzrpy_vel,reference_frame):
     linx  = xyzrpy_vel[0]
     liny  = xyzrpy_vel[1]
