@@ -8,17 +8,17 @@ import math
 
 import edufill_srvs.srv
 import geometry_msgs.msg
-import sensor_msgs.msg
+from sensor_msgs.msg import *
 import rospy
 import brics_actuator.msg
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
-
+import threading
 # import move_arm_component
 import numpy
 
 
 
-class KinematicsControl:
+class GeometricalSolver:
 
 	def __init__(self):
 		self.joint_names = ["arm_joint_1", "arm_joint_2", "arm_joint_3", "arm_joint_4", "arm_joint_5"]
@@ -28,19 +28,20 @@ class KinematicsControl:
 		self.nvals = 0
 		self.nsols = 0
 
-		rospy.Subscriber('/joint_states', sensor_msgs.msg.JointState, self.joint_states_callback)
+
+		self.sub_joint = rospy.Subscriber('/joint_states', sensor_msgs.msg.JointState, self.joint_states_callback)
 		self.iks = rospy.ServiceProxy('/edufill_arm_geometrical_solution/ComputeIK', edufill_srvs.srv.ComputeIK)
+
+
 
 
 	#callback function: when a joint_states message arrives, save the values
 	def joint_states_callback(self, msg):
-		# print "joint_states_callback {0!s}".format(time.clock())
 		for k in range(5):
 			for i in range(len(msg.name)):
 				joint_name = "arm_joint_" + str(k + 1)
 				if(msg.name[i] == joint_name):
 					self.configuration[k] = msg.position[i]
-		# print self.configuration
 		self.received_state = True
 
 	def create_pose(self, param):
@@ -68,20 +69,21 @@ class KinematicsControl:
 			rospy.logerr("Service did not process request: %s", str(e))				
 		return resp
 
-	def check_ik_solver_has_solution(self, xyzrpy):
+	def check_ik_solver_has_solution(self, xyzrpy,reference_frame):
 		param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5]]
 		response = self.call_constraint_aware_ik_solver(param)
 		self.nvals = len(response.joint_values);
+		# print response.joint_values
 		self.nsols = self.nvals/5;
+		# print self.nsols
 		if (self.nsols > 0):
 			return True
 		else:
 			return False
 
-	def get_ik_solution(self, xyzrpy):
+	def get_ik_solution(self, xyzrpy,reference_frame):
 		while (not self.received_state):
 			time.sleep(0.1)
-		# print "get_ik_solution {0!s}".format(time.clock())
 		param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5]]
 		response = self.call_constraint_aware_ik_solver(param)
 		sum_joint_config = 0;
@@ -110,18 +112,17 @@ class KinematicsControl:
 		# 		smS = diff_solutions;
 		# 		number_of_solution = i;
 		# 	sum_joint_config= 0;
-
 		return joint_config[0].tolist()
 
 
 if __name__ == "__main__":
 	rospy.init_node('verova_kinematic_solver')
 	# time.sleep(2.5)
-	ks = KinematicsControl()
+	ks = GeometricalSolver()
 	xyzrpy = [0.024 + 0.033,0,0.535,0,0,0]
-	iksolver_state = ks.check_ik_solver_has_solution(xyzrpy)
+	iksolver_state = ks.check_ik_solver_has_solution(xyzrpy,'arm_joint_0')
 	if (iksolver_state):
-		ik_solution = ks.get_ik_solution(xyzrpy)
+		ik_solution = ks.get_ik_solution(xyzrpy,'arm_joint_0')
 		print ik_solution
 		# status_move = to_joint_positions(ik_solution)
 		# return status_move          

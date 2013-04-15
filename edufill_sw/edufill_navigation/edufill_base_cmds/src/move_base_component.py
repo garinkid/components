@@ -163,12 +163,4 @@ if __name__ == '__main__':
         now = rospy.get_rostime().secs 
         time_taken =  now - init_time
         result = twist([0.1,0,0,0,0,0.1])
-    '''
-    to_goal('S1')
-    to_goal('S2')
-    to_goal('S3')
-    to_goal('D1') 
-    to_goal('EXIT')   
-
-
 
