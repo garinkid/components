@@ -9,13 +9,13 @@ import brics_actuator.msg
 import geometry_msgs.msg
 import kinematics_msgs.srv
 import kinematics_msgs.msg
-import sensor_msgs.msg
+from sensor_msgs.msg import *
 import arm_navigation_msgs.msg
 import arm_navigation_msgs.srv
 import edufill_msg.msg
 #import edufill_arm_navigation.msg
 
-class KinematicsSolver:
+class AnalyticalSolver:
 
 	def __init__(self):
 		self.joint_names = ["arm_joint_1", "arm_joint_2", "arm_joint_3", "arm_joint_4", "arm_joint_5"]

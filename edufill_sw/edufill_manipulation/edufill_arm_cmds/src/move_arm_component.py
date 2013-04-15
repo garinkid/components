@@ -125,7 +125,6 @@ def to_cartesian_pose(xyzrpy,reference_frame):
 	else:
 		return 'no solution found'
 
-<<<<<<< HEAD
 def to_cartesian_pose(xyzrpy):
         ks = arm_kinematics_geometrical_solution.KinematicsControl()
     # xyzrpy = [0.024 + 0.033,0,0.535,0,0,0]
@@ -137,8 +136,7 @@ def to_cartesian_pose(xyzrpy):
             return status_move          
         else:
             print 'no solution found'
-            # return 'no solution foun'
-=======
+            # return 'no solution found'
 def cartesian_velocities(xyzrpy_vel,reference_frame):
     linx  = xyzrpy_vel[0]
     liny  = xyzrpy_vel[1]
@@ -162,7 +160,6 @@ def cartesian_velocities(xyzrpy_vel,reference_frame):
     except Exception, e:
         print e
         return 'cartesian velocity command not published'
->>>>>>> a58dd90a1b150a3f55d5739a91c5ce11f4183664
 
 
 # Move arm to a given pose uploaded to rosparam 'arm_pose'
@@ -226,4 +223,4 @@ if __name__ == '__main__':
 
     joint_angles = [2.97198, 2.54153, -2.36521, 3.19699, 3.00695]
     result = to_joint_positions(joint_angles)
-    '''
+    

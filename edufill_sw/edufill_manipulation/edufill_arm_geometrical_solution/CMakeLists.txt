@@ -38,7 +38,7 @@ add_definitions(${EIGEN_DEFINITIONS})
 
 include_directories(src/include)
 
-rosbuild_add_executable(manipulator_control src/manipulator_control.cpp)
+
 
 rosbuild_add_executable(ik_req_test src/ik_req_test.cpp)
 
