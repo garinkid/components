@@ -4,7 +4,7 @@
 import roslib; roslib.load_manifest("edufill_blockly")
 import rospy
 import move_arm_component  #import component
-from arm_kinematics_test import *
+from arm_kinematics import *
 
 # move_arm_component example script
 
