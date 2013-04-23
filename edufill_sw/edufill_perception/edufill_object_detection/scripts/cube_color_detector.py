@@ -21,7 +21,7 @@ from numpy.random import randint
 from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 
-DEBUG = False
+DEBUG = True
 DETECT_PERF = False
 DETECT_PERF_FILE = 'detect_perf.txt'
 OUT_DIR = 'out/'
@@ -208,6 +208,7 @@ class CubeColorDetector:
         if DEBUG:
             for i in range(len(candidates)):
                 draw_debug_messages(conts_img, [str(i)], candidates[i][0:2])
+        #Now, find strong edges
         return candidates
 
     def rgb_cb(self, img_data):
