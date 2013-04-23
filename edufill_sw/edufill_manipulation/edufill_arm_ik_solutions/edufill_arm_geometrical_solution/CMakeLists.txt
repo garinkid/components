@@ -11,8 +11,6 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 
 rosbuild_init()
 
-rosbuild_find_ros_package(robot_srvs)
-
 #set the default path for built executables to the "bin" directory
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 #set the default path for built libraries to the "lib" directory
@@ -23,24 +21,28 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #uncomment if you have defined services
 #rosbuild_gensrv()
 
-include_directories(
-	${PROJECT_SOURCE_DIR}/include
-)
-
-#find_package(Eigen REQUIRED)
-#include_directories(${EIGEN_INCLUDE_DIRS})
-#add_definitions(${EIGEN_DEFINITIONS})
-
 #common commands for building c++ executables and libraries
 #rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
 #target_link_libraries(${PROJECT_NAME} another_library)
 #rosbuild_add_boost_directories()
 #rosbuild_link_boost(${PROJECT_NAME} thread)
-#<<<<<<< HEAD:edufill_sw/edufill_navigation/edufill_relative_movements/CMakeLists.txt
 #rosbuild_add_executable(example examples/example.cpp)
-rosbuild_add_executable(base_controller src/relative_movements.cpp )
-#rosbuild_add_executable(demo_local src/demo_local.cpp )
-#=======
-#rosbuild_add_executable(createbash src/scripts/createbashscript.py)
-#>>>>>>> aa4312562bfe468164619da0a4bb5d0a781f7ce5:edufill_sw/edufill_blockly/test_scripts/CMakeLists.txt
 #target_link_libraries(example ${PROJECT_NAME})
+
+
+
+
+find_package(Eigen REQUIRED)
+include_directories(${EIGEN_INCLUDE_DIRS})
+add_definitions(${EIGEN_DEFINITIONS})
+
+include_directories(src/include)
+
+
+
+rosbuild_add_executable(ik_req_test src/ik_req_test.cpp)
+
+rosbuild_add_executable(ik_service_srv 
+src/ik_service_srv.cpp
+src/ik_solver.cpp
+)

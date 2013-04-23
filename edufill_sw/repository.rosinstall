@@ -1,32 +1,12 @@
 - git:
     local-name: hbrs-ros-pkg
-    uri: https://github.com/EduFill/hbrs-ros-pkg.git
-    version: master
-
-- git:
-    local-name: third-party-software
-    uri: https://github.com/b-it-bots/third-party-software.git
-    version: master
-
-- git:
-    local-name: rFSM
-    uri: https://github.com/kmarkus/rFSM.git
-    version: master
-
-- git:
-    local-name: fbsched
-    uri: https://github.com/kmarkus/fbsched.git
+    uri: git@github.com:b-it-bots/hbrs-ros-pkg.git
     version: master
 
 - git:
     local-name: youbot_driver
     uri: https://github.com/youbot/youbot_driver.git
     version: master
-
-- git:
-    local-name: motion_control
-    uri: http://git.mech.kuleuven.be/robotics/motion_control.git
-    version: devel
 
 - git:
     local-name: youbot-ros-pkg
@@ -36,16 +16,11 @@
 - git:
     local-name: youbot-manipulation
     uri: https://github.com/b-it-bots/youbot-manipulation.git
-    version: master
+    version: fuerte
 
 - git:
-    local-name: youbot-stack
-    uri: https://git.ce.utwente.nl/youbot-stack
-    version: devel
-
-- git:
-    local-name: eband_planner
-    uri: https://github.com/bhaskara/eband_planner.git
+    local-name: cob_command_tools
+    uri: https://github.com/b-it-bots/cob_command_tools.git
     version: master
 
 - git:
@@ -53,6 +28,37 @@
     uri: http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git
     version: master
 
-- svn:
+- git:
     local-name: albany_vision
-    uri: http://albany-ros-pkg.googlecode.com/svn/trunk/albany_vision
+    uri: https://github.com/b-it-bots/albany_vision.git
+    version: master
+
+#- git:
+#    local-name: youbot-stack
+#    uri: https://git.ce.utwente.nl/youbot-stack
+#    version: devel
+
+#- git:
+#    local-name: motion_control
+#    uri: http://git.mech.kuleuven.be/robotics/motion_control.git
+#    version: devel
+
+#- git:
+#    local-name: rFSM
+#    uri: https://github.com/kmarkus/rFSM.git
+#    version: master
+
+#- git:
+#    local-name: fbsched
+#    uri: https://github.com/kmarkus/fbsched.git
+#    version: master
+
+
+##########################################################
+# from hbrs-ros-pkg/repository.rosinstall
+##########################################################
+- git:
+    local-name: third-party-software
+    uri: https://github.com/b-it-bots/third-party-software.git
+    version: master
+

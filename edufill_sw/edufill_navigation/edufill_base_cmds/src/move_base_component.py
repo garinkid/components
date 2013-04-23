@@ -75,31 +75,6 @@ def to_goal(goal):
   
     return result    
 
-def relative(goal_behaviour):
-    x_distance = goal_behaviour[0]
-    y_distance = goal_behaviour[1]
-    angular_displacement = goal_behaviour[2]
-    move_base_relative_srv_name = '/edufill_relative_movements/move_base_relative'
-    move_base_relative_srv = rospy.ServiceProxy(move_base_relative_srv_name,edufill_srvs.srv.SetPoseStamped) 
-    try:            
-        rospy.loginfo("wait for service: <<%s>>", move_base_relative_srv_name)   
-        rospy.wait_for_service(move_base_relative_srv_name, 15)
-        goalpose = geometry_msgs.msg.PoseStamped()
-        goalpose.pose.position.x = x_distance             
-        goalpose.pose.position.y = y_distance
-        goalpose.pose.position.z = 0.05 # speed
-        quat = tf.transformations.quaternion_from_euler(0,0,angular_displacement)
-        goalpose.pose.orientation.x = quat[0]
-        goalpose.pose.orientation.y = quat[1]
-        goalpose.pose.orientation.z = quat[2]
-        goalpose.pose.orientation.w = quat[3]
-        print goalpose        
-        move_base_relative_srv(goalpose)
-        return 'success'
-    except Exception, e:
-        rospy.logerr("service call <<%s>> failed: %s",move_base_relative_srv_name, e)  
-        return 'srv_call_failed'
-
 def relative(goal):
     while not rospy.is_shutdown():
         pose = PoseStamped()
@@ -188,12 +163,4 @@ if __name__ == '__main__':
         now = rospy.get_rostime().secs 
         time_taken =  now - init_time
         result = twist([0.1,0,0,0,0,0.1])
-    '''
-    to_goal('S1')
-    to_goal('S2')
-    to_goal('S3')
-    to_goal('D1') 
-    to_goal('EXIT')   
-
-
 

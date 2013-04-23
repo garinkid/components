@@ -28,7 +28,8 @@ if __name__=="__main__":
     #move_base_component.to_goal('D1')
     #### 2.mapping_component.stop(file_name) 
     file_name = 'map_new'
-    mapping_component.stop(file_name)
+    mapping_component.store(file_name)
+    mapping_component.stop()
     #subprocess.Popen(cwd ='../common')
 
 

@@ -6,7 +6,7 @@ import detect_objects
 # detect object example script
 
 #### 1.resp = detect_objects.cube(color) 
-######### msg is geometry_msgs/Pose2D pose
+######### msg is geometry_msgs/Pose3D pose
 ######### color is 'red','green' or 'yellow'
 
 if __name__=="__main__":
