@@ -2,5 +2,5 @@ string color
 int16 min_size
 int16 max_size
 ---
-geometry_msgs/PoseStamped pose
-int16 size
+geometry_msgs/PoseStamped[] poses
+int16[] sizes

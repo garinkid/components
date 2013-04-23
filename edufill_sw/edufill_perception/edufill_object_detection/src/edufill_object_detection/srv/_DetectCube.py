@@ -148,11 +148,11 @@ import geometry_msgs.msg
 import std_msgs.msg
 
 class DetectCubeResponse(genpy.Message):
-  _md5sum = "b02a2719fd1c8e4ce2c0f7bf78b6ad8c"
+  _md5sum = "529290180acd7cf3ac1b89fd959a63bd"
   _type = "edufill_object_detection/DetectCubeResponse"
   _has_header = False #flag to mark the presence of a Header object
-  _full_text = """geometry_msgs/PoseStamped pose
-int16 size
+  _full_text = """geometry_msgs/PoseStamped[] poses
+int16[] sizes
 
 
 ================================================================================
@@ -202,8 +202,8 @@ float64 z
 float64 w
 
 """
-  __slots__ = ['pose','size']
-  _slot_types = ['geometry_msgs/PoseStamped','int16']
+  __slots__ = ['poses','sizes']
+  _slot_types = ['geometry_msgs/PoseStamped[]','int16[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -213,7 +213,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       pose,size
+       poses,sizes
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -222,13 +222,13 @@ float64 w
     if args or kwds:
       super(DetectCubeResponse, self).__init__(*args, **kwds)
       #message fields cannot be None, assign default values for those that are
-      if self.pose is None:
-        self.pose = geometry_msgs.msg.PoseStamped()
-      if self.size is None:
-        self.size = 0
+      if self.poses is None:
+        self.poses = []
+      if self.sizes is None:
+        self.sizes = []
     else:
-      self.pose = geometry_msgs.msg.PoseStamped()
-      self.size = 0
+      self.poses = []
+      self.sizes = []
 
   def _get_types(self):
     """
@@ -242,16 +242,31 @@ float64 w
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self
-      buff.write(_struct_3I.pack(_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs))
-      _x = self.pose.header.frame_id
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
+      length = len(self.poses)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.poses:
+        _v1 = val1.header
+        buff.write(_struct_I.pack(_v1.seq))
+        _v2 = _v1.stamp
+        _x = _v2
+        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
+        _x = _v1.frame_id
         length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_7dh.pack(_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size))
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+        _v3 = val1.pose
+        _v4 = _v3.position
+        _x = _v4
+        buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
+        _v5 = _v3.orientation
+        _x = _v5
+        buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
+      length = len(self.sizes)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sh'%length
+      buff.write(struct.pack(pattern, *self.sizes))
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -261,26 +276,52 @@ float64 w
     :param str: byte array of serialized message, ``str``
     """
     try:
-      if self.pose is None:
-        self.pose = geometry_msgs.msg.PoseStamped()
+      if self.poses is None:
+        self.poses = None
       end = 0
-      _x = self
-      start = end
-      end += 12
-      (_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
+      self.poses = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.PoseStamped()
+        _v6 = val1.header
+        start = end
+        end += 4
+        (_v6.seq,) = _struct_I.unpack(str[start:end])
+        _v7 = _v6.stamp
+        _x = _v7
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v6.frame_id = str[start:end].decode('utf-8')
+        else:
+          _v6.frame_id = str[start:end]
+        _v8 = val1.pose
+        _v9 = _v8.position
+        _x = _v9
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
+        _v10 = _v8.orientation
+        _x = _v10
+        start = end
+        end += 32
+        (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
+        self.poses.append(val1)
       start = end
-      end += length
-      if python3:
-        self.pose.header.frame_id = str[start:end].decode('utf-8')
-      else:
-        self.pose.header.frame_id = str[start:end]
-      _x = self
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sh'%length
       start = end
-      end += 58
-      (_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size,) = _struct_7dh.unpack(str[start:end])
+      end += struct.calcsize(pattern)
+      self.sizes = struct.unpack(pattern, str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -293,16 +334,31 @@ float64 w
     :param numpy: numpy python module
     """
     try:
-      _x = self
-      buff.write(_struct_3I.pack(_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs))
-      _x = self.pose.header.frame_id
-      length = len(_x)
-      if python3 or type(_x) == unicode:
-        _x = _x.encode('utf-8')
+      length = len(self.poses)
+      buff.write(_struct_I.pack(length))
+      for val1 in self.poses:
+        _v11 = val1.header
+        buff.write(_struct_I.pack(_v11.seq))
+        _v12 = _v11.stamp
+        _x = _v12
+        buff.write(_struct_2I.pack(_x.secs, _x.nsecs))
+        _x = _v11.frame_id
         length = len(_x)
-      buff.write(struct.pack('<I%ss'%length, length, _x))
-      _x = self
-      buff.write(_struct_7dh.pack(_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size))
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.pack('<I%ss'%length, length, _x))
+        _v13 = val1.pose
+        _v14 = _v13.position
+        _x = _v14
+        buff.write(_struct_3d.pack(_x.x, _x.y, _x.z))
+        _v15 = _v13.orientation
+        _x = _v15
+        buff.write(_struct_4d.pack(_x.x, _x.y, _x.z, _x.w))
+      length = len(self.sizes)
+      buff.write(_struct_I.pack(length))
+      pattern = '<%sh'%length
+      buff.write(self.sizes.tostring())
     except struct.error as se: self._check_types(se)
     except TypeError as te: self._check_types(te)
 
@@ -313,35 +369,62 @@ float64 w
     :param numpy: numpy python module
     """
     try:
-      if self.pose is None:
-        self.pose = geometry_msgs.msg.PoseStamped()
+      if self.poses is None:
+        self.poses = None
       end = 0
-      _x = self
-      start = end
-      end += 12
-      (_x.pose.header.seq, _x.pose.header.stamp.secs, _x.pose.header.stamp.nsecs,) = _struct_3I.unpack(str[start:end])
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
+      self.poses = []
+      for i in range(0, length):
+        val1 = geometry_msgs.msg.PoseStamped()
+        _v16 = val1.header
+        start = end
+        end += 4
+        (_v16.seq,) = _struct_I.unpack(str[start:end])
+        _v17 = _v16.stamp
+        _x = _v17
+        start = end
+        end += 8
+        (_x.secs, _x.nsecs,) = _struct_2I.unpack(str[start:end])
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          _v16.frame_id = str[start:end].decode('utf-8')
+        else:
+          _v16.frame_id = str[start:end]
+        _v18 = val1.pose
+        _v19 = _v18.position
+        _x = _v19
+        start = end
+        end += 24
+        (_x.x, _x.y, _x.z,) = _struct_3d.unpack(str[start:end])
+        _v20 = _v18.orientation
+        _x = _v20
+        start = end
+        end += 32
+        (_x.x, _x.y, _x.z, _x.w,) = _struct_4d.unpack(str[start:end])
+        self.poses.append(val1)
       start = end
-      end += length
-      if python3:
-        self.pose.header.frame_id = str[start:end].decode('utf-8')
-      else:
-        self.pose.header.frame_id = str[start:end]
-      _x = self
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      pattern = '<%sh'%length
       start = end
-      end += 58
-      (_x.pose.pose.position.x, _x.pose.pose.position.y, _x.pose.pose.position.z, _x.pose.pose.orientation.x, _x.pose.pose.orientation.y, _x.pose.pose.orientation.z, _x.pose.pose.orientation.w, _x.size,) = _struct_7dh.unpack(str[start:end])
+      end += struct.calcsize(pattern)
+      self.sizes = numpy.frombuffer(str[start:end], dtype=numpy.int16, count=length)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
 
 _struct_I = genpy.struct_I
-_struct_7dh = struct.Struct("<7dh")
-_struct_3I = struct.Struct("<3I")
+_struct_4d = struct.Struct("<4d")
+_struct_2I = struct.Struct("<2I")
+_struct_3d = struct.Struct("<3d")
 class DetectCube(object):
   _type          = 'edufill_object_detection/DetectCube'
-  _md5sum = '8c82a0be35e19552f36195e00a21658c'
+  _md5sum = '7283ee19cd007ecacaf194ffe7746dde'
   _request_class  = DetectCubeRequest
   _response_class = DetectCubeResponse
