@@ -12,7 +12,8 @@ import cv2
 from cv2.cv import CV_FOURCC, RGB
 import numpy as np
 import os
-from os.path import dirname, basename
+from os import errno
+from os.path import dirname, basename, realpath
 from sys import exit, argv, stderr
 from histogram import Histogram
 from myutils import calc_back_proj, draw_cross, hsv_filter_mask, draw_debug_messages
@@ -20,11 +21,12 @@ import numpy as np
 from numpy.random import randint
 from edufill_object_detection.srv import *
 from point_cloud2 import read_points
+from errno import EEXIST
 
 DEBUG = True
 DETECT_PERF = False
 DETECT_PERF_FILE = 'detect_perf.txt'
-OUT_DIR = 'out/'
+OUT_DIR = 'edufill_object_detection_out'
 
 DEF_RGB_TOPIC    = '/camera/rgb/image_rect_color'
 DEF_CLOUD_TOPIC    = '/camera/depth_registered/points'
@@ -60,13 +62,15 @@ def cv_image_from_ros_msg(msg, dtype = 'bgr8'):
     return img
 
 class CubeColorDetector:
-    def __init__(self):
-        self.known_histograms = { 'red': ['../histograms/red_cube.hst', None], \
-                                  'green': ['../histograms/green_cube.hst', None], \
-                                  'blue': ['../histograms/blue_cube.hst', None], \
-                                  'yellow': ['../histograms/yellow_cube.hst', None], \
-                                  'cyan': ['../histograms/cyan_cube.hst', None], \
-                                  'magenta': ['../histograms/magenta_cube.hst', None] }
+    def __init__(self, rgb_only_camera):
+        self.rgb_only_camera = rgb_only_camera
+        H = os.getenv('ROS_HOME')
+        self.known_histograms = { 'red': [H + '/histograms/red_cube.hst', None], \
+                                  'green': [H + '/histograms/green_cube.hst', None], \
+                                  'blue': [H + '/histograms/blue_cube.hst', None], \
+                                  'yellow': [H + '/histograms/yellow_cube.hst', None], \
+                                  'cyan': [H + '/histograms/cyan_cube.hst', None], \
+                                  'magenta': [H + '/histograms/magenta_cube.hst', None] }
         rospy.init_node('cube_color_detector', anonymous=True)
         self.hists = []
         self.img = None
@@ -76,12 +80,15 @@ class CubeColorDetector:
         self.rgb = None
         if DETECT_PERF:
             self.dperf_file = file(DETECT_PERF_FILE, 'w')
+        print 'Waiting for service calls...'
 
     def set_rgb_topic(self, topic_name):
-        self.rgb_subscriber = rospy.Subscriber(topic_name, Image, self.rgb_cb)
+        if not self.rgb_only_camera:
+            self.rgb_subscriber = rospy.Subscriber(topic_name, Image, self.rgb_cb)
 
     def set_cloud_topic(self, topic_name):
-        self.cloud_subscriber = rospy.Subscriber(topic_name, PointCloud2, self.cloud_cb)
+        if not self.rgb_only_camera:
+            self.cloud_subscriber = rospy.Subscriber(topic_name, PointCloud2, self.cloud_cb)
 
     def err_resp(self):
         resp = DetectCubeResponse()
@@ -93,6 +100,13 @@ class CubeColorDetector:
         return resp
 
     def detect_cube_cb(self, req):
+        if self.rgb_only_camera:
+            vcap = cv2.VideoCapture(0)
+            self.img = vcap.read()
+            if not self.img[0]:
+                rospy.logerr('Cannot capture RGB frame from VideoCapture')
+            else:
+                self.img = self.img[1]
         resp = DetectCubeResponse()
         rospy.loginfo('detect_cube service called\n' + str(req))
         if self.img == None:
@@ -123,12 +137,17 @@ class CubeColorDetector:
                 resp.sizes.append(max(c[2], c[3]))
                 u =  c[0] + c[2] / 2
                 v =  c[1] + c[3] / 2
-                for i in read_points(self.cloud, uvs=[[u, v]]):
-                    p = i
                 pose = PoseStamped()
-                pose.pose.position.x = p[0]
-                pose.pose.position.y = p[1]
-                pose.pose.position.z = p[2]
+                if self.rgb_only_camera:
+                    pose.pose.position.x = u
+                    pose.pose.position.y = v
+                    pose.pose.position.z = 0
+                else:
+                    for i in read_points(self.cloud, uvs=[[u, v]]):
+                        p = i
+                    pose.pose.position.x = p[0]
+                    pose.pose.position.y = p[1]
+                    pose.pose.position.z = p[2]
                 resp.poses.append(pose)
             if DEBUG:
                 pass
@@ -221,8 +240,8 @@ class CubeColorDetector:
     def cloud_cb(self, cloud):
        self.cloud = cloud
        
-def do_detection():
-    ccd = CubeColorDetector()
+def do_detection(rgb_only_camera):
+    ccd = CubeColorDetector(rgb_only_camera)
     ccd.set_rgb_topic(DEF_RGB_TOPIC)
     ccd.set_cloud_topic(DEF_CLOUD_TOPIC)
     ccd.load_hue_histograms()
@@ -232,10 +251,25 @@ def prepare():
     if DEBUG:
         try:
             os.mkdir(OUT_DIR)
-        except:
-            pass
-    os.chdir(OUT_DIR)
+            print 'Created %s' % OUT_DIR
+        except OSError, e:
+            if e.errno != errno.EEXIST:
+                print 'prepare %s failed: %s' % (OUT_DIR, e)
+                raise Exception('Fatal error')
+            else:
+                print '%s already exist' % OUT_DIR
+        try:
+            os.chdir(OUT_DIR)
+            print 'Chd\'ed to %s' % OUT_DIR
+        except OSError, e:
+            print 'Chd\'ed to %s failed: %s' % (OUT_DIR, e)
 
 if __name__ == '__main__':
+    print 'REALDIR: ', realpath('.')
+    try:
+        if 'rgb_only_camera' in set(rospy.myargv()):
+            rgb_only_camera = True
+    except:
+        rgb_only_camera = False
     prepare()
-    do_detection()
+    do_detection(rgb_only_camera)
