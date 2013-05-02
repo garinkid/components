@@ -1,4 +1,0 @@
-(cl:in-package edufill_srvs-srv)
-(cl:export '(VALUE-VAL
-          VALUE
-))
