@@ -94,11 +94,35 @@ def distances(angles):
         angles_from_first_angle_to_last += [angles_list[i]]
     return zip(ranges_from_first_angle_to_last,angles_from_first_angle_to_last)
 
+def check_wall(side,distance):
+    angle_max = 1.5700000524520874
+    if side == "left":
+        resp = is_wall(-angle_max,distance)
+        return resp
+    elif side == "right":
+        resp = is_wall(angle_max,distance)
+        return resp
+    elif side == "front":
+        resp = is_wall(0.0,distance)
+        return resp
+    else:
+        print "Input data is not correct"
+def is_wall(angle,distance):
+    print distance, angle
+    for d,a in ranges_and_angles():
+        if angle == a  and distance >= d:
+            return True
+        else:
+            return False
 
-# if __name__ == '__main__':
-#     # range_angle = ranges_and_angles()
-#     # print range_angle
-#     # angle_of_closest_distance = get_angle_of_closest_distance()
-#     # print angle_of_closest_distance
-#     # angles_distance = get_distance(-1.3,1.0)
-#     # print angles_distance
+if __name__ == '__main__':
+    # range_angle = ranges_and_angles()
+    # print range_angle
+    # wall = check_wall("left",0.5)
+    # print wall
+    # angle_of_closest_distance = get_angle_of_closest_distance()
+    # print angle_of_closest_distance
+    # angles_distance = get_distance(-1.3,1.0)
+    # print angles_distance
+
+
