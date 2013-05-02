@@ -1,0 +1,7 @@
+---
+# Time stamp when the objects have been recorded
+time stamp
+
+# Planar polygon that defines the workspace
+hbrs_msgs/PlanarPolygon[] planarpolygons
+
