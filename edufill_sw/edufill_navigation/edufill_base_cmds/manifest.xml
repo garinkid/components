@@ -18,6 +18,7 @@
   <depend package="edufill_srvs" />
   <depend package="std_srvs"/>
   <depend package="edufill_subscriber"/>
+  <depend package="edufill_2dnav"/>
 
 </package>
 
