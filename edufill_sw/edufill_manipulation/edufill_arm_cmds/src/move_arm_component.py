@@ -5,7 +5,7 @@ import math
 
 from geometry_msgs.msg import TwistStamped
 
-import arm_kinematics_geometrical_solution
+#import arm_kinematics_geometrical_solution
 
 import arm_kinematics_analytical_solution
 
