@@ -188,6 +188,9 @@ class CubeColorDetector:
             hist = Histogram()
             hist.load(self.known_histograms[h][0])
             self.known_histograms[h][1] = hist
+        for h in self.known_histograms:
+            print h
+            print self.known_histograms[h][1]
 
     def detect_cube(self, conts_img, conts, back, req):
         if DEBUG:
@@ -266,10 +269,11 @@ def prepare():
 
 if __name__ == '__main__':
     print 'REALDIR: ', realpath('.')
+    rgb_only_camera = False
     try:
         if 'rgb_only_camera' in set(rospy.myargv()):
             rgb_only_camera = True
     except:
-        rgb_only_camera = False
+        pass
     prepare()
     do_detection(rgb_only_camera)
