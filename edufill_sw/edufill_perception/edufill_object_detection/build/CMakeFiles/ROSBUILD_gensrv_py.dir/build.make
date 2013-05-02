@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build
 
 # Utility rule file for ROSBUILD_gensrv_py.
 
@@ -45,9 +45,9 @@ include CMakeFiles/ROSBUILD_gensrv_py.dir/progress.make
 CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_object_detection/srv/__init__.py
 
 ../src/edufill_object_detection/srv/__init__.py: ../src/edufill_object_detection/srv/_DetectCube.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_object_detection/srv/__init__.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --initpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/srv/DetectCube.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --initpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/srv/DetectCube.srv
 
 ../src/edufill_object_detection/srv/_DetectCube.py: ../srv/DetectCube.srv
 ../src/edufill_object_detection/srv/_DetectCube.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -72,9 +72,9 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_object_detection/srv/__init__.py
 ../src/edufill_object_detection/srv/_DetectCube.py: /opt/ros/fuerte/stacks/image_common/image_transport/manifest.xml
 ../src/edufill_object_detection/srv/_DetectCube.py: /opt/ros/fuerte/share/rospy/manifest.xml
 ../src/edufill_object_detection/srv/_DetectCube.py: /opt/ros/fuerte/stacks/vision_opencv/image_geometry/manifest.xml
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build/CMakeFiles $(CMAKE_PROGRESS_2)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_object_detection/srv/_DetectCube.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/srv/DetectCube.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/srv/DetectCube.srv
 
 ROSBUILD_gensrv_py: CMakeFiles/ROSBUILD_gensrv_py
 ROSBUILD_gensrv_py: ../src/edufill_object_detection/srv/__init__.py
@@ -91,6 +91,6 @@ CMakeFiles/ROSBUILD_gensrv_py.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_gensrv_py.dir/clean
 
 CMakeFiles/ROSBUILD_gensrv_py.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_object_detection/build/CMakeFiles/ROSBUILD_gensrv_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_object_detection/build/CMakeFiles/ROSBUILD_gensrv_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_gensrv_py.dir/depend
 

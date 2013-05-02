@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/src/simple_move_base.cpp
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/src/simple_move_base.cpp
 ros/ros.h
 -
 sensor_msgs/JointState.h
@@ -18,7 +18,7 @@ nav_msgs/Odometry.h
 tf/transform_broadcaster.h
 -
 trajectory_msgs/JointTrajectory.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/src/trajectory_msgs/JointTrajectory.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/src/trajectory_msgs/JointTrajectory.h
 boost/units/io.hpp
 -
 boost/units/systems/angle/degrees.hpp

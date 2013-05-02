@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ik_req_test.dir/depend.make
@@ -64,25 +64,25 @@ CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/stacks/geometry/tf
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/share/roslib/manifest.xml
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/share/std_msgs/manifest.xml
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/stacks/cob_common/brics_actuator/manifest.xml
-CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/manifest.xml
+CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/manifest.xml
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /opt/ros/fuerte/stacks/cob_common/brics_actuator/msg_gen/generated
-CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+CMakeFiles/ik_req_test.dir/src/ik_req_test.o: /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/ik_req_test.dir/src/ik_req_test.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/ik_req_test.dir/src/ik_req_test.o -c /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -o CMakeFiles/ik_req_test.dir/src/ik_req_test.o -c /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp
 
 CMakeFiles/ik_req_test.dir/src/ik_req_test.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ik_req_test.dir/src/ik_req_test.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp > CMakeFiles/ik_req_test.dir/src/ik_req_test.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -E /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp > CMakeFiles/ik_req_test.dir/src/ik_req_test.i
 
 CMakeFiles/ik_req_test.dir/src/ik_req_test.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ik_req_test.dir/src/ik_req_test.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp -o CMakeFiles/ik_req_test.dir/src/ik_req_test.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -DBT_USE_DOUBLE_PRECISION -DBT_EULER_DEFAULT_ZYX -W -Wall -Wno-unused-parameter -fno-strict-aliasing -pthread -S /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp -o CMakeFiles/ik_req_test.dir/src/ik_req_test.s
 
 CMakeFiles/ik_req_test.dir/src/ik_req_test.o.requires:
 .PHONY : CMakeFiles/ik_req_test.dir/src/ik_req_test.o.requires
@@ -118,6 +118,6 @@ CMakeFiles/ik_req_test.dir/clean:
 .PHONY : CMakeFiles/ik_req_test.dir/clean
 
 CMakeFiles/ik_req_test.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build/CMakeFiles/ik_req_test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/build/CMakeFiles/ik_req_test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ik_req_test.dir/depend
 

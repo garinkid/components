@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build
 
 # Utility rule file for ROSBUILD_gensrv_lisp.
 
@@ -102,13 +102,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/GetPoseStamped.lisp: ../manifest.xml
 ../srv_gen/lisp/GetPoseStamped.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/GetPoseStamped.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/GetPoseStamped.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/GetPoseStamped.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/GetPoseStamped.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/GetPoseStamped.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/GetPoseStamped.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+../srv_gen/lisp/GetPoseStamped.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/GetPoseStamped.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_GetPoseStamped.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/GetPoseStamped.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/GetPoseStamped.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/GetPoseStamped.lisp
 
@@ -122,13 +122,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ReadLaserScan.lisp: ../manifest.xml
 ../srv_gen/lisp/ReadLaserScan.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ReadLaserScan.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ReadLaserScan.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ReadLaserScan.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ReadLaserScan.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ReadLaserScan.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ReadLaserScan.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+../srv_gen/lisp/ReadLaserScan.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ReadLaserScan.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ReadLaserScan.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadLaserScan.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadLaserScan.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ReadLaserScan.lisp
 
@@ -143,13 +143,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ComputeIK.lisp: ../manifest.xml
 ../srv_gen/lisp/ComputeIK.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ComputeIK.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ComputeIK.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ComputeIK.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ComputeIK.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ComputeIK.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ComputeIK.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_3)
+../srv_gen/lisp/ComputeIK.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ComputeIK.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ComputeIK.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ComputeIK.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ComputeIK.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ComputeIK.lisp
 
@@ -166,13 +166,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/SetPoseStamped.lisp: ../manifest.xml
 ../srv_gen/lisp/SetPoseStamped.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/SetPoseStamped.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/SetPoseStamped.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/SetPoseStamped.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/SetPoseStamped.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/SetPoseStamped.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/SetPoseStamped.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_4)
+../srv_gen/lisp/SetPoseStamped.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/SetPoseStamped.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_SetPoseStamped.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetPoseStamped.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetPoseStamped.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/SetPoseStamped.lisp
 
@@ -184,13 +184,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/SetVelocity.lisp: ../manifest.xml
 ../srv_gen/lisp/SetVelocity.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/SetVelocity.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/SetVelocity.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/SetVelocity.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/SetVelocity.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/SetVelocity.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/SetVelocity.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_5)
+../srv_gen/lisp/SetVelocity.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/SetVelocity.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_SetVelocity.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetVelocity.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetVelocity.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/SetVelocity.lisp
 
@@ -202,13 +202,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ReturnBool.lisp: ../manifest.xml
 ../srv_gen/lisp/ReturnBool.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ReturnBool.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ReturnBool.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ReturnBool.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ReturnBool.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ReturnBool.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ReturnBool.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_6)
+../srv_gen/lisp/ReturnBool.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ReturnBool.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ReturnBool.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReturnBool.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReturnBool.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ReturnBool.lisp
 
@@ -225,13 +225,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ValidLocation.lisp: ../manifest.xml
 ../srv_gen/lisp/ValidLocation.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ValidLocation.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ValidLocation.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ValidLocation.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ValidLocation.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ValidLocation.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ValidLocation.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_7)
+../srv_gen/lisp/ValidLocation.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ValidLocation.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ValidLocation.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ValidLocation.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ValidLocation.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ValidLocation.lisp
 
@@ -243,13 +243,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/SetMapAction.lisp: ../manifest.xml
 ../srv_gen/lisp/SetMapAction.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/SetMapAction.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/SetMapAction.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/SetMapAction.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/SetMapAction.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/SetMapAction.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/SetMapAction.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_8)
+../srv_gen/lisp/SetMapAction.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/SetMapAction.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_SetMapAction.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMapAction.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMapAction.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/SetMapAction.lisp
 
@@ -261,13 +261,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ReadJointPositions.lisp: ../manifest.xml
 ../srv_gen/lisp/ReadJointPositions.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ReadJointPositions.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ReadJointPositions.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ReadJointPositions.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ReadJointPositions.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ReadJointPositions.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ReadJointPositions.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_9)
+../srv_gen/lisp/ReadJointPositions.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ReadJointPositions.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ReadJointPositions.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadJointPositions.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadJointPositions.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ReadJointPositions.lisp
 
@@ -288,13 +288,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ReadOdom.lisp: ../manifest.xml
 ../srv_gen/lisp/ReadOdom.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ReadOdom.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ReadOdom.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ReadOdom.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ReadOdom.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ReadOdom.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ReadOdom.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_10)
+../srv_gen/lisp/ReadOdom.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ReadOdom.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ReadOdom.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadOdom.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadOdom.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ReadOdom.lisp
 
@@ -306,13 +306,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/MotionCommand.lisp: ../manifest.xml
 ../srv_gen/lisp/MotionCommand.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/MotionCommand.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/MotionCommand.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/MotionCommand.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/MotionCommand.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/MotionCommand.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/MotionCommand.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_11)
+../srv_gen/lisp/MotionCommand.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/MotionCommand.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_MotionCommand.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/MotionCommand.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/MotionCommand.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/MotionCommand.lisp
 
@@ -328,13 +328,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/RecognizeObject.lisp: ../manifest.xml
 ../srv_gen/lisp/RecognizeObject.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/RecognizeObject.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/RecognizeObject.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/RecognizeObject.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/RecognizeObject.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/RecognizeObject.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/RecognizeObject.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_12)
+../srv_gen/lisp/RecognizeObject.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/RecognizeObject.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_RecognizeObject.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/RecognizeObject.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/RecognizeObject.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/RecognizeObject.lisp
 
@@ -346,13 +346,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/SetMarkerFrame.lisp: ../manifest.xml
 ../srv_gen/lisp/SetMarkerFrame.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/SetMarkerFrame.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/SetMarkerFrame.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/SetMarkerFrame.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/SetMarkerFrame.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/SetMarkerFrame.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/SetMarkerFrame.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_13)
+../srv_gen/lisp/SetMarkerFrame.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/SetMarkerFrame.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_SetMarkerFrame.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMarkerFrame.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMarkerFrame.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/SetMarkerFrame.lisp
 
@@ -365,13 +365,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/PublishGoal.lisp: ../manifest.xml
 ../srv_gen/lisp/PublishGoal.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/PublishGoal.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/PublishGoal.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/PublishGoal.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/PublishGoal.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/PublishGoal.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/PublishGoal.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_14)
+../srv_gen/lisp/PublishGoal.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/PublishGoal.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_PublishGoal.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/PublishGoal.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/PublishGoal.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/PublishGoal.lisp
 
@@ -384,13 +384,13 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/GetDominantPlane.lisp: ../manifest.xml
 ../srv_gen/lisp/GetDominantPlane.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/GetDominantPlane.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/GetDominantPlane.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/GetDominantPlane.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/GetDominantPlane.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/GetDominantPlane.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/GetDominantPlane.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_15)
+../srv_gen/lisp/GetDominantPlane.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/GetDominantPlane.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_GetDominantPlane.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/GetDominantPlane.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/GetDominantPlane.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/GetDominantPlane.lisp
 
@@ -399,18 +399,18 @@ CMakeFiles/ROSBUILD_gensrv_lisp: ../srv_gen/lisp/_package_ExtractPlanes.lisp
 ../srv_gen/lisp/ExtractPlanes.lisp: ../srv/ExtractPlanes.srv
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/roslib/bin/gendeps
-../srv_gen/lisp/ExtractPlanes.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg/PlanarPolygon.msg
+../srv_gen/lisp/ExtractPlanes.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg/PlanarPolygon.msg
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/geometry_msgs/msg/Point32.msg
 ../srv_gen/lisp/ExtractPlanes.lisp: ../manifest.xml
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../srv_gen/lisp/ExtractPlanes.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../srv_gen/lisp/ExtractPlanes.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../srv_gen/lisp/ExtractPlanes.lisp: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../srv_gen/lisp/ExtractPlanes.lisp: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_16)
+../srv_gen/lisp/ExtractPlanes.lisp: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../srv_gen/lisp/ExtractPlanes.lisp, ../srv_gen/lisp/_package.lisp, ../srv_gen/lisp/_package_ExtractPlanes.lisp"
-	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ExtractPlanes.srv
+	/opt/ros/fuerte/share/roslisp/rosbuild/scripts/genmsg_lisp.py /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ExtractPlanes.srv
 
 ../srv_gen/lisp/_package.lisp: ../srv_gen/lisp/ExtractPlanes.lisp
 
@@ -477,6 +477,6 @@ CMakeFiles/ROSBUILD_gensrv_lisp.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_gensrv_lisp.dir/clean
 
 CMakeFiles/ROSBUILD_gensrv_lisp.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_gensrv_lisp.dir/depend
 

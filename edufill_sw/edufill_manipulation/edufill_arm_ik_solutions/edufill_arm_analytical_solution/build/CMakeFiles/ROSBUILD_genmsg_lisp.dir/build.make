@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build
 
 # Utility rule file for ROSBUILD_genmsg_lisp.
 
@@ -57,6 +57,6 @@ CMakeFiles/ROSBUILD_genmsg_lisp.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_genmsg_lisp.dir/clean
 
 CMakeFiles/ROSBUILD_genmsg_lisp.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_analytical_solution/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_genmsg_lisp.dir/depend
 

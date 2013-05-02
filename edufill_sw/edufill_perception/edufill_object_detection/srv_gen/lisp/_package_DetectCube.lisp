@@ -5,8 +5,8 @@
           MIN_SIZE
           MAX_SIZE-VAL
           MAX_SIZE
-          POSE-VAL
-          POSE
-          SIZE-VAL
-          SIZE
+          POSES-VAL
+          POSES
+          SIZES-VAL
+          SIZES
 ))

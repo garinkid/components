@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build
 
 # Utility rule file for ROSBUILD_gensrv_py.
 
@@ -60,9 +60,9 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/__init__.py: ../src/edufill_srvs/srv/_PublishGoal.py
 ../src/edufill_srvs/srv/__init__.py: ../src/edufill_srvs/srv/_GetDominantPlane.py
 ../src/edufill_srvs/srv/__init__.py: ../src/edufill_srvs/srv/_ExtractPlanes.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/__init__.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --initpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/GetPoseStamped.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadLaserScan.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ComputeIK.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetPoseStamped.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetVelocity.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReturnBool.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ValidLocation.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMapAction.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadJointPositions.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadOdom.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/MotionCommand.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/RecognizeObject.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMarkerFrame.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/PublishGoal.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/GetDominantPlane.srv /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ExtractPlanes.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --initpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/GetPoseStamped.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadLaserScan.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ComputeIK.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetPoseStamped.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetVelocity.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReturnBool.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ValidLocation.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMapAction.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadJointPositions.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadOdom.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/MotionCommand.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/RecognizeObject.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMarkerFrame.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/PublishGoal.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/GetDominantPlane.srv /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ExtractPlanes.srv
 
 ../src/edufill_srvs/srv/_GetPoseStamped.py: ../srv/GetPoseStamped.srv
 ../src/edufill_srvs/srv/_GetPoseStamped.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -75,13 +75,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_GetPoseStamped.py: ../manifest.xml
 ../src/edufill_srvs/srv/_GetPoseStamped.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_GetPoseStamped.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_GetPoseStamped.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_GetPoseStamped.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_GetPoseStamped.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_GetPoseStamped.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_GetPoseStamped.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_2)
+../src/edufill_srvs/srv/_GetPoseStamped.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_GetPoseStamped.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/GetPoseStamped.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/GetPoseStamped.srv
 
 ../src/edufill_srvs/srv/_ReadLaserScan.py: ../srv/ReadLaserScan.srv
 ../src/edufill_srvs/srv/_ReadLaserScan.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -91,13 +91,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_ReadLaserScan.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ReadLaserScan.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadLaserScan.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReadLaserScan.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ReadLaserScan.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadLaserScan.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadLaserScan.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReadLaserScan.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_3)
+../src/edufill_srvs/srv/_ReadLaserScan.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_3)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ReadLaserScan.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadLaserScan.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadLaserScan.srv
 
 ../src/edufill_srvs/srv/_ComputeIK.py: ../srv/ComputeIK.srv
 ../src/edufill_srvs/srv/_ComputeIK.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -108,13 +108,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_ComputeIK.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ComputeIK.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ComputeIK.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ComputeIK.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ComputeIK.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ComputeIK.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ComputeIK.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ComputeIK.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_4)
+../src/edufill_srvs/srv/_ComputeIK.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ComputeIK.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ComputeIK.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ComputeIK.srv
 
 ../src/edufill_srvs/srv/_SetPoseStamped.py: ../srv/SetPoseStamped.srv
 ../src/edufill_srvs/srv/_SetPoseStamped.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -127,13 +127,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_SetPoseStamped.py: ../manifest.xml
 ../src/edufill_srvs/srv/_SetPoseStamped.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetPoseStamped.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetPoseStamped.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_SetPoseStamped.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetPoseStamped.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetPoseStamped.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetPoseStamped.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_5)
+../src/edufill_srvs/srv/_SetPoseStamped.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_SetPoseStamped.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetPoseStamped.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetPoseStamped.srv
 
 ../src/edufill_srvs/srv/_SetVelocity.py: ../srv/SetVelocity.srv
 ../src/edufill_srvs/srv/_SetVelocity.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -141,13 +141,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_SetVelocity.py: ../manifest.xml
 ../src/edufill_srvs/srv/_SetVelocity.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetVelocity.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetVelocity.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_SetVelocity.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetVelocity.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetVelocity.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetVelocity.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_6)
+../src/edufill_srvs/srv/_SetVelocity.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_6)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_SetVelocity.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetVelocity.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetVelocity.srv
 
 ../src/edufill_srvs/srv/_ReturnBool.py: ../srv/ReturnBool.srv
 ../src/edufill_srvs/srv/_ReturnBool.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -155,13 +155,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_ReturnBool.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ReturnBool.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReturnBool.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReturnBool.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ReturnBool.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReturnBool.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReturnBool.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReturnBool.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_7)
+../src/edufill_srvs/srv/_ReturnBool.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_7)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ReturnBool.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReturnBool.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReturnBool.srv
 
 ../src/edufill_srvs/srv/_ValidLocation.py: ../srv/ValidLocation.srv
 ../src/edufill_srvs/srv/_ValidLocation.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -174,13 +174,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_ValidLocation.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ValidLocation.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ValidLocation.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ValidLocation.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ValidLocation.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ValidLocation.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ValidLocation.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ValidLocation.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_8)
+../src/edufill_srvs/srv/_ValidLocation.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_8)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ValidLocation.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ValidLocation.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ValidLocation.srv
 
 ../src/edufill_srvs/srv/_SetMapAction.py: ../srv/SetMapAction.srv
 ../src/edufill_srvs/srv/_SetMapAction.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -188,13 +188,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_SetMapAction.py: ../manifest.xml
 ../src/edufill_srvs/srv/_SetMapAction.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetMapAction.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetMapAction.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_SetMapAction.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetMapAction.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetMapAction.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetMapAction.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_9)
+../src/edufill_srvs/srv/_SetMapAction.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_9)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_SetMapAction.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMapAction.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMapAction.srv
 
 ../src/edufill_srvs/srv/_ReadJointPositions.py: ../srv/ReadJointPositions.srv
 ../src/edufill_srvs/srv/_ReadJointPositions.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -202,13 +202,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_ReadJointPositions.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ReadJointPositions.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadJointPositions.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReadJointPositions.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ReadJointPositions.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadJointPositions.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadJointPositions.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReadJointPositions.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_10)
+../src/edufill_srvs/srv/_ReadJointPositions.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_10)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ReadJointPositions.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadJointPositions.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadJointPositions.srv
 
 ../src/edufill_srvs/srv/_ReadOdom.py: ../srv/ReadOdom.srv
 ../src/edufill_srvs/srv/_ReadOdom.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -225,13 +225,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_ReadOdom.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ReadOdom.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadOdom.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReadOdom.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ReadOdom.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadOdom.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ReadOdom.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ReadOdom.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_11)
+../src/edufill_srvs/srv/_ReadOdom.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_11)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ReadOdom.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadOdom.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ReadOdom.srv
 
 ../src/edufill_srvs/srv/_MotionCommand.py: ../srv/MotionCommand.srv
 ../src/edufill_srvs/srv/_MotionCommand.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -239,13 +239,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_MotionCommand.py: ../manifest.xml
 ../src/edufill_srvs/srv/_MotionCommand.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_MotionCommand.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_MotionCommand.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_MotionCommand.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_MotionCommand.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_MotionCommand.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_MotionCommand.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_12)
+../src/edufill_srvs/srv/_MotionCommand.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_12)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_MotionCommand.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/MotionCommand.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/MotionCommand.srv
 
 ../src/edufill_srvs/srv/_RecognizeObject.py: ../srv/RecognizeObject.srv
 ../src/edufill_srvs/srv/_RecognizeObject.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -257,13 +257,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_RecognizeObject.py: ../manifest.xml
 ../src/edufill_srvs/srv/_RecognizeObject.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_RecognizeObject.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_RecognizeObject.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_RecognizeObject.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_RecognizeObject.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_RecognizeObject.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_RecognizeObject.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_13)
+../src/edufill_srvs/srv/_RecognizeObject.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_13)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_RecognizeObject.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/RecognizeObject.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/RecognizeObject.srv
 
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: ../srv/SetMarkerFrame.srv
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -271,13 +271,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: ../manifest.xml
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetMarkerFrame.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_SetMarkerFrame.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_SetMarkerFrame.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_SetMarkerFrame.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_14)
+../src/edufill_srvs/srv/_SetMarkerFrame.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_14)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_SetMarkerFrame.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMarkerFrame.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/SetMarkerFrame.srv
 
 ../src/edufill_srvs/srv/_PublishGoal.py: ../srv/PublishGoal.srv
 ../src/edufill_srvs/srv/_PublishGoal.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -286,13 +286,13 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_PublishGoal.py: ../manifest.xml
 ../src/edufill_srvs/srv/_PublishGoal.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_PublishGoal.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_PublishGoal.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_PublishGoal.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_PublishGoal.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_PublishGoal.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_PublishGoal.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_15)
+../src/edufill_srvs/srv/_PublishGoal.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_15)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_PublishGoal.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/PublishGoal.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/PublishGoal.srv
 
 ../src/edufill_srvs/srv/_GetDominantPlane.py: ../srv/GetDominantPlane.srv
 ../src/edufill_srvs/srv/_GetDominantPlane.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
@@ -301,29 +301,29 @@ CMakeFiles/ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
 ../src/edufill_srvs/srv/_GetDominantPlane.py: ../manifest.xml
 ../src/edufill_srvs/srv/_GetDominantPlane.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_GetDominantPlane.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_GetDominantPlane.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_GetDominantPlane.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_GetDominantPlane.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_GetDominantPlane.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_GetDominantPlane.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_16)
+../src/edufill_srvs/srv/_GetDominantPlane.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_16)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_GetDominantPlane.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/GetDominantPlane.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/GetDominantPlane.srv
 
 ../src/edufill_srvs/srv/_ExtractPlanes.py: ../srv/ExtractPlanes.srv
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/roslib/bin/gendeps
-../src/edufill_srvs/srv/_ExtractPlanes.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg/PlanarPolygon.msg
+../src/edufill_srvs/srv/_ExtractPlanes.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg/PlanarPolygon.msg
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/geometry_msgs/msg/Point32.msg
 ../src/edufill_srvs/srv/_ExtractPlanes.py: ../manifest.xml
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/geometry_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/sensor_msgs/manifest.xml
-../src/edufill_srvs/srv/_ExtractPlanes.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_srvs/srv/_ExtractPlanes.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/std_msgs/manifest.xml
 ../src/edufill_srvs/srv/_ExtractPlanes.py: /opt/ros/fuerte/share/nav_msgs/manifest.xml
-../src/edufill_srvs/srv/_ExtractPlanes.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_17)
+../src/edufill_srvs/srv/_ExtractPlanes.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles $(CMAKE_PROGRESS_17)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_srvs/srv/_ExtractPlanes.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv/ExtractPlanes.srv
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/gensrv_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv/ExtractPlanes.srv
 
 ROSBUILD_gensrv_py: CMakeFiles/ROSBUILD_gensrv_py
 ROSBUILD_gensrv_py: ../src/edufill_srvs/srv/__init__.py
@@ -355,6 +355,6 @@ CMakeFiles/ROSBUILD_gensrv_py.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_gensrv_py.dir/clean
 
 CMakeFiles/ROSBUILD_gensrv_py.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles/ROSBUILD_gensrv_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/build/CMakeFiles/ROSBUILD_gensrv_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_gensrv_py.dir/depend
 

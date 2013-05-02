@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup/build
 
 # Utility rule file for tests.
 
@@ -57,6 +57,6 @@ CMakeFiles/tests.dir/clean:
 .PHONY : CMakeFiles/tests.dir/clean
 
 CMakeFiles/tests.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_bringup/build/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_bringup/build/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/tests.dir/depend
 

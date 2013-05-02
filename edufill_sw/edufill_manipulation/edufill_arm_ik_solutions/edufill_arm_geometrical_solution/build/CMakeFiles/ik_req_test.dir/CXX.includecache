@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ComputeIK.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ComputeIK.h
 string
 -
 vector
@@ -16,23 +16,23 @@ map
 ostream
 -
 ros/serialization.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/serialization.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/serialization.h
 ros/builtin_message_traits.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/builtin_message_traits.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/builtin_message_traits.h
 ros/message_operations.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/message_operations.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/message_operations.h
 ros/time.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/time.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/time.h
 ros/macros.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/macros.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/macros.h
 ros/assert.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/assert.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/assert.h
 ros/service_traits.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/service_traits.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ros/service_traits.h
 geometry_msgs/Pose.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/geometry_msgs/Pose.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/geometry_msgs/Pose.h
 
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_req_test.cpp
 ros/ros.h
 -
 sensor_msgs/JointState.h
@@ -70,9 +70,9 @@ Eigen/Geometry
 /usr/include/eigen3/Eigen/src/Core/Matrix.h
 -
 brics_actuator/JointPositions.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/brics_actuator/JointPositions.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/brics_actuator/JointPositions.h
 brics_actuator/CartesianWrench.h
-/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/brics_actuator/CartesianWrench.h
+/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/brics_actuator/CartesianWrench.h
 edufill_srvs/ComputeIK.h
 -
 

@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build
 
 # Utility rule file for ROSBUILD_genmsg_py.
 
@@ -45,9 +45,9 @@ include CMakeFiles/ROSBUILD_genmsg_py.dir/progress.make
 CMakeFiles/ROSBUILD_genmsg_py: ../src/edufill_msg/msg/__init__.py
 
 ../src/edufill_msg/msg/__init__.py: ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_msg/msg/__init__.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/genmsg_py.py --initpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/msg/MoveToCartesianPoseGoal.msg
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/genmsg_py.py --initpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/msg/MoveToCartesianPoseGoal.msg
 
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: ../msg/MoveToCartesianPoseGoal.msg
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/share/rospy/rosbuild/scripts/genmsg_py.py
@@ -79,8 +79,8 @@ CMakeFiles/ROSBUILD_genmsg_py: ../src/edufill_msg/msg/__init__.py
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/arm_navigation/arm_navigation_msgs/manifest.xml
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/arm_navigation/kinematics_msgs/manifest.xml
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/control/control_msgs/manifest.xml
-../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
-../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_srvs/manifest.xml
+../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/manifest.xml
+../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_srvs/manifest.xml
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/cob_common/brics_actuator/msg_gen/generated
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/geometry/tf/msg_gen/generated
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/geometry/tf/srv_gen/generated
@@ -89,11 +89,11 @@ CMakeFiles/ROSBUILD_genmsg_py: ../src/edufill_msg/msg/__init__.py
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/arm_navigation/kinematics_msgs/msg_gen/generated
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/arm_navigation/kinematics_msgs/srv_gen/generated
 ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /opt/ros/fuerte/stacks/control/control_msgs/msg_gen/generated
-../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
-../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/external_software/hbrs-ros-pkg/hbrs_common/hbrs_srvs/srv_gen/generated
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles $(CMAKE_PROGRESS_2)
+../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_msgs/msg_gen/generated
+../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py: /home/nemogiftsun/youBot/ext_sw/hbrs-ros-pkg/hbrs_common/hbrs_srvs/srv_gen/generated
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Generating ../src/edufill_msg/msg/_MoveToCartesianPoseGoal.py"
-	/opt/ros/fuerte/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/msg/MoveToCartesianPoseGoal.msg
+	/opt/ros/fuerte/share/rospy/rosbuild/scripts/genmsg_py.py --noinitpy /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/msg/MoveToCartesianPoseGoal.msg
 
 ROSBUILD_genmsg_py: CMakeFiles/ROSBUILD_genmsg_py
 ROSBUILD_genmsg_py: ../src/edufill_msg/msg/__init__.py
@@ -110,6 +110,6 @@ CMakeFiles/ROSBUILD_genmsg_py.dir/clean:
 .PHONY : CMakeFiles/ROSBUILD_genmsg_py.dir/clean
 
 CMakeFiles/ROSBUILD_genmsg_py.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles/ROSBUILD_genmsg_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles/ROSBUILD_genmsg_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/ROSBUILD_genmsg_py.dir/depend
 

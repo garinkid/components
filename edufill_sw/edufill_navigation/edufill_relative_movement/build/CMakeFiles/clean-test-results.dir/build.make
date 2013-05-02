@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/build
 
 # Utility rule file for clean-test-results.
 
@@ -58,6 +58,6 @@ CMakeFiles/clean-test-results.dir/clean:
 .PHONY : CMakeFiles/clean-test-results.dir/clean
 
 CMakeFiles/clean-test-results.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_navigation/edufill_relative_movement/build/CMakeFiles/clean-test-results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_navigation/edufill_relative_movement/build/CMakeFiles/clean-test-results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/clean-test-results.dir/depend
 

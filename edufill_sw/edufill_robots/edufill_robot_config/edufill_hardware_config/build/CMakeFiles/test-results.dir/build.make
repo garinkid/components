@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build
 
 # Utility rule file for test-results.
 
@@ -58,6 +58,6 @@ CMakeFiles/test-results.dir/clean:
 .PHONY : CMakeFiles/test-results.dir/clean
 
 CMakeFiles/test-results.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build/CMakeFiles/test-results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_hardware_config/build/CMakeFiles/test-results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test-results.dir/depend
 

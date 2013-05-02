@@ -3,8 +3,8 @@
 
 CMakeFiles/ik_service_srv.dir/src/ik_service_srv.o
  ../src/include/edufill_arm_geometrical_solution/ik_solver.h
- /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ComputeIK.h
- /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_service_srv.cpp
+ /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_srvs/srv_gen/cpp/include/edufill_srvs/ComputeIK.h
+ /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_service_srv.cpp
  /opt/ros/fuerte/include/XmlRpcDecl.h
  /opt/ros/fuerte/include/XmlRpcValue.h
  /opt/ros/fuerte/include/geometry_msgs/Point.h
@@ -244,7 +244,7 @@ CMakeFiles/ik_service_srv.dir/src/ik_service_srv.o
  /usr/include/eigen3/Eigen/src/misc/Kernel.h
  /usr/include/eigen3/Eigen/src/misc/Solve.h
 CMakeFiles/ik_service_srv.dir/src/ik_solver.o
- /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_solver.cpp
+ /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_arm_geometrical_solution/src/ik_solver.cpp
  /opt/ros/fuerte/include/XmlRpcDecl.h
  /opt/ros/fuerte/include/XmlRpcValue.h
  /opt/ros/fuerte/include/geometry_msgs/Point.h

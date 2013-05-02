@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan/build
 
 # Utility rule file for test.
 
@@ -57,6 +57,6 @@ CMakeFiles/test.dir/clean:
 .PHONY : CMakeFiles/test.dir/clean
 
 CMakeFiles/test.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_perception/edufill_laser_scan/build/CMakeFiles/test.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_perception/edufill_laser_scan/build/CMakeFiles/test.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test.dir/depend
 

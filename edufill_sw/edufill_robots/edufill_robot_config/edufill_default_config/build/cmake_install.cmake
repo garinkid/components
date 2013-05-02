@@ -1,4 +1,4 @@
-# Install script for directory: /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_default_config
+# Install script for directory: /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_default_config
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
-FILE(WRITE "/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_default_config/build/${CMAKE_INSTALL_MANIFEST}" "")
+FILE(WRITE "/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_default_config/build/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
-  FILE(APPEND "/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_default_config/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+  FILE(APPEND "/home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_robots/edufill_robot_config/edufill_default_config/build/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
 ENDFOREACH(file)

@@ -32,10 +32,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build
 
 # Utility rule file for test-results.
 
@@ -58,6 +58,6 @@ CMakeFiles/test-results.dir/clean:
 .PHONY : CMakeFiles/test-results.dir/clean
 
 CMakeFiles/test-results.dir/depend:
-	cd /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles/test-results.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build /home/nemogiftsun/youBot/edufill_public/components/edufill_sw/edufill_common/edufill_msg/build/CMakeFiles/test-results.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test-results.dir/depend
 
