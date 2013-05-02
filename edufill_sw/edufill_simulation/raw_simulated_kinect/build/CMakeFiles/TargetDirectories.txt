@@ -1,0 +1,17 @@
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/ROSBUILD_genmsg_cpp.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/ROSBUILD_genmsg_lisp.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/ROSBUILD_gensrv_cpp.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/ROSBUILD_gensrv_lisp.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/clean-test-results.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/colored_point_cloud.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/create_colored_point_cloud.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/rosbuild_precompile.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/rosbuild_premsgsrvgen.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/rospack_genmsg.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/rospack_genmsg_libexe.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/rospack_gensrv.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/test.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/test-future.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/test-results.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/test-results-run.dir
+/home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_simulation/raw_simulated_kinect/build/CMakeFiles/tests.dir

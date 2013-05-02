@@ -1,0 +1,21 @@
+<package>
+  <description brief="edufill_blockly">
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/</url>
+
+  <depend package="tf" />
+  <depend package="geometry_msgs" />
+  <depend package="move_base_msgs" />
+  <depend package="brics_actuator" />
+  <depend package="actionlib" />
+  <depend package="edufill_arm_cmds" />
+  <depend package="edufill_base_cmds" />
+  <depend package="edufill_laser_scan" />
+  <depend package="edufill_perception_cmds" />
+
+
+</package>

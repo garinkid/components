@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_2dslam">
+
+     edufill_2dslam
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_2dslam</url>
+
+</package>
+
+

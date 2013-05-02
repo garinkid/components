@@ -1,0 +1,41 @@
+FILE(REMOVE_RECURSE
+  "../msg_gen"
+  "../src/edufill_script_server/msg"
+  "../msg_gen"
+  "CMakeFiles/ROSBUILD_genmsg_py"
+  "../src/edufill_script_server/msg/__init__.py"
+  "../src/edufill_script_server/msg/_ScriptAction.py"
+  "../src/edufill_script_server/msg/_ScriptGoal.py"
+  "../src/edufill_script_server/msg/_ScriptActionGoal.py"
+  "../src/edufill_script_server/msg/_ScriptResult.py"
+  "../src/edufill_script_server/msg/_ScriptActionResult.py"
+  "../src/edufill_script_server/msg/_ScriptFeedback.py"
+  "../src/edufill_script_server/msg/_ScriptActionFeedback.py"
+  "../src/edufill_script_server/msg/_StateAction.py"
+  "../src/edufill_script_server/msg/_StateGoal.py"
+  "../src/edufill_script_server/msg/_StateActionGoal.py"
+  "../src/edufill_script_server/msg/_StateResult.py"
+  "../src/edufill_script_server/msg/_StateActionResult.py"
+  "../src/edufill_script_server/msg/_StateFeedback.py"
+  "../src/edufill_script_server/msg/_StateActionFeedback.py"
+  "../src/edufill_script_server/msg/_ScriptState.py"
+  "../msg/ScriptAction.msg"
+  "../msg/ScriptGoal.msg"
+  "../msg/ScriptActionGoal.msg"
+  "../msg/ScriptResult.msg"
+  "../msg/ScriptActionResult.msg"
+  "../msg/ScriptFeedback.msg"
+  "../msg/ScriptActionFeedback.msg"
+  "../msg/StateAction.msg"
+  "../msg/StateGoal.msg"
+  "../msg/StateActionGoal.msg"
+  "../msg/StateResult.msg"
+  "../msg/StateActionResult.msg"
+  "../msg/StateFeedback.msg"
+  "../msg/StateActionFeedback.msg"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang)
+  INCLUDE(CMakeFiles/ROSBUILD_genmsg_py.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

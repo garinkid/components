@@ -1,0 +1,26 @@
+<package>
+  <description brief="edufill_arm_cmds">
+
+     edufill_arm_cmds
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_arm_cmds</url>
+
+  <depend package="rospy" />
+  <depend package="tf" />
+  <depend package="geometry_msgs" />
+  <depend package="move_base_msgs" />
+  <depend package="brics_actuator" />
+  <depend package="kinematics_msgs" />
+  <depend package="sensor_msgs" />
+  <depend package="arm_navigation_msgs" />
+  <depend package="actionlib" />
+  <depend package="edufill_msg" />
+  <depend package="edufill_arm_geometrical_solution" />
+  <depend package="edufill_arm_analytical_solution" />
+</package>
+
+

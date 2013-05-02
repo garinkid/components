@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- navigation goals -->
+	<include file="$(find edufill_env_config)/upload_param.launch" />
+    <rosparam command="load" ns="/script_server/base_orientations" file="$(find edufill_env_config)/$(env ROBOT_ENV)/navigation_orientations.yaml"/>
+    <!-- visualize navigation goals -->
+	<node pkg="edufill_tools" type="navigation_goals_as_marker.py" name="edufill_navigation_goals_as_marker"/>
+
+	<arg name="map" default="$(find edufill_env_config)/$(env ROBOT_ENV)/map.yaml" />
+
+	<!--- Run map_server -->
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map)"/>
+
+	<!-- Run AMCL -->
+	<include file="$(find edufill_2dnav)/ros/launch/amcl.launch" />
+
+	<!-- launch move_base node -->
+	<include file="$(find edufill_2dnav)/ros/launch/move_base.launch" />
+
+	
+</launch>

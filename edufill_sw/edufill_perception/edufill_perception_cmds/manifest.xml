@@ -1,0 +1,21 @@
+<package>
+  <description brief="edufill_perception_cmds">
+
+     edufill_perception_cmds
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_perception_cmds</url>
+  <depend package="rospy" />
+  <depend package="edufill_srvs" />
+  <depend package="std_srvs" />
+  <depend package="hbrs_srvs" />
+  <depend package="geometry_msgs" />
+  <depend package="roslaunch" />
+  <depend package="sensor_msgs" />
+  <depend package="actionlib" />
+</package>
+
+

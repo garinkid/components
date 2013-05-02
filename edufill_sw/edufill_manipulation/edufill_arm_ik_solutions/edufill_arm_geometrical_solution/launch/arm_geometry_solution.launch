@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node pkg="edufill_arm_geometrical_solution" type="ik_service_srv" name="ik_service_srv" cwd="node" respawn="false" output="screen" /> 
+
+
+</launch>

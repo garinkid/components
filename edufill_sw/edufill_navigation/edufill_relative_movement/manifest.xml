@@ -1,0 +1,20 @@
+<package>
+  <description brief="edufill_relative_movement">
+
+     edufill_relative_movement
+
+  </description>
+  <author>eliza</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_relative_movement</url>
+  <depend package="rospy"/>
+  <depend package="roscpp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="nav_msgs"/>
+  <depend package="tf"/>
+  <depend package="trajectory_msgs"/>
+
+</package>
+
+

@@ -1,0 +1,74 @@
+- git:
+    local-name: hbrs-ros-pkg
+    uri: git@github.com:b-it-bots/hbrs-ros-pkg.git
+    version: master
+
+- git:
+    local-name: youbot_driver
+    uri: https://github.com/youbot/youbot_driver.git
+    version: master
+
+- git:
+    local-name: youbot-ros-pkg
+    uri: https://github.com/b-it-bots/youbot-ros-pkg.git
+    version: master
+
+- git:
+    local-name: youbot-manipulation
+    uri: https://github.com/b-it-bots/youbot-manipulation.git
+    version: fuerte
+
+- git:
+    local-name: cob_command_tools
+    uri: https://github.com/b-it-bots/cob_command_tools.git
+    version: master
+
+- git:
+    local-name: ccny_vision
+    uri: http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git
+    version: master
+
+- git:
+    local-name: albany_vision
+    uri: https://github.com/b-it-bots/albany_vision.git
+    version: master
+
+#- git:
+#    local-name: youbot-stack
+#    uri: https://git.ce.utwente.nl/youbot-stack
+#    version: devel
+
+#- git:
+#    local-name: motion_control
+#    uri: http://git.mech.kuleuven.be/robotics/motion_control.git
+#    version: devel
+
+#- git:
+#    local-name: rFSM
+#    uri: https://github.com/kmarkus/rFSM.git
+#    version: master
+
+#- git:
+#    local-name: fbsched
+#    uri: https://github.com/kmarkus/fbsched.git
+#    version: master
+
+
+##########################################################
+# from hbrs-ros-pkg/repository.rosinstall
+##########################################################
+- svn:
+    local-name: pcl16_ros
+    uri: http://svn.pointclouds.org/ros/branches/fuerte/perception_pcl_unstable/pcl16_ros/
+    version: -r347
+
+- svn:
+    local-name: pcl16
+    uri: http://svn.pointclouds.org/ros/branches/fuerte/perception_pcl_unstable/pcl16
+    version: -r347
+
+- git:
+    local-name: third-party-software
+    uri: https://github.com/b-it-bots/third-party-software.git
+    version: master
+

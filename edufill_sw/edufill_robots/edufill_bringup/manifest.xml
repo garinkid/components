@@ -1,0 +1,25 @@
+<package>
+  <description brief="edufill_bringup">
+
+     edufill_bringup
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_bringup</url>
+
+
+  <depend package="hokuyo_node" />
+  <depend package="edufill_hardware_config" />
+  <depend package="youbot_description"/>
+  <depend package="edufill_default_config"/>
+  <depend package="youbot_oodl"/>
+  <depend package="openni_camera" />
+  <depend package="robot_state_publisher" />
+  <depend package="openni_launch"/>
+  <depend package="hbrs_arm_cart_control"/>
+
+</package>
+
+

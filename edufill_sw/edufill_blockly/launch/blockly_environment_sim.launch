@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<launch>
+        <!-- base components -->
+    	<include file="$(find edufill_bringup_sim)/robots/robot.launch" />
+
+	<!-- navigation -->
+	<include file="$(find edufill_2dnav)/ros/launch/sim/2dnav_sim.launch" />
+
+	<include file="$(find edufill_relative_movement)/launch/relative_movement.launch" />
+
+        <!-- manipulation -->
+	<include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" />
+
+        <!-- perception 
+                <include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />-->
+
+        <!-- objects 
+        <include file="$(find edufill_gazebo_objects)/ros/launch/simulation_objects.launch" /> -->
+
+        <param name="bluecube_description" command="$(find xacro)/xacro.py $(find edufill_gazebo_objects)/ros/objects/bluecube.urdf" />
+
+        <node name="bluecube_gazebo_model" pkg="gazebo" type="spawn_model" args="-urdf -param bluecube_description -model bluecube -x 1.7 -y 0.7 -z 0.2" respawn="false" output="screen" />
+
+</launch>

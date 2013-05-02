@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+	<rosparam command="load" ns="/simulation/objects" file="$(find edufill_env_config)/$(env ROBOT_ENV)/simulation_object_locations.yaml"/>
+	
+	<!-- upload robot and env params -->
+	<include file="$(find edufill_default_config)/upload_param.launch" />
+	<include file="$(find edufill_env_config)/upload_param.launch" />
+
+    <!-- start gazebo with GUI and load environment -->
+    <include file="$(find edufill_gazebo_world)/ros/launch/$(env ROBOT_ENV).launch" />
+
+    <!-- load robot into gazebo -->
+    <include file="$(find edufill_bringup_sim)/robots/$(env ROBOT).launch" />
+
+    <!-- start gui -->
+    <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/> 
+    
+</launch>
