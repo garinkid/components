@@ -176,8 +176,17 @@ class CubeColorDetector:
                     pose.pose.position.y = v
                     pose.pose.position.z = 0
                 else:
-                    for i in read_points(self.cloud, uvs=[[u, v]]):
-                        p = i
+                    pp = []
+                    try:
+                        for i in read_points(self.cloud, uvs=[[u, v-1], [u, v+1], [u-1, v], [u+1, v]]):
+                            pp.append(i)
+                    except Exception, e:
+                        print 'ERROR while iterating over read_points'
+                    p = [np.nan, np.nan, np.nan]
+                    for _p in pp:
+                        if not np.isnan(_p[0]):
+                            p = _p
+                            break
                     if DETECT_USE_EUC_DIST_FILTERING:
                         dist = np.linalg.norm(p)
                         if dist > DETECT_DIST_MAX:
