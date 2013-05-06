@@ -155,7 +155,7 @@ class CubeColorDetector:
 
         if DETECT_METHOD == DETECT_METHOD_CONTOUR:
             conts, conts_img, back, back_filt = self.get_contours(self.img, req)
-            cube_rects = self.detect_cubes(conts_img, conts, back_filt, req)
+            cube_rects = self.detect_cubes_contour(conts_img, conts, back_filt, req)
         elif DETECT_METHOD == DETECT_METHOD_TEMPLATE:
             hsv_planes = cv2.split(img_hsv)
             cube_rects = self.detect_cubes_template(hsv_planes, req)
@@ -222,7 +222,7 @@ class CubeColorDetector:
             print h
             print self.known_histograms[h][1]
 
-    def detect_cubes(self, conts_img, conts, back, req):
+    def detect_cubes_contour(self, conts_img, conts, back, req):
         if DEBUG:
             print '------------'
         #Candidates: list of (bbox, conts_index)
