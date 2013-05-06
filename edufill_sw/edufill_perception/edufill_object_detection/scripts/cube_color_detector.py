@@ -33,7 +33,7 @@ OUT_DIR = 'edufill_object_detection_out'
 
 DEF_RGB_TOPIC    = '/camera/rgb/image_rect_color'
 DEF_CLOUD_TOPIC    = '/camera/depth_registered/points'
-DEF_RES_SERVICE  = '/edufill_objdetector/detect_cube'
+DEF_RES_SERVICE  = '/edufill_objdetector/detect_cubes'
 
 YELLOW_HSV_LOW = np.array([0, 50, 65], dtype=np.uint8)
 
@@ -67,7 +67,7 @@ class CubeColorDetector:
         self.img = None
         self.rgb_subscriber = None
         self.rgb_frame_cnt = 0
-        self.res_service = rospy.Service(DEF_RES_SERVICE, DetectCube, self.detect_cube_cb)
+        self.res_service = rospy.Service(DEF_RES_SERVICE, DetectCube, self.detect_cubes_cb)
         self.rgb = None
         if DETECT_PERF:
             self.dperf_file = file(DETECT_PERF_FILE, 'w')
@@ -90,7 +90,7 @@ class CubeColorDetector:
         resp.poses.append(pose)
         return resp
     
-    def detect_cube_template(self, hsv_planes, req):
+    def detect_cubes_template(self, hsv_planes, req):
         candidates = []
         size = (req.min_size + req.max_size) / 2
         templ = np.zeros([size, size], dtype='uint8') + self.known_histograms[req.color][2]
@@ -133,7 +133,7 @@ class CubeColorDetector:
         return conts, conts_img, back, back_filt
 
         
-    def detect_cube_cb(self, req):
+    def detect_cubes_cb(self, req):
         if self.rgb_only_camera:
             vcap = cv2.VideoCapture(0)
             self.img = vcap.read()
@@ -142,7 +142,7 @@ class CubeColorDetector:
             else:
                 self.img = self.img[1]
         resp = DetectCubeResponse()
-        rospy.loginfo('detect_cube service called\n' + str(req))
+        rospy.loginfo('detect_cubes service called\n' + str(req))
         if self.img == None:
             rospy.logerr('ERROR: no RGB data available')
             resp = self.err_resp()
@@ -155,10 +155,10 @@ class CubeColorDetector:
 
         if DETECT_METHOD == DETECT_METHOD_CONTOUR:
             conts, conts_img, back, back_filt = self.get_contours(self.img, req)
-            cube_rects = self.detect_cube(conts_img, conts, back_filt, req)
+            cube_rects = self.detect_cubes(conts_img, conts, back_filt, req)
         elif DETECT_METHOD == DETECT_METHOD_TEMPLATE:
             hsv_planes = cv2.split(img_hsv)
-            cube_rects = self.detect_cube_template(hsv_planes, req)
+            cube_rects = self.detect_cubes_template(hsv_planes, req)
         else:
             raise Exception('Unknown detection method requested: %s' % DETECT_METHOD)
 
@@ -222,7 +222,7 @@ class CubeColorDetector:
             print h
             print self.known_histograms[h][1]
 
-    def detect_cube(self, conts_img, conts, back, req):
+    def detect_cubes(self, conts_img, conts, back, req):
         if DEBUG:
             print '------------'
         #Candidates: list of (bbox, conts_index)
