@@ -23,6 +23,9 @@ from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
+DETECT_METHOD_CONTOUR = 'contour'
+DETECT_METHOD_TEMPLATE = 'template'
+DETECT_METHOD = DETECT_METHOD_CONTOUR
 DEBUG = True
 DETECT_PERF = False
 DETECT_PERF_FILE = 'detect_perf.txt'
@@ -65,12 +68,14 @@ class CubeColorDetector:
     def __init__(self, rgb_only_camera):
         self.rgb_only_camera = rgb_only_camera
         H = os.getenv('ROS_HOME')
-        self.known_histograms = { 'red': [H + '/histograms/red_cube.hst', None], \
-                                  'green': [H + '/histograms/green_cube.hst', None], \
-                                  'blue': [H + '/histograms/blue_cube.hst', None], \
-                                  'yellow': [H + '/histograms/yellow_cube.hst', None], \
-                                  'cyan': [H + '/histograms/cyan_cube.hst', None], \
-                                  'magenta': [H + '/histograms/magenta_cube.hst', None] }
+        assert H != None
+        #histogram file, Histogram object, Hue center, Saturation low margin
+        self.known_histograms = { 'red':     [H + '/histograms/red_cube.hst', None, 0, 0], \
+                                  'green':   [H + '/histograms/green_cube.hst', None, 10, 0], \
+                                  'blue':    [H + '/histograms/blue_cube.hst', None, 107, 120], \
+                                  'yellow':  [H + '/histograms/yellow_cube.hst', None, 10, 0], \
+                                  'cyan':    [H + '/histograms/cyan_cube.hst', None, 10, 0], \
+                                  'magenta': [H + '/histograms/magenta_cube.hst', None, 10, 0] }
         rospy.init_node('cube_color_detector', anonymous=True)
         self.hists = []
         self.img = None
@@ -98,7 +103,47 @@ class CubeColorDetector:
         pose.pose.position.y = -1
         resp.poses.append(pose)
         return resp
+    
+    def detect_cube_template(self, hsv_planes, req):
+        candidates = []
+        size = (req.min_size + req.max_size) / 2
+        templ = np.zeros([size, size], dtype='uint8') + self.known_histograms[req.color][2]
+        match_unext = cv2.matchTemplate(hsv_planes[0], templ, cv2.TM_SQDIFF)
+        match = np.ones(hsv_planes[0].shape, dtype='float32') * np.finfo(np.float32).max
+        match[0:match_unext.shape[0], 0:match_unext.shape[1]] = match_unext
+        _max = np.max(match)
+        match_img = _max - match
+        _max =  np.max(match_img)
+        match_img = (match_img / _max * 255).astype('uint8')
+        cv2.imwrite('match_hue.png', match_img)
+        sat = cv2.threshold(hsv_planes[1], self.known_histograms[req.color][3], 1, cv2.THRESH_BINARY_INV)[1] + 1
+        match *= sat
+        (min_x, max_y, minloc, maxloc) = cv2.minMaxLoc(match)
+        (x, y) = minloc
+        result = np.reshape(match, match.shape[0] * match.shape[1])
+        sort = np.argsort(result)[::-1]
+        (y1, x1) = np.unravel_index(sort[0], match.shape) #best match
+        #(y2, x2) = np.unravel_index(sort[1], match.shape) #second best match
+        candidates.append([x1 - size / 2, y1 - size / 2, x1 + size / 2, y1 + size / 2])
+        #candidates.append([x2 - size / 2, y2 - size / 2, x2 + size / 2, y2 + size / 2])
+        return candidates
 
+    def get_contours(self, img, req):
+        img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        mask = hsv_filter_mask(img_hsv)
+        back = calc_back_proj(img_hsv, self.known_histograms[req.color][1].hist, True)
+        back &= mask
+        back[np.where(back < 200)] = 0
+        back_filt = cv2.medianBlur(back, 5)
+        back_filt = back
+        conts = cv2.findContours(back_filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+        if DEBUG:
+            conts_img = self.img.copy()
+        else:
+            conts_img = None
+        return conts, conts_img, back, back_filt
+
+        
     def detect_cube_cb(self, req):
         if self.rgb_only_camera:
             vcap = cv2.VideoCapture(0)
@@ -119,19 +164,15 @@ class CubeColorDetector:
             resp = self.err_resp()
             return resp
 
-        img_hsv = cv2.cvtColor(self.img, cv2.COLOR_BGR2HSV)
-        mask = hsv_filter_mask(img_hsv)
-        back = calc_back_proj(img_hsv, self.known_histograms[req.color][1].hist, True)
-        back &= mask
-        back[np.where(back < 200)] = 0
-        back_filt = cv2.medianBlur(back, 5)
-        conts = cv2.findContours(back_filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-        if DEBUG:
-            conts_img = self.img.copy()
+        if DETECT_METHOD == DETECT_METHOD_CONTOUR:
+            conts, conts_img, back, back_filt = self.get_contours(self.img, req)
+            cube_rects = self.detect_cube(conts_img, conts, back_filt, req)
+        elif DETECT_METHOD == DETECT_METHOD_TEMPLATE:
+            hsv_planes = cv2.split(img_hsv)
+            cube_rects = self.detect_cube_template(hsv_planes, req)
         else:
-            conts_img = None
+            raise Exception('Unknown detection method requested: %s' % DETECT_METHOD)
 
-        cube_rects = self.detect_cube(conts_img, conts, back_filt, req)
         if len(cube_rects) > 0:
             for c in cube_rects:
                 resp.sizes.append(max(c[2], c[3]))
@@ -164,16 +205,16 @@ class CubeColorDetector:
         
         if DEBUG:
             cv2.imwrite('cub.png', self.img)
-            cv2.imwrite('back_%04d.png' % self.rgb_frame_cnt, back)
-            for c in cube_rects:
-                cv2.rectangle(conts_img, (c[0] - 3, c[1] - 3), \
-                                        (c[0] + c[2], \
-                                         c[1] + c[3]), RGB(255,255,255))
-
-            cv2.imwrite('conts_%04d.png' % self.rgb_frame_cnt, conts_img)
-            for c in cube_rects:
-                cv2.rectangle(self.img, c[0:2], (c[0] + c[2], c[1] + c[3]), RGB(255,255,255))
-            cv2.imwrite('result_%04d.png' % self.rgb_frame_cnt, self.img)
+            if DETECT_METHOD == DETECT_METHOD_CONTOUR:
+                cv2.imwrite('back_%04d.png' % self.rgb_frame_cnt, back)
+                for c in cube_rects:
+                    cv2.rectangle(conts_img, (c[0] - 3, c[1] - 3), \
+                                            (c[0] + c[2], \
+                                             c[1] + c[3]), RGB(255,255,255))
+                cv2.imwrite('conts_%04d.png' % self.rgb_frame_cnt, conts_img)
+                for c in cube_rects:
+                    cv2.rectangle(self.img, c[0:2], (c[0] + c[2], c[1] + c[3]), RGB(255,255,255))
+                cv2.imwrite('result_%04d.png' % self.rgb_frame_cnt, self.img)
 
         if DETECT_PERF:
             self.dperf_file.write('%d %d %d %d\n' % cube_rects[0])
@@ -277,3 +318,5 @@ if __name__ == '__main__':
         pass
     prepare()
     do_detection(rgb_only_camera)
+
+
