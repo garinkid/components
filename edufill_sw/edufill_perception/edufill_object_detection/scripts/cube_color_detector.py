@@ -235,6 +235,7 @@ class CubeColorDetector:
     def detect_cube(self, conts_img, conts, back, req):
         if DEBUG:
             print '------------'
+        #Candidates: list of (bbox, conts_index)
         candidates = []
         #First simple geometrical filter
         for i in range(len(conts[0])):
@@ -246,7 +247,7 @@ class CubeColorDetector:
             if 1.0 * min_side / max_side < 0.65 \
                or max_side > req.max_size or min_side < req.min_size:
                 continue
-            candidates.append(bbox)
+            candidates.append((bbox, i))
             if DEBUG:
                 color = RGB(randint(255), randint(255), randint(255))
                 cv2.drawContours(conts_img, conts[0], i, color)
@@ -265,13 +266,17 @@ class CubeColorDetector:
                 best_rect = candidates[i]
         '''
         def cand_prob(c):
-            return back[c[0]:c[0]+c[2], c[1]:c[1]+c[3]].sum() / (c[2] * c[3])
+            return back[c[0][0]:c[0][0]+c[0][2], c[0][1]:c[0][1]+c[0][3]].sum() / (c[0][2] * c[0][3])
         candidates = sorted(candidates, key = cand_prob)
         if DEBUG:
             for i in range(len(candidates)):
-                draw_debug_messages(conts_img, [str(i)], candidates[i][0:2])
+                draw_debug_messages(conts_img, [str(i)], candidates[i][0][0:2])
         #Now, find strong edges
-        return candidates
+        #Last, check for blob size. A box's blob projection area must be at least 0.5 of the bounding box area
+        def big_enough_cont(cont, bbox):
+            return cv2.contourArea(cont) >= 0.5 * bbox[2] * bbox[3]
+        cubes = [cand[0] for cand in candidates if big_enough_cont(conts[0][cand[1]], cand[0])]
+        return cubes
 
     def rgb_cb(self, img_data):
         self.rgb_frame_cnt += 1
