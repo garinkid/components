@@ -23,10 +23,13 @@ from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
+DEBUG = True
+
 DETECT_METHOD_CONTOUR = 'contour'
 DETECT_METHOD_TEMPLATE = 'template'
 DETECT_METHOD = DETECT_METHOD_CONTOUR
-DEBUG = True
+DETECT_USE_EUC_DIST_FILTERING = True
+DETECT_DIST_MAX = 1.5
 DETECT_PERF = False
 DETECT_PERF_FILE = 'detect_perf.txt'
 OUT_DIR = 'edufill_object_detection_out'
@@ -162,9 +165,9 @@ class CubeColorDetector:
         else:
             raise Exception('Unknown detection method requested: %s' % DETECT_METHOD)
 
+        #Now fill all cubes info into ROS message array
         if len(cube_rects) > 0:
             for c in cube_rects:
-                resp.sizes.append(max(c[2], c[3]))
                 u =  c[0] + c[2] / 2
                 v =  c[1] + c[3] / 2
                 pose = PoseStamped()
@@ -175,9 +178,14 @@ class CubeColorDetector:
                 else:
                     for i in read_points(self.cloud, uvs=[[u, v]]):
                         p = i
+                    if DETECT_USE_EUC_DIST_FILTERING:
+                        dist = np.linalg.norm(p)
+                        if dist > DETECT_DIST_MAX:
+                            continue
                     pose.pose.position.x = p[0]
                     pose.pose.position.y = p[1]
                     pose.pose.position.z = p[2]
+                resp.sizes.append(max(c[2], c[3]))
                 resp.poses.append(pose)
             if DEBUG:
                 pass
