@@ -133,7 +133,6 @@ class CubeColorDetector:
         mask = hsv_filter_mask(img_hsv)
         back = calc_back_proj(img_hsv, self.known_histograms[req.color][1].hist, True)
         back &= mask
-        back[np.where(back < 200)] = 0
         back_filt = cv2.medianBlur(back, 5)
         back_filt = back
         conts = cv2.findContours(back_filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
