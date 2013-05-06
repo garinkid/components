@@ -37,22 +37,6 @@ DEF_RES_SERVICE  = '/edufill_objdetector/detect_cube'
 
 bridge = CvBridge()
 
-def hue_to_hist(hue_min, hue_max, hist_bins):
-    hist = np.array([], dtype='uint8')
-    for i in range(hist_bins):
-        bin_w = 180.0 / hist_bins
-        c = bin_w * (i + 0.5)
-        if hue_min < c < hue_max:
-            a = c - hue_min
-            b = hue_max - c
-            min_s = min(a, b)
-            max_s = max(a, b)
-            val = 255.0 * min_s / max_s
-        else:
-            val = 0
-        hist = np.append(hist, int(val))
-    return (255.0 / max(hist) * hist).astype('uint8')
-
 def cv_image_from_ros_msg(msg, dtype = 'bgr8'):
     try:
         img = bridge.imgmsg_to_cv(msg, dtype)
