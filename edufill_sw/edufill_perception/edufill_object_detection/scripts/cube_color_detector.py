@@ -35,6 +35,8 @@ DEF_RGB_TOPIC    = '/camera/rgb/image_rect_color'
 DEF_CLOUD_TOPIC    = '/camera/depth_registered/points'
 DEF_RES_SERVICE  = '/edufill_objdetector/detect_cube'
 
+YELLOW_HSV_LOW = np.array([0, 50, 65], dtype=np.uint8)
+
 bridge = CvBridge()
 
 def cv_image_from_ros_msg(msg, dtype = 'bgr8'):
@@ -114,7 +116,11 @@ class CubeColorDetector:
 
     def get_contours(self, img, req):
         img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-        mask = hsv_filter_mask(img_hsv)
+        if req.color == 'yellow':
+            #Yellow Hue area tended to appear past the cube's area, so for Y. cubes move min. Saturation up to YELLOW_HSV_LOW[1]
+            mask = hsv_filter_mask(img_hsv, hsv_range_low = YELLOW_HSV_LOW)
+        else:
+            mask = hsv_filter_mask(img_hsv)
         back = calc_back_proj(img_hsv, self.known_histograms[req.color][1].hist, True)
         back &= mask
         back_filt = cv2.medianBlur(back, 5)

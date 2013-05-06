@@ -31,6 +31,23 @@ SCALAR_WHITE = Scalar(255, 255, 255)
 SCALAR_GREEN = Scalar(0, 255, 0)
 SCALAR_RED   = Scalar(0, 0, 255)
 
+def hue_to_hist(hue_min, hue_max, hist_bins):
+    hist = np.array([], dtype='uint8')
+    for i in range(hist_bins):
+        bin_w = 180.0 / hist_bins
+        c = bin_w * (i + 0.5)
+        if hue_min < c < hue_max:
+            a = c - hue_min
+            b = hue_max - c
+            min_s = min(a, b)
+            max_s = max(a, b)
+            val = 255.0 * min_s / max_s
+        else:
+            val = 0
+        hist = np.append(hist, int(val))
+    return (255.0 / max(hist) * hist).astype('uint8')
+
+
 if __name__ == '__main__':
     VIDEO_FILE         = '../hand_3markers/out.avi'
     RED_HIST_FILE      ='../hand_3markers/red_marker_frame51.png.hhst'
@@ -116,7 +133,6 @@ def on_mouse_event(event, x, y, flags, params):
     mouse_events[event] = 1
     mouse_x = x
     mouse_y = y
-    print 'EVENT %d' % event
 
 def clear_events():
     keys = mouse_events.keys()
@@ -137,12 +153,8 @@ def GUIMinMaxHSV(img_in):
         if len(points) == 2:
             print MinMaxHSV(frame, points[0][0], points[0][1], points[1][0], points[1][1])
             points = []
-        if mouse_events[cv2.EVENT_MOUSEMOVE]:
-            print 'move: pos.', mouse_x, mouse_y
         if mouse_events[cv2.EVENT_LBUTTONDOWN]:
             points.append((mouse_x, mouse_y))
-        else:
-            print '...'
         clear_events()
     cv2.destroyWindow('wnd')
     cv2.waitKey(1000)
@@ -184,9 +196,7 @@ def get_cmass(img_in):
     my = mom['m01'] / mom['m00']
     return (int(mx), int(my))
 
-def hsv_filter_mask(hsv):
-    hsv_range_low = np.array([0, 20, 32], dtype=np.uint8)
-    hsv_range_high = np.array([180, 255, 240], dtype=np.uint8)
+def hsv_filter_mask(hsv, hsv_range_low = np.array([0, 20, 32], dtype=np.uint8), hsv_range_high = np.array([180, 255, 240], dtype=np.uint8)):
     return cv2.inRange(hsv, hsv_range_low, hsv_range_high)
 
 def test_color():
