@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <env name="ROS_HOME" value="$(find edufill_object_detection)"/>
+    <arg name="rgb_only_camera" default="true" />
+    <arg name="launch_openni" default="true" />
+    <group if="$(arg rgb_only_camera)">
+        <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" args="rgb_only_camera" output="screen"/>
+    </group>
+    <group unless="$(arg rgb_only_camera)">
+        <group if="$(arg launch_openni)">
+            <include file="$(find simple_pcl)/launch/openni.launch" />
+        </group>
+        <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" output="screen"/>
+    </group>
+</launch>
