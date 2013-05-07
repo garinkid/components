@@ -25,11 +25,28 @@ if __name__=="__main__":
 	result = read_laser_scan_component.angle_of_closest_distance()
 	print "2"
 	print result
-	#Block two parameters [min_angle, max_angle] type list
+	#Block one parameter [min_angle, max_angle] type list
 	#Read laser scan ranges and angles within user specified angles
 	result = read_laser_scan_component.distances([-1.3,1.0])
 	print "3"
-	print result 
+	print result
+	#Block one parameters side type string 
+	#Return value True is wall in 0.4 meters from robot else False 
+	result = read_laser_scan_component.check_wall("left")
+	print "4"
+	print result
+	#Block two parameters side, distance type string ,float
+	#Return value True is wall in distance meters from robot else False 
+	result = read_laser_scan_component.check_wall("left", 1.4)
+	print "5"
+	print result
+	#Block two parameters float,distance type string ,float
+	#Return value True is wall on certant angle and disctance from robot else False 
+	result = read_laser_scan_component.is_wall(0.0, 0.4)
+	print "6"
+	print result
+
+
 
 
 
