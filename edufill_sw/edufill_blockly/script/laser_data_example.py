@@ -11,7 +11,13 @@ import read_laser_scan_component
 #### 2.result = read_laser_scan_component.angle_of_closest_distance()
 ######### result is a list [closest_distance, closest_distance_angle]
 
-#### 3.result = read_laser_scan_component.distances(-1.3,1.0)
+#### 3.result = read_laser_scan_component.distances([-1.3,1.0])
+######### result is a list of lists [(ranges,angles)]
+
+#### 4.result = read_laser_scan_component.check_wall("left",0.5)
+######### result is a list of lists [(ranges,angles)]
+
+#### 5.result = read_laser_scan_component.distances(-1.3,1.0)
 ######### result is a list of lists [(ranges,angles)]
 if __name__=="__main__":
 	rospy.init_node('laser_data')
@@ -23,10 +29,19 @@ if __name__=="__main__":
 	#Read laser scan closest distance to obstical with angle
 	result = read_laser_scan_component.angle_of_closest_distance()
 	print result
-	#Block two parameters [min_angle, max_angle] type list
+	#Block one parameters [min_angle, max_angle] type list
 	#Read laser scan ranges and angles within user specified angles
-	result = read_laser_scan_component.distances(-1.3,1.0)
+	result = read_laser_scan_component.distances([-1.3,1.0])
 	print result 
+	#Block two parameters side,distance
+	#Return is wall on side " " with distance " "
+	result = read_laser_scan_component.check_wall("left",0.5)
+	print result 
+	#Block two parameters distance,angle 
+	#Return is wall on angle and distence
+	result = read_laser_scan_component.is_wall(1.6,1.0)
+	print result 
+
 
 
 
