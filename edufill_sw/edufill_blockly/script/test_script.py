@@ -8,4 +8,4 @@ import move_base_component #edufill_navigation/edufill_base_cmds/src/move_base_c
 if __name__=="__main__":
   rospy.init_node('edufill_blockly_node')
 
-  move_base_component.command("forward", 20)
+  move_base_component.command("backward", 20)
