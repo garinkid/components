@@ -39,21 +39,21 @@ if __name__=="__main__":
     move_arm_component.to_joint_positions(joint_positions)
     rospy.sleep(5.0)
 
-    #### 3.move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame,solver_type)
+    #### 3.move_arm_component.to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame)
     kinematics_solver = KinematicsSolver(AnalyticalSolver())
-    result = move_arm_component.to_cartesian_pose([0.024, 0.033 + 0.3, 0.115, 0, math.pi / 2.0, math.pi / 2.0],"/arm_link_0")
+    kinematics_solver.to_cartesian_pose([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0")
     print result
-    #### 4.move_arm_component.check_ik_solver_has_solution([x,y,z,roll,pitch,yaw], reference_frame,solver_type)
+    #### 4.move_arm_component.check_ik_solver_has_solution([x,y,z,roll,pitch,yaw], reference_frame)
     ##### Return True if solution exist else False
     kinematics_solver = KinematicsSolver(AnalyticalSolver())
     result = kinematics_solver.check_ik_solver_has_solution([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0")
     print result
-    #### 5.move_arm_component.get_ik_solution([x,y,z,roll,pitch,yaw], reference_frame,solver_type)
+    #### 5.move_arm_component.get_ik_solution([x,y,z,roll,pitch,yaw], reference_frame)
     ##### Return list of joint angles  
     kinematics_solver = KinematicsSolver(AnalyticalSolver())
     result = kinematics_solver.get_ik_solution([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0")
     print result
-    #### 6.(change mode) to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame,solver_type)
+    #### 6.(change mode) to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame)
     ##### Return True if solution exist else False
     kinematics_solver = KinematicsSolver(GeometricalSolver())
     if kinematics_solver.check_ik_solver_has_solution([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0"):
