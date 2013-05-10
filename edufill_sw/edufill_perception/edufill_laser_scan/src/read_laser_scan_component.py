@@ -95,12 +95,12 @@ def distances(angles):
     return zip(ranges_from_first_angle_to_last,angles_from_first_angle_to_last)
 
 def check_wall(side,distance=0.4):
-    angle_max = 1.5700000524520874
+    angle_max = 1.56
     if side == "left":
-        resp = is_wall(-angle_max,distance,)
+        resp = is_wall(angle_max,distance)
         return resp
     elif side == "right":
-        resp = is_wall(angle_max,distance)
+        resp = is_wall(-angle_max,distance)
         return resp
     elif side == "front":
         resp = is_wall(0.0,distance)
