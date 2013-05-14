@@ -18,7 +18,7 @@ from numpy.random import randint
 from edufill_object_detection.srv import *
 
 def cube(color, min_size = 10, max_size = 100):
-    cube_detector_srv = rospy.ServiceProxy('/edufill_objdetector/detect_cube', DetectCube) 
+    cube_detector_srv = rospy.ServiceProxy('/edufill_objdetector/detect_cubes', DetectCube) 
     print "wait for service: /edufill_objdetector/detect_cube"   
     rospy.wait_for_service('/edufill_objdetector/detect_cube', 30)
     # call base placement service
