@@ -200,8 +200,9 @@ class CubeColorDetector:
                     pose.pose.position.x = p[0]
                     pose.pose.position.y = p[1]
                     pose.pose.position.z = p[2]
-                resp.sizes.append(max(c[2], c[3]))
-                resp.poses.append(pose)
+                if not np.isnan(pose.position.x):
+                    resp.sizes.append(max(c[2], c[3]))
+                    resp.poses.append(pose)
             if DEBUG:
                 pass
 
