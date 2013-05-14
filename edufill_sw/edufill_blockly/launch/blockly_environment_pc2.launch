@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+      <!-- Kinect -->
+      <include file="$(find edufill_bringup)/components/cam3d.launch" />
+
+      <!-- 3d perception pipeline -->
+      <include file="$(find edufill_object_detection)/ros/launch/perception_pipeline.launch" />
+</launch>
