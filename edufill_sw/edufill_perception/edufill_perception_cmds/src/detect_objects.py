@@ -14,6 +14,7 @@ from os.path import dirname, basename
 from sys import exit, argv, stderr
 from numpy.random import randint
 from edufill_object_detection.srv import *
+import tf
 
 DETECT_CUBE_SERVICE = '/edufill_objdetector/detect_cubes'
 
@@ -36,12 +37,14 @@ def cube(color, min_size = 10, max_size = 100):
         qy = item.pose.orientation.y
         qz = item.pose.orientation.z
         qw = item.pose.orientation.w
-        rpy = tf.transformations.euler_from_quaternion(qx,qy,qz,qw)
+        rpy = tf.transformations.euler_from_quaternion([qx, qy, qz, qw])
         obj_pose = [x,y,z,rpy[0],rpy[1],rpy[2]]
         objlist.append(obj_pose)
-    print objlist
     return objlist
 
 if __name__ == '__main__':
-    print cube('red')
+    if len(argv) >= 1:
+        print cube(argv[1])
+    else:
+        print cube('red')
 
