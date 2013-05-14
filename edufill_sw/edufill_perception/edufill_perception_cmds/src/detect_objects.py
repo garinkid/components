@@ -12,8 +12,6 @@ import numpy as np
 import os
 from os.path import dirname, basename
 from sys import exit, argv, stderr
-from histogram import Histogram
-from myutils import calc_back_proj, draw_cross, hsv_filter_mask, draw_debug_messages
 from numpy.random import randint
 from edufill_object_detection.srv import *
 
@@ -23,13 +21,26 @@ def cube(color, min_size = 10, max_size = 100):
     cube_detector_srv = rospy.ServiceProxy(DETECT_CUBE_SERVICE , DetectCube) 
     print "wait for service: %s" % DETECT_CUBE_SERVICE   
     rospy.wait_for_service(DETECT_CUBE_SERVICE, 30)
-    # call base placement service
+    # call cube detection service
     req = DetectCubeRequest()
     req.color = color
     req.min_size = min_size
     req.max_size = max_size
     response = cube_detector_srv(req)
-    return response
+    objlist = []
+    for item in response.poses:       
+        x = item.pose.position.x
+        y = item.pose.position.y
+        z = item.pose.position.z
+        qx = item.pose.orientation.x
+        qy = item.pose.orientation.y
+        qz = item.pose.orientation.z
+        qw = item.pose.orientation.w
+        rpy = tf.transformations.euler_from_quaternion(qx,qy,qz,qw)
+        obj_pose = [x,y,z,rpy[0],rpy[1],rpy[2]]
+        objlist.append(obj_pose)
+    print objlist
+    return objlist
 
 if __name__ == '__main__':
     print cube('red')
