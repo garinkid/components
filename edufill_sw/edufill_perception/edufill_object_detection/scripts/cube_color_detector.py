@@ -23,6 +23,7 @@ from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
+CAMERA_FRAME =  '/camera_rgb_optical_frame'
 DEBUG = True
 
 DETECT_METHOD_CONTOUR = 'contour'
@@ -200,7 +201,8 @@ class CubeColorDetector:
                     pose.pose.position.x = p[0]
                     pose.pose.position.y = p[1]
                     pose.pose.position.z = p[2]
-                if not np.isnan(pose.position.x):
+                    pose.header.frame_id = CAMERA_FRAME
+                if not np.isnan(pose.pose.position.x):
                     resp.sizes.append(max(c[2], c[3]))
                     resp.poses.append(pose)
             if DEBUG:
