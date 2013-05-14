@@ -17,10 +17,12 @@ from myutils import calc_back_proj, draw_cross, hsv_filter_mask, draw_debug_mess
 from numpy.random import randint
 from edufill_object_detection.srv import *
 
+DETECT_CUBE_SERVICE = '/edufill_objdetector/detect_cubes'
+
 def cube(color, min_size = 10, max_size = 100):
-    cube_detector_srv = rospy.ServiceProxy('/edufill_objdetector/detect_cubes', DetectCube) 
-    print "wait for service: /edufill_objdetector/detect_cube"   
-    rospy.wait_for_service('/edufill_objdetector/detect_cube', 30)
+    cube_detector_srv = rospy.ServiceProxy(DETECT_CUBE_SERVICE , DetectCube) 
+    print "wait for service: %s" % DETECT_CUBE_SERVICE   
+    rospy.wait_for_service(DETECT_CUBE_SERVICE, 30)
     # call base placement service
     req = DetectCubeRequest()
     req.color = color
