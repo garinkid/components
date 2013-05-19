@@ -12,7 +12,6 @@ class KinematicsSolver:
 		self.ik_solution = solver
 
 
-
 	def to_cartesian_pose(self,xyzrpy,reference_frame):
 		iksolver_state = self.ik_solution.check_ik_solver_has_solution(xyzrpy,reference_frame)
 		if (iksolver_state):
