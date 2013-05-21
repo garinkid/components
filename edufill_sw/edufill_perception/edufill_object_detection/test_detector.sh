@@ -24,7 +24,7 @@ esac
 rm $OUT_DIR/*
 rosservice call /edufill_objdetector/detect_cubes "color: '$COLOR'
 min_size: 10
-max_size: 300"
+max_size: 100"
 conts_file=$(ls -rt $OUT_DIR | grep resu| tail -n1)
 test ! -z "$conts_file" && kolourpaint $OUT_DIR/$conts_file
 #echo -n "result> "

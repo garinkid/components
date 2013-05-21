@@ -16,13 +16,14 @@ from os import errno
 from os.path import dirname, basename, realpath
 from sys import exit, argv, stderr
 from histogram import Histogram
-from myutils import calc_back_proj, draw_cross, hsv_filter_mask, draw_debug_messages
+from myutils import calc_back_proj, draw_cross, SCALAR_WHITE, hsv_filter_mask, draw_debug_messages
 import numpy as np
 from numpy.random import randint
 from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
+CAMERA_FRAME =  '/camera_rgb_optical_frame'
 DEBUG = True
 
 DETECT_METHOD_CONTOUR = 'contour'
@@ -178,7 +179,13 @@ class CubeColorDetector:
                 else:
                     pp = []
                     try:
-                        for i in read_points(self.cloud, uvs=[[u, v-1], [u, v+1], [u-1, v], [u+1, v]]):
+                        #UMAX2 = min(5, abs(self.img.shape[1]))
+                        #VMAX2 = min(5, abs(self.img.shape[0]))
+                        #us = np.range(u - UMAX2, u + UMAX2)
+                        #vs = np.range(v - VMAX2, v + VMAX2)
+                        #uvs = np.transpose(np.tile(us, len(vs)), np.repeat(vs, len(us)))
+                        uvs = [[u, v]]
+                        for i in read_points(self.cloud, uvs = uvs):
                             pp.append(i)
                     except Exception, e:
                         print 'ERROR while iterating over read_points'
@@ -194,8 +201,10 @@ class CubeColorDetector:
                     pose.pose.position.x = p[0]
                     pose.pose.position.y = p[1]
                     pose.pose.position.z = p[2]
-                resp.sizes.append(max(c[2], c[3]))
-                resp.poses.append(pose)
+                    pose.header.frame_id = CAMERA_FRAME
+                if not np.isnan(pose.pose.position.x):
+                    resp.sizes.append(max(c[2], c[3]))
+                    resp.poses.append(pose)
             if DEBUG:
                 pass
 
@@ -220,6 +229,7 @@ class CubeColorDetector:
                 cv2.imwrite('conts_%04d.png' % self.rgb_frame_cnt, conts_img)
                 for c in cube_rects:
                     cv2.rectangle(self.img, c[0:2], (c[0] + c[2], c[1] + c[3]), RGB(255,255,255))
+                    draw_cross(self.img, (c[0] + c[2] / 2, c[1] + c[3] / 2), 10, SCALAR_WHITE, 1)
                 cv2.imwrite('result_%04d.png' % self.rgb_frame_cnt, self.img)
 
         if DETECT_PERF:
@@ -245,6 +255,7 @@ class CubeColorDetector:
         #Candidates: list of (bbox, conts_index)
         candidates = []
         #First simple geometrical filter
+        print req.min_size, req.max_size
         for i in range(len(conts[0])):
             if len(conts[0][i]) < 20:
                 continue
