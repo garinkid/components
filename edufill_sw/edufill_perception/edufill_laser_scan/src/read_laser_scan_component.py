@@ -135,7 +135,7 @@ def wall_existance(side_coordinates):
         else:
             return "Not a wall"
 
-def check_wall(side,distance=0.4):
+def check_wall(side,distance=0.6):
     angle_max = 1.56
     if side == "left":
         angles_and_distances_to_wall = zip(*distances([angle_max,angle_max-0.15]))
