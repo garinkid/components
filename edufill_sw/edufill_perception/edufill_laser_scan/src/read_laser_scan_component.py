@@ -102,7 +102,7 @@ def distances(angles):
         angles_from_first_angle_to_last += [angles_list[i]]
     return zip(angles_from_first_angle_to_last,ranges_from_first_angle_to_last)
 
-def check_wall(side,distance=0.4):
+def check_wall_1(side,distance=0.4):
     angle_max = 1.56
     if side == "left":
         resp = is_wall(angle_max,distance)
@@ -135,7 +135,7 @@ def wall_existance(side_coordinates):
         else:
             return "Not a wall"
 
-def check_wall_1(side,distance=0.4):
+def check_wall(side,distance=0.4):
     angle_max = 1.56
     if side == "left":
         angles_and_distances_to_wall = zip(*distances([angle_max,angle_max-0.15]))

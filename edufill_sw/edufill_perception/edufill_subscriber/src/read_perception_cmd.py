@@ -38,18 +38,14 @@ class youbot_subscriber:
     def joint_states_callback(self,msg):
         for k in range(7):
             for i in range(len(msg.name)):
-<<<<<<< HEAD
 	        joint_name = self.joint_names[k]
 		if(msg.name[i] == joint_name):
 		    self.configuration[k] = msg.position[i]
 		    self.received_state = True
-
-=======
                 joint_name = self.joint_names[k]
         if(msg.name[i] == joint_name):
             self.configuration[k] = msg.position[i]
             self.received_state = True
->>>>>>> 704b5cccb698e4ac207f76045c7fe935f213b9f0
     def odom_callback(self,msg):
         self.odom_data = msg
 
