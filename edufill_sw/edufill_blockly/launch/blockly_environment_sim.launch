@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <launch>
         <!-- base components -->
+	<param name="/use_sim_time" value="true" />
     	<include file="$(find edufill_bringup_sim)/robots/robot.launch" />
 
 	<!-- navigation -->
-	<include file="$(find edufill_2dnav)/ros/launch/sim/2dnav_sim.launch" />
+	<!--<include file="$(find edufill_2dnav)/ros/launch/sim/2dnav_sim.launch" />-->
 
 	<include file="$(find edufill_subscriber)/launch/edufill_subscriber.launch" />
 
