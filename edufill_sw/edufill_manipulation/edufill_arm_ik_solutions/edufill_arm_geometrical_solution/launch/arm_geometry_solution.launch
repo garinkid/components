@@ -2,7 +2,7 @@
 <launch>
 
 	<node pkg="edufill_arm_geometrical_solution" type="ik_service_srv" name="ik_service_srv" cwd="node" respawn="false" output="screen" /> 
-	<node pkg="edufill_arm_geometrical_solution" type="ik_service_srv" name="ik_service_srv" cwd="node" respawn="false" output="screen" /> 
+	<node pkg="edufill_arm_geometrical_solution" type="ik_to_goal_frame" name="ik_to_goal_frame" cwd="node" respawn="false" output="screen" /> 
 
 
 </launch>
