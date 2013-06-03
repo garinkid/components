@@ -1,0 +1,3 @@
+edufill_msg/CartesianPoseStamped desired_pose
+---
+geometry_msgs/Pose goal_pose
