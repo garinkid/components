@@ -32,7 +32,7 @@ bool ComputeIK(edufill_srvs::ComputeIK::Request &req, edufill_srvs::ComputeIK::R
 {
   // create eigen quaternion from quaternion message
   Eigen::Quaternion<float> target_quat = Eigen::Quaternion<float>(req.tool_pose.orientation.w,req.tool_pose.orientation.x, req.tool_pose.orientation.y, req.tool_pose.orientation.z);
-
+  cout << "Request" << req.tool_pose.orientation.w;
   // quaternion to homogeneous transform (toRotationMatrix = fixed axis!)
   Eigen::Matrix3f target_rotation = target_quat.toRotationMatrix();
   Eigen::Vector3f target_position = Eigen::Vector3f(req.tool_pose.position.x, req.tool_pose.position.y,req.tool_pose.position.z);
@@ -64,6 +64,7 @@ bool ComputeIK(edufill_srvs::ComputeIK::Request &req, edufill_srvs::ComputeIK::R
   {
     res.joint_values[k] = sol_container[k];
   }
+  cout <<"Response"<< res.joint_values[0];
   return true;
 }
 

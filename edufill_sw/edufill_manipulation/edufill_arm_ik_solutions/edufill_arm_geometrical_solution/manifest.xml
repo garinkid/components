@@ -14,6 +14,7 @@
   <depend package="tf" />
   <depend package="brics_actuator" />
   <depend package="edufill_srvs" />
+  <depend package="edufill_msg" />
   <!--<depend package="edufill_arm_analytical_solution" />-->
 
 </package>

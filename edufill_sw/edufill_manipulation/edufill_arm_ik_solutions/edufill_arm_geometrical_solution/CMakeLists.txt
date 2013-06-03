@@ -42,6 +42,8 @@ include_directories(src/include)
 
 rosbuild_add_executable(ik_req_test src/ik_req_test.cpp)
 
+rosbuild_add_executable(ik_to_goal_frame src/ik_to_goal_frame.cpp)
+
 rosbuild_add_executable(ik_service_srv 
 src/ik_service_srv.cpp
 src/ik_solver.cpp

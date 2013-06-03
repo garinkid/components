@@ -31,6 +31,7 @@ class GeometricalSolver:
 
 		self.sub_joint = rospy.Subscriber('/joint_states', sensor_msgs.msg.JointState, self.joint_states_callback)
 		self.iks = rospy.ServiceProxy('/edufill_arm_geometrical_solution/ComputeIK', edufill_srvs.srv.ComputeIK)
+		self.dg = rospy.ServiceProxy('/edufill_arm_geometrical_solution/CartesianPose', edufill_srvs.srv.CartesianPose)
 
 
 
@@ -44,25 +45,31 @@ class GeometricalSolver:
 					self.configuration[k] = msg.position[i]
 		self.received_state = True
 
-	def create_pose(self, param):
+	def create_pose(self, param,reference_frame):
 		# pose = edufill_msg.msg.MoveToCartesianPoseGoal()
-		pose = geometry_msgs.msg.Pose()
-		pose.position.x = param[0]
-		pose.position.y = param[1]
-		pose.position.z = param[2]
+		req = edufill_srvs.srv.CartesianPoseRequest()
+		req.desired_pose.header.frame_id = reference_frame
+		req.desired_pose.position.x = param[0]
+		req.desired_pose.position.y = param[1]
+		req.desired_pose.position.z = param[2]
+		req.desired_pose.rotation.x = param[3]
+		req.desired_pose.rotation.y = param[4]
+		req.desired_pose.rotation.z = param[5]
+		try:
+			resp = self.dg(req)
+		except rospy.ServiceException, e:
+			rospy.logerr("Service did not process request: %s", str(e))				
+		return resp
 
-		(qx, qy, qz, qw) = tf.transformations.quaternion_from_euler(param[3], param[4], param[5])
-		pose.orientation.x = qx
-		pose.orientation.y = qy
-		pose.orientation.z = qz
-		pose.orientation.w = qw
-		return pose
 
-	def call_constraint_aware_ik_solver(self, param_list):
+	def call_constraint_aware_ik_solver(self, param_list, reference_frame):
+		pose = self.create_pose(param_list,reference_frame)
+		while (not self.received_state):
+			time.sleep(0.1)
 		req = edufill_srvs.srv.ComputeIKRequest()
-		pose = self.create_pose(param_list)
 		# print pose
-		req.tool_pose = pose
+		req.tool_pose = pose.goal_pose
+		print req.tool_pose
 		try:
 			resp = self.iks(req)
 		except rospy.ServiceException, e:
@@ -70,31 +77,45 @@ class GeometricalSolver:
 		return resp
 
 	def check_ik_solver_has_solution(self, xyzrpy,reference_frame):
-		param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5]]
-		response = self.call_constraint_aware_ik_solver(param)
+		# param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4]]#,xyzrpy[5]
+		# param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5]]
+		print "check_ik"
+		response = self.call_constraint_aware_ik_solver(xyzrpy,reference_frame)
 		self.nvals = len(response.joint_values);
-		# print response.joint_values
+		print "response"
+		print response.joint_values
 		self.nsols = self.nvals/5;
-		# print self.nsols
+		print self.nsols
 		if (self.nsols > 0):
 			return True
 		else:
+			print "False"
 			return False
 
 	def get_ik_solution(self, xyzrpy,reference_frame):
+		print "state"
+		print self.received_state
 		while (not self.received_state):
-			time.sleep(0.1)
-		param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5]]
-		response = self.call_constraint_aware_ik_solver(param)
-		sum_joint_config = 0;
-		joint_config = numpy.zeros(shape=(self.nsols,5))
+			time.sleep(0.2)
+		# param = [xyzrpy[0],xyzrpy[1],xyzrpy[2],xyzrpy[3],xyzrpy[4],xyzrpy[5]]
+		response = self.call_constraint_aware_ik_solver(xyzrpy,reference_frame)
+		self.nvals = len(response.joint_values);
+		print "response"
+		print response.joint_values
+		self.nsols = self.nvals/5;
+		print self.nsols
+		sum_joint_config = 0
+		joint_config = numpy.zeros(shape=(self.nsols,5))#self.nsols#2
+		print joint_config
+		print response.joint_values
 		k = 0;
 		sum_of_current_joints = reduce(lambda x, y: x + y, self.configuration)
 		while (k<self.nvals):
 			for i in range(0,self.nsols):
 				for j in range(0,5):
 					joint_config[i][j] = response.joint_values[k]
-					k = k + 1 
+					k = k + 1
+		print joint_config 
 				# 	sum_joint_config += joint_config[i][j]
 				# print sum_joint_config
 				# diff_solutions = abs(sum_of_current_joints - sum_joint_config);
@@ -115,17 +136,21 @@ class GeometricalSolver:
 		return joint_config[0].tolist()
 
 
-if __name__ == "__main__":
-	rospy.init_node('verova_kinematic_solver')
-	# time.sleep(2.5)
-	ks = GeometricalSolver()
-	xyzrpy = [0.024 + 0.033,0,0.535,0,0,0]
-	iksolver_state = ks.check_ik_solver_has_solution(xyzrpy,'arm_joint_0')
-	if (iksolver_state):
-		ik_solution = ks.get_ik_solution(xyzrpy,'arm_joint_0')
-		print ik_solution
-		# status_move = to_joint_positions(ik_solution)
-		# return status_move          
-	else:
-		print 'no solution found'
-		# return 'no solution found'
+# if __name__ == "__main__":
+# 	rospy.init_node('verova_kinematic_solver')
+# 	# time.sleep(2.5)
+# 	ks = GeometricalSolver()
+# 	xyzrpy = [0.6, 0, 0.5,0, 1.5708, 1]
+# 	# xyzrpy = [0.6, 0, 0.5,0, 0, 0]
+
+# 	iksolver_state = ks.check_ik_solver_has_solution(xyzrpy,'base_link')
+# 	print "solution existance"
+# 	print iksolver_state
+# 	if (iksolver_state):
+# 		ik_solution = ks.get_ik_solution(xyzrpy,'base_link')
+# 		print ik_solution
+# 		status_move = to_joint_positions(ik_solution)
+# 		return status_move          
+# 	else:
+# 		print 'no solution found'
+# 		return 'no solution found'

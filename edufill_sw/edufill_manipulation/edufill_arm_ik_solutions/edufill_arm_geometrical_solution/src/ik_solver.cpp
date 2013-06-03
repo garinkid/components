@@ -38,7 +38,7 @@ Eigen::VectorXf solve_ik(Eigen::Matrix3f goalR, Eigen::Vector3f goalT,int sol_in
   //~ 3   inverse space, low elbow
   
   Eigen::Matrix<float,5,4> DH;
-  DH.row(0) << 0.0,   0.161,  0.0330,   M_PI/2;
+  DH.row(0) << 0.0,   0.019,  0.0330,   M_PI/2;
   DH.row(1) << 0.0,   0.0,    0.1550,   0.0;
   DH.row(2) << 0.0,   0.0,    0.1350,   0.0;
   DH.row(3) << 0.0,   0.0,    0.0,      M_PI/2;
