@@ -11,6 +11,7 @@
   <depend package="rospy"/>
   <depend package="roscpp"/>
   <depend package="sensor_msgs"/>
+  <depend package="edufill_srvs"/>
   <depend package="nav_msgs"/>
   <depend package="tf"/>
   <depend package="trajectory_msgs"/>
