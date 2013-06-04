@@ -115,7 +115,7 @@ class GeometricalSolver:
 				for j in range(0,5):
 					joint_config[i][j] = response.joint_values[k]
 					k = k + 1
-		print joint_config 
+		#print joint_config 
 				# 	sum_joint_config += joint_config[i][j]
 				# print sum_joint_config
 				# diff_solutions = abs(sum_of_current_joints - sum_joint_config);
@@ -133,7 +133,7 @@ class GeometricalSolver:
 		# 		smS = diff_solutions;
 		# 		number_of_solution = i;
 		# 	sum_joint_config= 0;
-		return joint_config[0].tolist()
+		#return joint_config[0].tolist()
 
 
 # if __name__ == "__main__":

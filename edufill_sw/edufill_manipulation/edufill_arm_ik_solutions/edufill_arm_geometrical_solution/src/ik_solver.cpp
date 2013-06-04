@@ -28,7 +28,7 @@ using namespace std;
 Eigen::VectorXf solve_ik(Eigen::Matrix3f goalR, Eigen::Vector3f goalT,int sol_index)
 {
 	
-	cout << "Solution " << sol_index << std::endl; 
+	cout << "[SOLVER] Solution " << sol_index << std::endl; 
 	
   Eigen::VectorXf result(5);
   //~ index:
@@ -184,13 +184,13 @@ Eigen::VectorXf solve_ik(Eigen::Matrix3f goalR, Eigen::Vector3f goalT,int sol_in
   {
     if( result(k) == -10)
     {
-      cout << "Solution " << sol_index << " discarded: desired goal not reachable by the robot" << std::endl;
+      cout << "[SOLVER] Solution " << sol_index << " discarded: desired goal not reachable by the robot" << std::endl;
       result = result.setZero();
       k = 5;
     }
     else if( range(k,0) > result(k) || range(k,1) < result(k) )
     {
-      cout << "Solution " << sol_index << " discarded: joint " << k+1 << " outside accetable ranges. Value: " << result(k) << "; Range: [" << range(k,0) << " , " << range(k,1) << "]" << std::endl;
+      cout << "[SOLVER] Solution " << sol_index << " discarded: joint " << k+1 << " outside accetable ranges. Value: " << result(k) << "; Range: [" << range(k,0) << " , " << range(k,1) << "]" << std::endl;
       result = result.setZero();
       k = 5;
     }

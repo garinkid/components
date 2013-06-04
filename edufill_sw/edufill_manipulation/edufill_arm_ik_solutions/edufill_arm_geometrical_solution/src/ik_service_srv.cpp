@@ -23,8 +23,6 @@
 #include <edufill_srvs/ComputeIK.h>
 #include <edufill_arm_geometrical_solution/ik_solver.h>
 
-
-
 using namespace std;
 using namespace Eigen;
 
@@ -32,8 +30,7 @@ bool ComputeIK(edufill_srvs::ComputeIK::Request &req, edufill_srvs::ComputeIK::R
 {
   // create eigen quaternion from quaternion message
   Eigen::Quaternion<float> target_quat = Eigen::Quaternion<float>(req.tool_pose.orientation.w,req.tool_pose.orientation.x, req.tool_pose.orientation.y, req.tool_pose.orientation.z);
-  cout << "Request" << req.tool_pose.orientation.w;
-  // quaternion to homogeneous transform (toRotationMatrix = fixed axis!)
+  // quaternion to homogeneous transform
   Eigen::Matrix3f target_rotation = target_quat.toRotationMatrix();
   Eigen::Vector3f target_position = Eigen::Vector3f(req.tool_pose.position.x, req.tool_pose.position.y,req.tool_pose.position.z);
   
@@ -64,7 +61,6 @@ bool ComputeIK(edufill_srvs::ComputeIK::Request &req, edufill_srvs::ComputeIK::R
   {
     res.joint_values[k] = sol_container[k];
   }
-  cout <<"Response"<< res.joint_values[0];
   return true;
 }
 
@@ -74,7 +70,7 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   ros::ServiceServer service = n.advertiseService("edufill_arm_geometrical_solution/ComputeIK", ComputeIK);
-  ROS_INFO("Ready to compute IK solution for desired tool pose.");
+  ROS_INFO("[SERVICE SERVER] Ready to compute IK solution for desired tool pose.");
   ros::spin();
 
   return 0;
