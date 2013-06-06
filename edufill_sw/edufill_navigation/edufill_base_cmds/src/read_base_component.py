@@ -19,7 +19,11 @@ def odometry():
     print "wait for service: read_odometry_data"   
     rospy.wait_for_service('read_odometry_data', 30)
     # call base placement service
-    response = odom_srv()
+    res = odom_srv()
+    pose = res.odom_data.pose.pose
+    rot = (pose.orientation.x,pose.orientation.y,pose.orientation.z,pose.orientation.w)
+    angles = tf.transformations.euler_from_quaternion(rot)
+    response = [pose.position.x,pose.position.y,pose.position.z,angles[0],angles[1],angles[2]]
     return response
     
 
@@ -47,8 +51,8 @@ def location():
 
 if __name__ == '__main__':
     rospy.init_node('readbase',disable_signals=False)
-    #Odometry = odometry()
-    #print Odometry
+    Odometry = odometry()
+    print Odometry
 
 
 
