@@ -4,7 +4,9 @@
     <arg name="rgb_only_camera" default="true" />
     <arg name="launch_openni" default="true" />
     <group if="$(arg rgb_only_camera)">
-        <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" args="rgb_only_camera" output="screen"/>
+        <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" args="rgb_only_camera" output="screen">
+        <remap from="/camera/depth_registered/points" to="/cam3d_tower/depth_registered/points"/>
+        </node>
     </group>
     <group unless="$(arg rgb_only_camera)">
         <group if="$(arg launch_openni)">
