@@ -8,9 +8,9 @@ from brics_actuator.msg import JointPositions, JointValue, Poison
 #open or close the gripper
 def to_pose(command):
     if isinstance(command,str):
-        if command == "OPEN":
+        if command == "open":
 	    gripper_value = 0.0115  
-	elif command == "CLOSE":
+	elif command == "close":
 	    gripper_value = 0
         else:
             return 'wrong_command'
