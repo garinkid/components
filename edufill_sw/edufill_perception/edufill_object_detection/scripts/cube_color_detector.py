@@ -35,8 +35,8 @@ DETECT_PERF = False
 DETECT_PERF_FILE = 'detect_perf.txt'
 OUT_DIR = 'edufill_object_detection_out'
 
-DEF_RGB_TOPIC    = '/camera/rgb/image_rect_color'
-DEF_CLOUD_TOPIC    = '/camera/depth_registered/points'
+DEF_RGB_TOPIC    = '/tower_cam3d/rgb/image_color'
+DEF_CLOUD_TOPIC    = '/tower_cam3d/depth_registered/points'
 DEF_RES_SERVICE  = '/edufill_objdetector/detect_cubes'
 
 YELLOW_HSV_LOW = np.array([0, 50, 65], dtype=np.uint8)
@@ -185,6 +185,7 @@ class CubeColorDetector:
                         #vs = np.range(v - VMAX2, v + VMAX2)
                         #uvs = np.transpose(np.tile(us, len(vs)), np.repeat(vs, len(us)))
                         uvs = [[u, v]]
+			print uvs
                         for i in read_points(self.cloud, uvs = uvs):
                             pp.append(i)
                     except Exception, e:
