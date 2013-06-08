@@ -6,6 +6,7 @@
     <group if="$(arg rgb_only_camera)">
         <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" args="rgb_only_camera" output="screen">
         <remap from="/camera/depth_registered/points" to="/cam3d_tower/depth_registered/points"/>
+        <remap from="/camera/rgb/image_rect_color" to="/cam3d_tower/rgb/image_rect_color"/>
         </node>
     </group>
     <group unless="$(arg rgb_only_camera)">
