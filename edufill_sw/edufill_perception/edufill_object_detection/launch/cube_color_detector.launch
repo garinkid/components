@@ -2,7 +2,7 @@
 <launch>
     <env name="ROS_HOME" value="$(find edufill_object_detection)"/>
     <arg name="rgb_only_camera" default="false" />
-    <arg name="launch_openni" default="true" />
+    <arg name="launch_openni" default="false" />
     <group if="$(arg rgb_only_camera)">
         <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" args="rgb_only_camera" output="screen">
         <remap from="/camera/depth_registered/points" to="/cam3d_tower/depth_registered/points"/>
