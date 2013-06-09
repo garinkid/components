@@ -4,7 +4,11 @@
 	
 	<!-- upload robot and env params -->
 	<include file="$(find edufill_default_config)/upload_param.launch" />
-	<include file="$(find edufill_env_config)/upload_param.launch" />
+	<!--<include file="$(find edufill_env_config)/upload_param.launch" />
+	navigation goals should be loaded with navigation, to do: will check navigation later
+	-->
+	
+
 
     <!-- start gazebo with GUI and load environment -->
     <include file="$(find edufill_gazebo_world)/ros/launch/$(env ROBOT_ENV).launch" />
