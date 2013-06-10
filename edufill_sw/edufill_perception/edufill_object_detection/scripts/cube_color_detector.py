@@ -7,6 +7,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from sensor_msgs.msg import PointCloud2
 from geometry_msgs.msg import PoseStamped
+import tf
 from cv_bridge import CvBridge, CvBridgeError
 import cv2
 from cv2.cv import CV_FOURCC, RGB
@@ -23,7 +24,8 @@ from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
-CAMERA_FRAME =  '/camera_rgb_optical_frame'
+CAMERA_FRAME =  'camera_rgb_optical_frame'
+BASE_FRAME   =  'base_link'
 DEBUG = True
 
 DETECT_METHOD_CONTOUR = 'contour'
@@ -56,6 +58,7 @@ def cv_image_from_ros_msg(msg, dtype = 'bgr8'):
 
 class CubeColorDetector:
     def __init__(self, rgb_only_camera):
+        #Detection variables
         self.rgb_only_camera = rgb_only_camera
         H = os.getenv('ROS_HOME')
         assert H != None
@@ -75,6 +78,7 @@ class CubeColorDetector:
         self.rgb = None
         if DETECT_PERF:
             self.dperf_file = file(DETECT_PERF_FILE, 'w')
+        self.tf_listener = tf.TransformListener()
         print 'Waiting for service calls...'
 
     def set_rgb_topic(self, topic_name):
@@ -137,6 +141,15 @@ class CubeColorDetector:
         return conts, conts_img, back, back_filt
 
         
+    def transform_to_base_frame(self, pose):
+        try:
+            self.tf_listener.waitForTransform(BASE_FRAME, pose.header.frame_id, rospy.Time(), rospy.Duration(4.0))
+            pose_wrt_base = self.tf_listener.transformPose(BASE_FRAME, pose)
+            return pose_wrt_base
+        except Exception, e:
+            rospy.logerr('ERROR: cannot transform from %s to %s' % (CAMERA_FRAME, BASE_FRAME))
+            raise e
+
     def detect_cubes_cb(self, req):
         if self.rgb_only_camera:
             vcap = cv2.VideoCapture(0)
@@ -171,11 +184,11 @@ class CubeColorDetector:
             for c in cube_rects:
                 u =  c[0] + c[2] / 2
                 v =  c[1] + c[3] / 2
-                pose = PoseStamped()
+                pose_wrt_camera = PoseStamped()
                 if self.rgb_only_camera:
-                    pose.pose.position.x = u
-                    pose.pose.position.y = v
-                    pose.pose.position.z = 0
+                    pose_wrt_camera.pose.position.x = u
+                    pose_wrt_camera.pose.position.y = v
+                    pose_wrt_camera.pose.position.z = 0
                 else:
                     pp = []
                     try:
@@ -199,23 +212,27 @@ class CubeColorDetector:
                         dist = np.linalg.norm(p)
                         if dist > DETECT_DIST_MAX:
                             continue
-                    pose.pose.position.x = p[0]
-                    pose.pose.position.y = p[1]
-                    pose.pose.position.z = p[2]
-                    pose.header.frame_id = CAMERA_FRAME
-                if not np.isnan(pose.pose.position.x):
+                    pose_wrt_camera.pose.position.x = p[0]
+                    pose_wrt_camera.pose.position.y = p[1]
+                    pose_wrt_camera.pose.position.z = p[2]
+                    pose_wrt_camera.header.frame_id = CAMERA_FRAME
+                    pose_wrt_base = self.transform_to_base_frame(pose_wrt_camera)
+                    pose_wrt_base.pose.orientation.x = 0.0
+                    pose_wrt_base.pose.orientation.y = 0.0
+                    pose_wrt_base.pose.orientation.z = 0.0
+                if not np.isnan(pose_wrt_base.pose.position.x):
                     resp.sizes.append(max(c[2], c[3]))
-                    resp.poses.append(pose)
+                    resp.poses.append(pose_wrt_base)
             if DEBUG:
                 pass
 
         else:
             c = (30, 30, self.img.shape[1] - 60, self.img.shape[0] - 60)
             resp.sizes.append(-1)
-            pose = PoseStamped()
-            pose.pose.position.x = -1
-            pose.pose.position.y = -1
-            resp.poses.append(pose)
+            pose_wrt_camera = PoseStamped()
+            pose_wrt_camera.pose.position.x = -1
+            pose_wrt_camera.pose.position.y = -1
+            resp.poses.append(pose_wrt_camera)
             if DEBUG:
                 print 'NOT FOUND'
         
