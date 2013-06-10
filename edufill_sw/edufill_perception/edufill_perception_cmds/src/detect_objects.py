@@ -38,7 +38,7 @@ def cube(color, min_size = 10, max_size = 100):
         qz = item.pose.orientation.z
         qw = item.pose.orientation.w
         rpy = tf.transformations.euler_from_quaternion([qx, qy, qz, qw])
-        obj_pose = [x, y, z, rpy[0], rpy[1], rpy[2], item.header.frame_id]
+        obj_pose = [x, y, z, rpy[0], rpy[1], rpy[2]]
         objlist.append(obj_pose)
     return objlist
 
