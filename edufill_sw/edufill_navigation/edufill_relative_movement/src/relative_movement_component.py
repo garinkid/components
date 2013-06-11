@@ -2,24 +2,28 @@
 import roslib; roslib.load_manifest('edufill_relative_movement')
 import rospy
 
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Pose2D
+#from yb_simple_move.srv import MoveToRelativePos
+# from yb_simple_move.srv import MoveToRelativePos  
+# import yb_simple_move.srv
+import edufill_srvs.srv
 
 def to_goal(goal):
-	while not rospy.is_shutdown():
-		pose = PoseStamped()
-		pose.header.frame_id = "/map"
-		pose.header.stamp = rospy.Time.now()
-		pose.pose.position.x = goal[0]
-		pose.pose.position.y = goal[1]
-		pose.pose.position.z = goal[2]    
-		pose.pose.orientation.x = goal[3]
-		pose.pose.orientation.y = goal[4]
-		pose.pose.orientation.z = goal[5]
-		pose.pose.orientation.w = goal[6]
-		pub= rospy.Publisher("/move_base_simple/goal", PoseStamped)
-		pub.publish(pose)
+	pose = Pose2D()
+	pose.x = goal[0]
+	pose.y = goal[1]
+	pose.theta = goal[2]
+	rospy.wait_for_service('/move_to_relative_pos')
+	try:
+		relative_motion= rospy.ServiceProxy('/move_to_relative_pos', edufill_srvs.srv.MoveToRelativePos)
+		resp = relative_motion(pose)
+		return resp.result
+	except rospy.ServiceException, e:
+		print "Service call failed: %s"%e
+
+
 
 if __name__ == '__main__':
 	rospy.init_node('simple_move')
 	# while not rospy.is_shutdown():
-	to_goal([0.6,0.8,1.3,0.4,1.9,2.7,0.5])	
+	to_goal([0.6,0.8,0.4])	
