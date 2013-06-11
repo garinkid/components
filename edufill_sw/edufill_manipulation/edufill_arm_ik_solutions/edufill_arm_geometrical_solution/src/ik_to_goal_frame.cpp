@@ -127,7 +127,7 @@ bool ik_to_goal_frame::get_goal_position(edufill_srvs::CartesianPose::Request  &
   {
     try
     {
-      listener.waitForTransform(desired_frame, "/arm_link_1", ros::Time(0),ros::Duration(0.1));
+      listener.waitForTransform(desired_frame, "/arm_link_1", ros::Time(0),ros::Duration(0.2));
       listener.lookupTransform(desired_frame, "/arm_link_1", ros::Time(0), transform);
       tf_catch = true;
     }
@@ -206,6 +206,7 @@ bool ik_to_goal_frame::get_goal_position(edufill_srvs::CartesianPose::Request  &
   res.goal_pose.orientation.y = Eig_target_q.y();
   res.goal_pose.orientation.z = Eig_target_q.z();
   res.goal_pose.orientation.w = Eig_target_q.w();
+  tf_catch = false;
   return true;
 }
 

@@ -4,7 +4,7 @@
     	<include file="$(find edufill_bringup_sim)/robots/robot_no_x.launch" />
 
 	<!-- navigation -->
-	<include file="$(find edufill_2dnav)/ros/launch/2dnav_sim.launch" />
+	<include file="$(find edufill_2dnav)/ros/launch/sim/2dnav_sim.launch" />
 
         <!-- manipulation 
 		<include file="$(find edufill_arm_navigation)/ros/launch/simple_manipulation.launch" />-->
