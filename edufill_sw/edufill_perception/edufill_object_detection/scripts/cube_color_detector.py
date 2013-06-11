@@ -24,7 +24,7 @@ from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
-CAMERA_FRAME =  'camera_rgb_optical_frame'
+CAMERA_FRAME =  'tower_cam3d_rgb_optical_frame'
 BASE_FRAME   =  'base_link'
 DEBUG = True
 
