@@ -31,22 +31,6 @@ SCALAR_WHITE = Scalar(255, 255, 255)
 SCALAR_GREEN = Scalar(0, 255, 0)
 SCALAR_RED   = Scalar(0, 0, 255)
 
-def hue_to_hist(hue_min, hue_max, hist_bins):
-    hist = np.array([], dtype='uint8')
-    for i in range(hist_bins):
-        bin_w = 180.0 / hist_bins
-        c = bin_w * (i + 0.5)
-        if hue_min < c < hue_max:
-            a = c - hue_min
-            b = hue_max - c
-            min_s = min(a, b)
-            max_s = max(a, b)
-            val = 255.0 * min_s / max_s
-        else:
-            val = 0
-        hist = np.append(hist, int(val))
-    return (255.0 / max(hist) * hist).astype('uint8')
-
 
 if __name__ == '__main__':
     VIDEO_FILE         = '../hand_3markers/out.avi'
@@ -99,14 +83,14 @@ def HSV(img_in, x, y):
 
 #ignore_mask if defined must contain a 3-element np.array with RGB color
 # which must not be accounted for when calculated min. and max. values
-def MinMaxHSV(img_in, x1, y1, x2, y2, ignore_mask = None):
+def MinMaxAvgHSV(img_in, x1, y1, x2, y2, ignore_mask = None):
     if type(img_in) == type(''):
         frame = read_image(fname)
     else:
         frame = img_in
     frameHSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    MinHSV = [255, 255, 255]
-    MaxHSV = [0, 0, 0]
+    MinHSV = np.array([255, 255, 255], dtype='int32')
+    MaxHSV = np.array([0, 0, 0], dtype='int32')
     for i in range(x1, x2):
         for j in range(y1, y2):
             for k in [0, 1, 2]:
@@ -116,7 +100,8 @@ def MinMaxHSV(img_in, x1, y1, x2, y2, ignore_mask = None):
                     MinHSV[k] = frameHSV[j, i][k]
                 if frameHSV[j, i][k] > MaxHSV[k]:
                     MaxHSV[k] = frameHSV[j, i][k]
-    return (MinHSV, MaxHSV)
+    AvgHSV = (MinHSV + MaxHSV) / 2
+    return (MinHSV.astype('uint8'), MaxHSV.astype('uint8'), AvgHSV.astype('uint8'))
 
 
 #THE FOLLOWING FUNCTIONS ARE EMPOWERED BY HIGHGUI
@@ -151,7 +136,80 @@ def GUIMinMaxHSV(img_in):
     points = []
     while cv2.waitKey(100) != 32:
         if len(points) == 2:
-            print MinMaxHSV(frame, points[0][0], points[0][1], points[1][0], points[1][1])
+            print MinMaxAvgHSV(frame, points[0][0], points[0][1], points[1][0], points[1][1])
+            points = []
+        if mouse_events[cv2.EVENT_LBUTTONDOWN]:
+            points.append((mouse_x, mouse_y))
+        clear_events()
+    cv2.destroyWindow('wnd')
+    cv2.waitKey(1000)
+
+def GUICalibrateHSV(img_in, fname):
+    if type(img_in) == type(''):
+        frame = read_image(fname)
+    else:
+        frame = img_in
+    cv2.namedWindow('wnd', 0)
+    cv2.setMouseCallback('wnd', on_mouse_event, 0)
+    cv2.imshow('wnd', frame)
+    points_selected = 0
+    points = []
+    state = 'zoom'
+    origin = (0, 0)
+    hsv_min = 255 * np.ones([3], dtype='uint8')
+    hsv_max = np.zeros([3], dtype='uint8')
+    print hsv_min, hsv_max
+    color_strs = {\
+                    'r': 'red',\
+                    'g': 'green',\
+                    'b': 'blue',\
+                    'c': 'cyan',\
+                    'm': 'magenta',\
+                    'y': 'yellow',\
+                 }
+    while True:
+        key = cv2.waitKey(100)
+        if key == 27:
+            break
+        if key == ord('c') and state == 'hsv':
+            hsv_min = 255 * np.ones([3], dtype='uint8')
+            hsv_max = np.zeros([3], dtype='uint8')
+            points = []
+        if key == ord('w') and state == 'hsv':
+            cv2.destroyWindow('wnd')
+            color = raw_input('color [r, g, r, c, m, y]> ')
+            color = color_strs[color]
+            f = file(fname, 'a+')
+            f.write('%s_hsv_min:\n' % color)
+            f.write('  h: %d\n' % hsv_min[0])
+            f.write('  s: %d\n' % hsv_min[1])
+            f.write('  v: %d\n' % hsv_min[2])
+            f.write('%s_hsv_max:\n' % color)
+            f.write('  h: %d\n' % hsv_max[0])
+            f.write('  s: %d\n' % hsv_max[1])
+            f.write('  v: %d\n' % hsv_max[2])
+            f.close()
+            print '%s written' % fname
+            cv2.namedWindow('wnd', 0)
+            cv2.setMouseCallback('wnd', on_mouse_event, 0)
+            cv2.imshow('wnd', frame)
+            state = 'zoom'
+            hsv_min = 255 * np.ones([3], dtype='uint8')
+            hsv_max = np.zeros([3], dtype='uint8')
+            points = []
+        elif len(points) == 2 and state == 'zoom':
+            zoomed_frame = frame[points[0][1]:points[1][1], points[0][0]:points[1][0]]
+            cv2.imshow('wnd', zoomed_frame)
+            state = 'hsv'
+            points = []
+        elif len(points) == 2 and state == 'hsv':
+            (mi, ma, _) = MinMaxAvgHSV(zoomed_frame, points[0][0], points[0][1], points[1][0], points[1][1])
+            for i in range(len(mi)):
+                if mi[i] < hsv_min[i]:
+                    hsv_min[i] = mi[i]
+                if ma[i] > hsv_max[i]:
+                    hsv_max[i] = ma[i]
+            print hsv_min, hsv_max
             points = []
         if mouse_events[cv2.EVENT_LBUTTONDOWN]:
             points.append((mouse_x, mouse_y))
@@ -196,14 +254,14 @@ def get_cmass(img_in):
     my = mom['m01'] / mom['m00']
     return (int(mx), int(my))
 
-def hsv_filter_mask(hsv, hsv_range_low = np.array([0, 20, 32], dtype=np.uint8), hsv_range_high = np.array([180, 255, 240], dtype=np.uint8)):
+def hsv_filter_mask(hsv, hsv_range_low = np.array([0, 20, 32], dtype=np.uint8), hsv_range_high = np.array([180, 254, 254], dtype=np.uint8)):
     return cv2.inRange(hsv, hsv_range_low, hsv_range_high)
 
 def test_color():
     color_ranges = []
     for color in ['red', 'blue', 'yellow']:
         img = read_image('../pure_markers/hand_3fingers_%s_frame300.png' % color)
-        color_rng = MinMaxHSV(img, 0, 0, img.shape[1], img.shape[0], ignore_mask = np.array([255, 255, 255]))
+        color_rng = MinMaxAvgHSV(img, 0, 0, img.shape[1], img.shape[0], ignore_mask = np.array([255, 255, 255]))
         print color, color_rng
         color_ranges.append(color_rng)
     inters = ColorRangeIntersection(color_ranges[0], color_ranges[2])
