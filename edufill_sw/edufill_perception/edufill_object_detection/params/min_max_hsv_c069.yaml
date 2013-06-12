@@ -1,0 +1,56 @@
+blue_hsv_min:
+  h: 106
+  s: 108
+  v: 90
+blue_hsv_max:
+  h: 115
+  s: 161
+  v: 153
+yellow_hsv_min:
+  h: 23
+  s: 175
+  v: 149
+yellow_hsv_max:
+  h: 27
+  s: 250
+  v: 203
+blue_hsv_min:
+  h: 105
+  s: 90
+  v: 90
+blue_hsv_max:
+  h: 115
+  s: 176
+  v: 156
+green_hsv_min:
+  h: 44
+  s: 85
+  v: 72
+green_hsv_max:
+  h: 70
+  s: 142
+  v: 129
+red_hsv_min:
+  h: 0
+  s: 162
+  v: 130
+red_hsv_max:
+  h: 179
+  s: 194
+  v: 151
+cyan_hsv_min:
+  h: 0
+  s: 9
+  v: 173
+cyan_hsv_max:
+  h: 177
+  s: 13
+  v: 177
+magenta_hsv_min:
+  h: 3
+  s: 13
+  v: 173
+magenta_hsv_max:
+  h: 177
+  s: 16
+  v: 176
