@@ -131,9 +131,15 @@ def wall_existance(side_coordinates):
     avg = reduce(lambda x, y: x + y, side_coordinates) / len(side_coordinates)
     for i in side_coordinates:
         if (avg  - i) < 0.04:
-            return True
+            count_t = count_t + 1
         else:
-            return "Not a wall"
+            count_f = count_f + 1
+    print count_t
+    print count_f
+    if count_t > count_f:
+        return True
+    else:
+        return "Not a wall"
 
 def check_wall(side,distance=0.4):
     angle_max = 1.56
