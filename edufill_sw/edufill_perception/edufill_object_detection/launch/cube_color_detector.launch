@@ -1,19 +1,13 @@
 <?xml version="1.0"?>
 <launch>
     <env name="ROS_HOME" value="$(find edufill_object_detection)"/>
-    <arg name="rgb_only_camera" default="false" />
     <arg name="launch_openni" default="false" />
-    <group if="$(arg rgb_only_camera)">
-        <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" args="rgb_only_camera" output="screen">
-        </node>
+    <group if="$(arg launch_openni)">
+        <include file="$(find simple_pcl)/launch/openni.launch" />
     </group>
-    <group unless="$(arg rgb_only_camera)">
-        <group if="$(arg launch_openni)">
-            <include file="$(find simple_pcl)/launch/openni.launch" />
-        </group>
-        <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" output="screen">
+    <node pkg="edufill_object_detection" type="cube_color_detector.py" name="cube_color_detector" output="screen">
+            <rosparam command="load" file="$(find edufill_object_detection)/params/params.yaml" />
             <!--remap from="/tower_cam3d/depth_registered/points" to="/camera/depth_registered/points"/-->
             <!--remap from="/tower_cam3d/rgb/image_color" to="/camera/rgb/image_rect_color" /-->
-        </node>
-    </group>
+    </node>
 </launch>

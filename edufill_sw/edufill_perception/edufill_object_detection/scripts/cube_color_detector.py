@@ -24,7 +24,7 @@ from edufill_object_detection.srv import *
 from point_cloud2 import read_points
 from errno import EEXIST
 
-CAMERA_FRAME =  'camera_rgb_optical_frame'
+CAMERA_FRAME =  'tower_cam3d_rgb_optical_frame'
 BASE_FRAME   =  'base_link'
 DEBUG = True
 
@@ -57,9 +57,10 @@ def cv_image_from_ros_msg(msg, dtype = 'bgr8'):
     return img
 
 class CubeColorDetector:
-    def __init__(self, rgb_only_camera):
+    def __init__(self, rgb_only_camera, if_do_transform):
         #Detection variables
         self.rgb_only_camera = rgb_only_camera
+        self.if_do_transform = if_do_transform
         H = os.getenv('ROS_HOME')
         assert H != None
         #histogram file, Histogram object, Hue center, Saturation low margin
@@ -69,7 +70,6 @@ class CubeColorDetector:
                                   'yellow':  [H + '/histograms/yellow_cube.hst', None, 10, 0], \
                                   'cyan':    [H + '/histograms/cyan_cube.hst', None, 10, 0], \
                                   'magenta': [H + '/histograms/magenta_cube.hst', None, 10, 0] }
-        rospy.init_node('cube_color_detector', anonymous=True)
         self.hists = []
         self.img = None
         self.rgb_subscriber = None
@@ -216,13 +216,16 @@ class CubeColorDetector:
                     pose_wrt_camera.pose.position.y = p[1]
                     pose_wrt_camera.pose.position.z = p[2]
                     pose_wrt_camera.header.frame_id = CAMERA_FRAME
-                    pose_wrt_base = self.transform_to_base_frame(pose_wrt_camera)
-                    pose_wrt_base.pose.orientation.x = 0.0
-                    pose_wrt_base.pose.orientation.y = 0.0
-                    pose_wrt_base.pose.orientation.z = 0.0
-                if not np.isnan(pose_wrt_base.pose.position.x):
+                    if self.if_do_transform:
+                        pose_final = self.transform_to_base_frame(pose_wrt_camera)
+                    else:
+                        pose_final = pose_wrt_camera
+                    pose_final.pose.orientation.x = 0.0
+                    pose_final.pose.orientation.y = 0.0
+                    pose_final.pose.orientation.z = 0.0
+                if not np.isnan(pose_final.pose.position.x):
                     resp.sizes.append(max(c[2], c[3]))
-                    resp.poses.append(pose_wrt_base)
+                    resp.poses.append(pose_final)
             if DEBUG:
                 pass
 
@@ -324,8 +327,8 @@ class CubeColorDetector:
     def cloud_cb(self, cloud):
        self.cloud = cloud
        
-def do_detection(rgb_only_camera):
-    ccd = CubeColorDetector(rgb_only_camera)
+def do_detection(rgb_only_camera, if_do_transform):
+    ccd = CubeColorDetector(rgb_only_camera, if_do_transform)
     ccd.set_rgb_topic(DEF_RGB_TOPIC)
     ccd.set_cloud_topic(DEF_CLOUD_TOPIC)
     ccd.load_hue_histograms()
@@ -349,14 +352,11 @@ def prepare():
             print 'Chd\'ed to %s failed: %s' % (OUT_DIR, e)
 
 if __name__ == '__main__':
-    print 'REALDIR: ', realpath('.')
-    rgb_only_camera = False
-    try:
-        if 'rgb_only_camera' in set(rospy.myargv()):
-            rgb_only_camera = True
-    except:
-        pass
+    rospy.init_node('cube_color_detector', anonymous=True)
+    if_do_transform = rospy.get_param('~do_transform', False)
+    rgb_only_camera = rospy.get_param('~rgb_only_camera', False)
+    print 'do_transform: %s, rgb_only_camera: %s' % (str(if_do_transform), str(rgb_only_camera))
     prepare()
-    do_detection(rgb_only_camera)
+    do_detection(rgb_only_camera, if_do_transform)
 
 
