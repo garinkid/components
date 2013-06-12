@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<launch>
+    <arg name="joypad_cfg_file" default="$(find edufill_teleop)/ros/config/logitech.yaml"/>
+	    
+	<node pkg="joy" type="joy_node" name="joy_node">
+        <rosparam command="load" file="$(find edufill_hardware_config)/$(env ROBOT)/config/joy.yaml"/>
+	</node>
+	
+	<!-- start youbot teleop node -->
+	<node pkg="edufill_teleop" type="teleop_joypad_node" name="edufill_teleop_joypad" output="screen">
+		<rosparam command="load" file="$(arg joypad_cfg_file)"/>
+        <rosparam command="load" file="$(find edufill_hardware_config)/$(env ROBOT)/config/teleop.yaml"/>
+	</node>
+</launch>
