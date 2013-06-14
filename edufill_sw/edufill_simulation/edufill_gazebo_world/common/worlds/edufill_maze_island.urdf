@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+
+<robot name="maze_big" static="true">
+
+	<link name="maze_big">
+		<inertial>
+			<origin xyz="0 0 1"/>
+			<mass value="100.0"/>
+			<inertia ixx="100.0" ixy="0.0" ixz="0.0" iyy="100.0" iyz="0.0" izz="100.0"/>
+		</inertial>
+		<collision name="room_collision">
+            		<geometry>
+
+                		<mesh filename="package://edufill_gazebo_world/common/worlds/edufill_maze_island.dae" scale="1 1 1"/>
+            		</geometry>
+        	</collision>
+		<visual>
+			<geometry>
+				<mesh filename= "package://edufill_gazebo_world/common/worlds/edufill_maze_island.dae" scale="1 1 1"/>
+			</geometry>
+		</visual>
+	</link>
+  <gazebo reference="maze_big">
+	<material>Gazebo/White</material>
+	<selfCollide>true</selfCollide>
+    <turnGravityOff>false</turnGravityOff>
+  </gazebo>
+</robot>
