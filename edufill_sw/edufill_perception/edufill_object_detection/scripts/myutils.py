@@ -42,12 +42,12 @@ if __name__ == '__main__':
     HIST_FILES         = [RED_HIST_FILE, BLUE_HIST_FILE, YELLOW_HIST_FILE, \
                       RECT_RED_HIST_FILE]
 
-def draw_debug_messages(img, msgs, orig = (30, 30), color=SCALAR_GREEN):
+def draw_debug_messages(img, msgs, orig = (30, 30), color=SCALAR_GREEN, font_size = 2.0):
     LINES_INTERVAL = 30
     x, y = orig
     for m in msgs:
         cv2.putText(img, m, (x, y), cv2.FONT_HERSHEY_PLAIN, \
-                2.0, color)
+                font_size, color)
         y += LINES_INTERVAL
 def draw_label(img, label, orig = (50, 50), color = SCALAR_BLACK):
     cv2.putText(img, label, orig, cv2.FONT_HERSHEY_PLAIN, \
@@ -91,15 +91,24 @@ def MinMaxAvgHSV(img_in, x1, y1, x2, y2, ignore_mask = None):
     frameHSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     MinHSV = np.array([255, 255, 255], dtype='int32')
     MaxHSV = np.array([0, 0, 0], dtype='int32')
-    for i in range(x1, x2):
-        for j in range(y1, y2):
-            for k in [0, 1, 2]:
-                if ignore_mask != None and (frame[j, i] == ignore_mask).all():
+    ignored = 0
+    not_ignored = 0
+    for j in range(x1, x2):
+        for i in range(y1, y2):
+            try:
+                if (frame[j, i] == ignore_mask).all():
+                    ignored += 1
                     continue
+            except:
+                print j, i
+                print img_in.shape
+            not_ignored += 1
+            for k in [0, 1, 2]:
                 if frameHSV[j, i][k] < MinHSV[k]:
                     MinHSV[k] = frameHSV[j, i][k]
                 if frameHSV[j, i][k] > MaxHSV[k]:
                     MaxHSV[k] = frameHSV[j, i][k]
+    print 'ignored px.', ignored, 'not_ignored px.', not_ignored
     AvgHSV = (MinHSV + MaxHSV) / 2
     return (MinHSV.astype('uint8'), MaxHSV.astype('uint8'), AvgHSV.astype('uint8'))
 
@@ -107,7 +116,8 @@ def MinMaxAvgHSV(img_in, x1, y1, x2, y2, ignore_mask = None):
 #THE FOLLOWING FUNCTIONS ARE EMPOWERED BY HIGHGUI
 
 
-mouse_events = dict(map(lambda x:    (x, 0), range(0, 10)))
+mouse_events = dict(map(lambda x:    (x, False), range(0, 10)))
+key_events   = dict(map(lambda x:    (x, False), range(0, 256)))
 mouse_x      = 0
 mouse_y      = 0
 KEY_SPACE    = 32
@@ -115,14 +125,17 @@ KEY_SPACE    = 32
 def on_mouse_event(event, x, y, flags, params):
     global left_clicked
     global mouse_x, mouse_y
-    mouse_events[event] = 1
+    mouse_events[event] = True
     mouse_x = x
     mouse_y = y
 
-def clear_events():
-    keys = mouse_events.keys()
-    for k in keys:
-        mouse_events[k] = False
+def clear_events_mouse(event_ids = mouse_events.keys()):
+    for eid in event_ids:
+        mouse_events[eid] = False
+
+def clear_events_key(event_ids = key_events.keys()):
+    for eid in event_ids:
+        key_events[eid] = False
 
 def GUIMinMaxHSV(img_in):
     if type(img_in) == type(''):
@@ -140,25 +153,50 @@ def GUIMinMaxHSV(img_in):
             points = []
         if mouse_events[cv2.EVENT_LBUTTONDOWN]:
             points.append((mouse_x, mouse_y))
-        clear_events()
+        clear_events_mouse()
     cv2.destroyWindow('wnd')
     cv2.waitKey(1000)
+
+def cv_u8c3point_inv(p):
+    return [255 - p[0], 255 - p[1], 255 - p[2]]
+
+def draw_contour(img, points):
+    for p in points:
+        try:#some points may appear outside the image boundaries
+            img[p[::-1]] = cv_u8c3point_inv(img[p[::-1]])
+        except:
+            pass
 
 def GUICalibrateHSV(img_in, fname):
     if type(img_in) == type(''):
         frame = read_image(fname)
     else:
         frame = img_in
+    main_labels = [   'Draw a bounding box around next cube to zoom it in',\
+                      'In the zoomed area draw a contour around the cube and press \'Enter\'.',\
+                      'Select the color in the terminal:',\
+                      ' Type one character designating the color (r, g, b, c, m or y) and press \'Enter\'',\
+                      'Then proceed with the next cube in the reopened image window',\
+                      'When all the cube types were selected, exit the program pressing \'Esc\''\
+                  ]
+
+    labels = {\
+              'zoom1': main_labels,\
+              'zoom2': main_labels,\
+              'hsv_select_roi': [],\
+              'hsv': main_labels,\
+             }
+    disp_frame = frame.copy()
+    zoomed_frame = None
     cv2.namedWindow('wnd', 0)
     cv2.setMouseCallback('wnd', on_mouse_event, 0)
-    cv2.imshow('wnd', frame)
     points_selected = 0
     points = []
-    state = 'zoom'
-    origin = (0, 0)
+    state = 'zoom1'
+    draw_debug_messages(disp_frame, labels[state])
+    cv2.imshow('wnd', disp_frame)
     hsv_min = 255 * np.ones([3], dtype='uint8')
     hsv_max = np.zeros([3], dtype='uint8')
-    print hsv_min, hsv_max
     color_strs = {\
                     'r': 'red',\
                     'g': 'green',\
@@ -167,18 +205,61 @@ def GUICalibrateHSV(img_in, fname):
                     'm': 'magenta',\
                     'y': 'yellow',\
                  }
+    contour_selected = False
+    sub_state = None
     while True:
-        key = cv2.waitKey(100)
-        if key == 27:
+        key = cv2.waitKey(10)
+        if key == 27:#Esc
             break
+        key_events[key] = True
         if key == ord('c') and state == 'hsv':
             hsv_min = 255 * np.ones([3], dtype='uint8')
             hsv_max = np.zeros([3], dtype='uint8')
             points = []
-        if key == ord('w') and state == 'hsv':
+        elif state == 'hsv_select_roi':
+            if sub_state == 'cont_not_selected':
+                if mouse_events[cv2.EVENT_LBUTTONDOWN]:
+                    sub_state = 'cont_select'
+            elif sub_state == 'cont_select':
+                zoomed_frame_contoured = zoomed_frame.copy()
+                draw_contour(zoomed_frame_contoured, points)
+                draw_debug_messages(zoomed_frame_contoured, labels[state])
+                cv2.imshow('wnd', zoomed_frame_contoured)
+                if mouse_events[cv2.EVENT_LBUTTONUP]:
+                    sub_state = 'cont_selected'
+                    clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
+            elif sub_state == 'cont_selected':
+                if key_events[10]:#Enter
+                    clear_events_key([10])
+                    #TODO: assert len(points) >= 2, otherwise switch to sub_state = 'cont_select',
+                    #but also make new clicks be processed (points.append at the end of cycle)
+                    state = 'hsv'
+                elif mouse_events[cv2.EVENT_LBUTTONDOWN]:
+                    sub_state = 'cont_select'
+            elif mouse_events[cv2.EVENT_RBUTTONUP]:
+                points = []
+        elif state == 'hsv':
+            cont = np.array([points], dtype='int32')
+            #cont = np.array([[[1, 30]], [[30,1]], [[30, 30]], [[1, 1]]], dtype='int32')
+            mask = np.zeros_like(zoomed_frame)
+            cv2.drawContours(mask, cont, -1, SCALAR_WHITE, -1)#Draw contour with filled internals
+            selected_frame = np.bitwise_and(zoomed_frame, mask)
+            ignore_mask = np.array(SCALAR_BLACK[0:3], dtype=selected_frame.dtype)
+            (mi, ma, _) = MinMaxAvgHSV(selected_frame, 0, 0, selected_frame.shape[0], selected_frame.shape[1], ignore_mask)
+            for i in range(len(mi)):
+                if mi[i] < hsv_min[i]:
+                    hsv_min[i] = mi[i]
+                if ma[i] > hsv_max[i]:
+                    hsv_max[i] = ma[i]
             cv2.destroyWindow('wnd')
-            color = raw_input('color [r, g, r, c, m, y]> ')
-            color = color_strs[color]
+            while True:
+                try:
+                    color = raw_input('color [r, g, b, c, m, y]> ')
+                    color = color_strs[color]
+                except KeyError, e:
+                    print 'Invalid color: %s. Avaliable colors are: r, g, b, c, m, y. Retry.' % color
+                    continue
+                break
             f = file(fname, 'a+')
             f.write('%s_hsv_min:\n' % color)
             f.write('  h: %d\n' % hsv_min[0])
@@ -190,30 +271,36 @@ def GUICalibrateHSV(img_in, fname):
             f.write('  v: %d\n' % hsv_max[2])
             f.close()
             print '%s written' % fname
+            cv2.imwrite('params/%s.png' % color, selected_frame)
+            print 'params/%s.png written' % color
             cv2.namedWindow('wnd', 0)
             cv2.setMouseCallback('wnd', on_mouse_event, 0)
-            cv2.imshow('wnd', frame)
-            state = 'zoom'
+            disp_frame = frame.copy()
+            draw_debug_messages(disp_frame, labels[state])
+            cv2.imshow('wnd', disp_frame)
+            state = 'zoom1'
             hsv_min = 255 * np.ones([3], dtype='uint8')
             hsv_max = np.zeros([3], dtype='uint8')
             points = []
-        elif len(points) == 2 and state == 'zoom':
-            zoomed_frame = frame[points[0][1]:points[1][1], points[0][0]:points[1][0]]
+        elif mouse_events[cv2.EVENT_LBUTTONDOWN] and state == 'zoom1':
+            state = 'zoom2'
+        elif mouse_events[cv2.EVENT_LBUTTONUP] and state == 'zoom2':
+            if len(points) < 2:
+                state = 'zoom1'
+                continue
+            clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
+            #only store two diagonal edge points of the rectangle
+            points = [points[0], points[-1]]
+            disp_frame = frame.copy()
+            zoomed_frame = disp_frame[points[0][1]:points[1][1], points[0][0]:points[1][0]]
+            state = 'hsv_select_roi'
+            draw_debug_messages(zoomed_frame, labels[state])
             cv2.imshow('wnd', zoomed_frame)
-            state = 'hsv'
-            points = []
-        elif len(points) == 2 and state == 'hsv':
-            (mi, ma, _) = MinMaxAvgHSV(zoomed_frame, points[0][0], points[0][1], points[1][0], points[1][1])
-            for i in range(len(mi)):
-                if mi[i] < hsv_min[i]:
-                    hsv_min[i] = mi[i]
-                if ma[i] > hsv_max[i]:
-                    hsv_max[i] = ma[i]
-            print hsv_min, hsv_max
+            sub_state = 'cont_not_selected'
             points = []
         if mouse_events[cv2.EVENT_LBUTTONDOWN]:
             points.append((mouse_x, mouse_y))
-        clear_events()
+        #clear_events_mouse()
     cv2.destroyWindow('wnd')
     cv2.waitKey(1000)
 
