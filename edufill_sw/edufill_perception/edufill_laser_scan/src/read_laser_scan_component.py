@@ -25,7 +25,7 @@ class laser_scan_data:
 def get_resolution():
     obj_laser_data = laser_scan_data()
     laser_data = obj_laser_data.get_laser_scan_data()
-    resolution = (abs(laser_data.angle_max) + abs(laser_data.angle_max))/len(laser_data.ranges)
+    resolution = (abs(laser_data.angle_max) + abs(laser_data.angle_min))/len(laser_data.ranges)
     return resolution
 
 def get_angles_distances():
@@ -49,13 +49,16 @@ def get_angles_distances():
         angles_list_plus += [angle]
     angles_list = angles_list_minus + angles_list_plus
     for i in range(0,len(laser_data.ranges)):
-        if laser_data.ranges[i] != 0.0:
+        if laser_data.ranges[i] < 0.0001:
+            filtered_angles_list.append(angles_list[i])
+            filtered_ranges.append(5.0)	    
+	else:
             filtered_angles_list.append(angles_list[i])
             filtered_ranges.append(laser_data.ranges[i])
     return [filtered_angles_list,filtered_ranges] 
 
 def ranges_and_angles():
-    angles_distances = get_angles_distances() 
+    angles_distances = get_angles_distances()
     return zip(angles_distances[0],angles_distances[1])
 
 
@@ -129,13 +132,13 @@ def get_x_y(angles_distances):
 
 def wall_existance(side_coordinates):
     avg = reduce(lambda x, y: x + y, side_coordinates) / len(side_coordinates)
+    count_t = 0
+    count_f = 0 
     for i in side_coordinates:
         if (avg  - i) < 0.04:
             count_t = count_t + 1
         else:
             count_f = count_f + 1
-    print count_t
-    print count_f
     if count_t > count_f:
         return True
     else:
@@ -158,8 +161,8 @@ def check_wall(side,distance=0.4):
             resp = get_wall(-angle_max,distance)
             return resp
     elif side == "front":
-        angles_and_distances_to_wall = zip(*distances([0.075,-0.075]))
-        x_y = get_x_y(angles_and_distances_to_wall)
+        angles_and_distances_to_wall = zip(*distances([0.2,-0.2]))
+	x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[1])
         if exist:
             resp = get_wall(0.0,distance)
