@@ -9,7 +9,7 @@ import read_base_component
 ######### msg is a geometry_msgs/PoseStamped ros message
 
 #### 2.msg = read_base_component.odometry() 
-######### msg is a nav_msgs/Odometry ros message
+######### msg is a list = [x,y,z,r,p,y]
 
 
 if __name__=="__main__":
