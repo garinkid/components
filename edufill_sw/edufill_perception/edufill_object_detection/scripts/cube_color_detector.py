@@ -153,7 +153,18 @@ class CubeColorDetector:
             raise e
 
     def detect_cubes_cb(self, req):
-        if self.rgb_only_camera:
+        if req.color not in set(self.available_colors):
+            err_msg = 'Unknown color: %s, available colors: %s. Make sure ..._min_max_hsv.yaml contains corresponding values for color %s' % \
+                        (req.color, str(self.available_colors), req.color)
+            rospy.logerr(err_msg)
+            raise Exception(err_msg)
+        if req.image_fname != '':
+            self.img = cv2.imread(req.image_fname)
+            if type(self.img) != type(np.array([])):
+                err_msg = 'Cannot read file %s' % req.image_fname
+                rospy.logerr(err_msg)
+                raise Exception(err_msg)
+        elif self.rgb_only_camera:
             vcap = cv2.VideoCapture(0)
             self.img = vcap.read()
             if not self.img[0]:
@@ -187,10 +198,11 @@ class CubeColorDetector:
                 u =  c[0] + c[2] / 2
                 v =  c[1] + c[3] / 2
                 pose_wrt_camera = PoseStamped()
-                if self.rgb_only_camera:
+                if self.rgb_only_camera or req.image_fname != '':
                     pose_wrt_camera.pose.position.x = u
                     pose_wrt_camera.pose.position.y = v
                     pose_wrt_camera.pose.position.z = 0
+                    pose_final = pose_wrt_camera
                 else:
                     pp = []
                     try:
@@ -200,7 +212,7 @@ class CubeColorDetector:
                         #vs = np.range(v - VMAX2, v + VMAX2)
                         #uvs = np.transpose(np.tile(us, len(vs)), np.repeat(vs, len(us)))
                         uvs = [[u, v]]
-			print uvs
+                        print uvs
                         for i in read_points(self.cloud, uvs = uvs):
                             pp.append(i)
                     except Exception, e:
@@ -275,24 +287,26 @@ class CubeColorDetector:
     def load_min_max_hsv(self):
         self.hsv_range_min = {}
         self.hsv_range_max = {}
-        available_colors = [c for c in self.known_histograms if rospy.has_param('~%s_hsv_min/h' % c)]
-        print 'Available colors: %s' % str(available_colors)
-        for color in available_colors:
+        self.available_colors = [c for c in self.known_histograms if rospy.has_param('/%s_hsv_min/h' % c)]
+        print 'Available colors: %s' % str(self.available_colors)
+        for color in self.available_colors:
             self.hsv_range_min[color] = np.zeros([3], dtype='uint8')
-            param_name = '~%s_hsv_min/h' % color
+            param_name = '/%s_hsv_min/h' % color
             self.hsv_range_min[color][0] = rospy.get_param(param_name)
-            param_name = '~%s_hsv_min/s' % color
+            param_name = '/%s_hsv_min/s' % color
             self.hsv_range_min[color][1] = rospy.get_param(param_name)
-            param_name = '~%s_hsv_min/v' % color
+            param_name = '/%s_hsv_min/v' % color
             self.hsv_range_min[color][2] = rospy.get_param(param_name)
 
             self.hsv_range_max[color] = np.zeros([3], dtype='uint8')
-            param_name = '~%s_hsv_max/h' % color
+            param_name = '/%s_hsv_max/h' % color
             self.hsv_range_max[color][0] = rospy.get_param(param_name)
-            param_name = '~%s_hsv_max/s' % color
+            param_name = '/%s_hsv_max/s' % color
             self.hsv_range_max[color][1] = rospy.get_param(param_name)
-            param_name = '~%s_hsv_max/v' % color
+            param_name = '/%s_hsv_max/v' % color
             self.hsv_range_max[color][2] = rospy.get_param(param_name)
+        print self.hsv_range_min
+        print self.hsv_range_max
 
     def detect_cubes_contour(self, conts_img, conts, back, req):
         if DEBUG:
@@ -382,6 +396,8 @@ if __name__ == '__main__':
     rospy.init_node('cube_color_detector', anonymous=True)
     if_do_transform = rospy.get_param('~do_transform', False)
     rgb_only_camera = rospy.get_param('~rgb_only_camera', False)
+    if rgb_only_camera == 'true':
+        rgb_only_camera = True
     print 'do_transform: %s, rgb_only_camera: %s' % (str(if_do_transform), str(rgb_only_camera))
     prepare()
     do_detection(rgb_only_camera, if_do_transform)
