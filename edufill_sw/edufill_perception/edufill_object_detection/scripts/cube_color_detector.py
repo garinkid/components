@@ -275,7 +275,9 @@ class CubeColorDetector:
     def load_min_max_hsv(self):
         self.hsv_range_min = {}
         self.hsv_range_max = {}
-        for color in self.known_histograms:
+        available_colors = [c for c in self.known_histograms if rospy.has_param('~%s_hsv_min/h' % c)]
+        print 'Available colors: %s' % str(available_colors)
+        for color in available_colors:
             self.hsv_range_min[color] = np.zeros([3], dtype='uint8')
             param_name = '~%s_hsv_min/h' % color
             self.hsv_range_min[color][0] = rospy.get_param(param_name)
