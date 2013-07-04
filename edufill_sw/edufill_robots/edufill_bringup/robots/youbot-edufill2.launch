@@ -1,14 +1,22 @@
 <?xml version="1.0"?>
 <launch>	
 	
+  <!-- upload robot description and params (joint configurations) -->
+  <include file="$(find edufill_default_config)/upload_param.launch" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find edufill_hardware_config)/$(env ROBOT)/urdf/robot.urdf.xacro'" />
+
+  <!-- start robot_state_publisher -->
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" />
+
     <include file="$(find youbot_oodl)/launch/youbot_oodl_driver.launch" />
 
-	<include file="$(find edufill_bringup)/components/arm.launch" />
+	<include file="$(find edufill_bringup)/components/youbot/arm.launch" />
 
 	
 	<include file="$(find edufill_teleop)/ros/launch/teleop_joypad.launch" />		
 
-	<include file="$(find edufill_bringup)/components/base_front_hokuyo_node.launch" />
+	<include file="$(find edufill_bringup)/components/youbot/base_front_hokuyo_node.launch" />
 
 
 
