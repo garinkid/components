@@ -5,9 +5,9 @@
     <arg name="default_hsv_file" default="true" />
     <arg name="use_image" default="false" />
     <arg name="image_file" default="image.png" />
-    <param name="~rgb_only_camera" value="true"/>
+    <!--param name="~rgb_only_camera" value="true"/-->
     <group if="$(arg use_image)">
-        <param name="~/image_file" value="$(arg image_file)"/>
+        <param name="~image_file" value="$(arg image_file)"/>
     </group>
     <group if="$(arg launch_openni)">
         <include file="$(find simple_pcl)/launch/openni.launch" />

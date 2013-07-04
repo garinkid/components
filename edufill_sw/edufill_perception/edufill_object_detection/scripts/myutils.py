@@ -172,12 +172,13 @@ def GUICalibrateHSV(img_in, fname):
         frame = read_image(fname)
     else:
         frame = img_in
-    main_labels = [   'Draw a bounding box around next cube to zoom it in',\
-                      'In the zoomed area draw a contour around the cube and press \'Enter\'.',\
-                      'Select the color in the terminal:',\
-                      ' Type one character designating the color (r, g, b, c, m or y) and press \'Enter\'',\
-                      'Then proceed with the next cube in the reopened image window',\
-                      'When all the cube types were selected, exit the program pressing \'Esc\''\
+    main_labels = [   '1) Draw a bounding box around next cube to zoom it in;',\
+                      '2) In the zoomed area draw a contour around the cube, press \'Enter\';',\
+                      '3) Select the color in the terminal:',\
+                      ' Type one character designating the color (r, g, b, c, m or y)',\
+                      ' and press \'Enter\';',\
+                      '4) Then proceed with the next cube in the reopened image window;',\
+                      '5) When all the cube types were selected, press \'Esc\' to exit.'\
                   ]
 
     labels = {\
@@ -188,13 +189,14 @@ def GUICalibrateHSV(img_in, fname):
              }
     disp_frame = frame.copy()
     zoomed_frame = None
-    cv2.namedWindow('wnd', 0)
-    cv2.setMouseCallback('wnd', on_mouse_event, 0)
+    wnd_name = 'Calibrate Color for Cube detection'
+    cv2.namedWindow(wnd_name, 0)
+    cv2.setMouseCallback(wnd_name, on_mouse_event, 0)
     points_selected = 0
     points = []
     state = 'zoom1'
-    draw_debug_messages(disp_frame, labels[state])
-    cv2.imshow('wnd', disp_frame)
+    draw_debug_messages(disp_frame, labels[state], font_size = 1.0)
+    cv2.imshow(wnd_name, disp_frame)
     hsv_min = 255 * np.ones([3], dtype='uint8')
     hsv_max = np.zeros([3], dtype='uint8')
     color_strs = {\
@@ -223,8 +225,8 @@ def GUICalibrateHSV(img_in, fname):
             elif sub_state == 'cont_select':
                 zoomed_frame_contoured = zoomed_frame.copy()
                 draw_contour(zoomed_frame_contoured, points)
-                draw_debug_messages(zoomed_frame_contoured, labels[state])
-                cv2.imshow('wnd', zoomed_frame_contoured)
+                draw_debug_messages(zoomed_frame_contoured, labels[state], font_size = 1.0)
+                cv2.imshow(wnd_name, zoomed_frame_contoured)
                 if mouse_events[cv2.EVENT_LBUTTONUP]:
                     sub_state = 'cont_selected'
                     clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
@@ -251,7 +253,7 @@ def GUICalibrateHSV(img_in, fname):
                     hsv_min[i] = mi[i]
                 if ma[i] > hsv_max[i]:
                     hsv_max[i] = ma[i]
-            cv2.destroyWindow('wnd')
+            cv2.destroyWindow(wnd_name)
             while True:
                 try:
                     color = raw_input('color [r, g, b, c, m, y]> ')
@@ -273,11 +275,11 @@ def GUICalibrateHSV(img_in, fname):
             print '%s written' % fname
             cv2.imwrite('params/%s.png' % color, selected_frame)
             print 'params/%s.png written' % color
-            cv2.namedWindow('wnd', 0)
-            cv2.setMouseCallback('wnd', on_mouse_event, 0)
+            cv2.namedWindow(wnd_name, 0)
+            cv2.setMouseCallback(wnd_name, on_mouse_event, 0)
             disp_frame = frame.copy()
-            draw_debug_messages(disp_frame, labels[state])
-            cv2.imshow('wnd', disp_frame)
+            draw_debug_messages(disp_frame, labels[state], font_size = 1.0)
+            cv2.imshow(wnd_name, disp_frame)
             state = 'zoom1'
             hsv_min = 255 * np.ones([3], dtype='uint8')
             hsv_max = np.zeros([3], dtype='uint8')
@@ -294,14 +296,14 @@ def GUICalibrateHSV(img_in, fname):
             disp_frame = frame.copy()
             zoomed_frame = disp_frame[points[0][1]:points[1][1], points[0][0]:points[1][0]]
             state = 'hsv_select_roi'
-            draw_debug_messages(zoomed_frame, labels[state])
-            cv2.imshow('wnd', zoomed_frame)
+            draw_debug_messages(zoomed_frame, labels[state], font_size = 1.0)
+            cv2.imshow(wnd_name, zoomed_frame)
             sub_state = 'cont_not_selected'
             points = []
         if mouse_events[cv2.EVENT_LBUTTONDOWN]:
             points.append((mouse_x, mouse_y))
         #clear_events_mouse()
-    cv2.destroyWindow('wnd')
+    cv2.destroyWindow(wnd_name)
     cv2.waitKey(1000)
 
 NO_INTERSECTION = (-1, -1)
