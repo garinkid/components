@@ -2,21 +2,25 @@
 
 import rospy
 import math
-
+import os
 from geometry_msgs.msg import TwistStamped
 
 import arm_kinematics_geometrical_solution
-
 import arm_kinematics_analytical_solution
-
-
 import brics_actuator.msg
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
+from sensor_msgs.msg import JointState
+from nxt_msgs.msg import JointCommand
 
-# Move arm to a joint position
-
-# Move arm to a given joint positions
+# Move arm to joint positions
 def to_joint_positions(joint_angles):
+    if (os.environ.get('ROBOT') == 'nxt-arm'):
+        to_joint_positions_nxt(joint_angles)
+    elif (os.environ.get('ROBOT') == 'youbot-edufill2'):
+        to_joint_positions_youbot(joint_angles)
+
+# Move arm to joint positions for youbot
+def to_joint_positions_youbot(joint_angles):
     joint_angle_1 = joint_angles[0]
     joint_angle_2 = joint_angles[1]
     joint_angle_3 = joint_angles[2]
@@ -66,6 +70,38 @@ def to_joint_positions(joint_angles):
     except Exception, e:
         print e
         return 'arm move failure'
+
+# Move arm to joint positions for nxt
+def to_joint_positions_nxt(joint_angles):
+    #homing = [0, 2.0735, -2.65635];
+    gear_ratios = [7, 5, 5];
+    joint_angle_1 = joint_angles[0]
+    joint_angle_2 = joint_angles[1]
+    joint_angle_3 = joint_angles[2]
+    pub = rospy.Publisher('position_controller', JointState)
+    rospy.sleep(0.5) 
+    try:
+        # Create msg
+        jp = JointState()
+        # Set message array sizes
+        jp.name = [None]*3
+        jp.position = [None]*3
+        # Fill message
+        jp.name[0] = "arm_joint_1" 
+        jp.position[0] = (joint_angle_1) * gear_ratios[0]
+        jp.name[1] = "arm_joint_2"
+        jp.position[1] = (joint_angle_2) * gear_ratios[1]
+        jp.name[2] = "arm_joint_3"
+        jp.position[2] = (joint_angle_3) * gear_ratios[2]
+        r = rospy.Rate(500)
+        for c in range(1,5):
+            pub.publish(jp)
+            r.sleep()
+        return 'arm command move issued successfully'
+    except Exception, e:
+        print e
+        return 'arm move failure'
+
 def joint_velocities(joint_velocities):
     joint_velocity_1 = joint_velocities[0]
     joint_velocity_2 = joint_velocities[1]
