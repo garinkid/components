@@ -30,11 +30,11 @@ if __name__=="__main__":
     # pose = [0,0,0]
     # result = move_base_component.to_pose(pose)
     
-    # #### 1.move_base_component.command(command_string,duration)
-    # motion_direction = "left"
-    # duration = 3
-    # result = move_base_component.command(motion_direction,duration)
-    # print result
+     #### 1.move_base_component.command(command_string,duration)
+    # motion_direction = "forward"
+    #duration = 3
+    #result = move_base_component.command(motion_direction,duration)
+    #print result
 
     # #### 2.move_base_component.to_pose(pose) 
     # pose = [1,0.5,0.1]
@@ -46,14 +46,14 @@ if __name__=="__main__":
     # result = move_base_component.to_goal(goal)
     # print result
     #### 6.move_base_component.relative(goal_behaviour) 
-    x_move = 0
-    y_move = 0.5
+    x_move = 0.5
+    y_move = 0
     z_move = 0
-    x_rotate = 0.3
-    y_rotate = 0.2
-    z_rotate = 0.1
-    w_rotate = 0.3
-    goal_behaviour = [x_move,y_move,z_move,x_rotate,y_rotate,z_rotate,w_rotate]
+    roll = 0.3
+    pitch = 0.2
+    yaw = 0.6
+    # w_rotate = 0.3
+    goal_behaviour = [x_move,y_move,z_move,roll,pitch, yaw]
     result = move_base_component.relative(goal_behaviour)
     print result
     # #### 4.move_base_component.twist(base_velocity) 

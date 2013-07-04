@@ -76,19 +76,17 @@ def to_goal(goal):
     return result    
 
 def relative(goal):
-    while not rospy.is_shutdown():
-        pose = PoseStamped()
-        pose.header.frame_id = "/map"
-        pose.header.stamp = rospy.Time.now()
-        pose.pose.position.x = goal[0]
-        pose.pose.position.y = goal[1]
-        pose.pose.position.z = goal[2]    
-        pose.pose.orientation.x = goal[3]
-        pose.pose.orientation.y = goal[4]
-        pose.pose.orientation.z = goal[5]
-        pose.pose.orientation.w = goal[6]
-        pub= rospy.Publisher("/move_base_simple/goal", PoseStamped)
-        pub.publish(pose)
+    pose = Pose2D()
+    pose.x = goal[0]
+    pose.y = goal[1]
+    pose.theta = goal[5]
+    rospy.wait_for_service('/move_to_relative_pos')
+    try:
+        relative_motion= rospy.ServiceProxy('/move_to_relative_pos', edufill_srvs.srv.MoveToRelativePos)
+        resp = relative_motion(pose)
+        return resp.result
+    except rospy.ServiceException, e:
+        print "Service call failed: %s"%e
 
 def command(motion_direction,time):
     base_velocity = 0.1
