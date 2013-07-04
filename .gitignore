@@ -19,3 +19,4 @@ stack.xml.bak
 *.aux
 *.log
 *.toc
+/edufill_sw/edufill_common/edufill_msg/src/edufill_msg/msg/_CartesianPoseStamped.py
