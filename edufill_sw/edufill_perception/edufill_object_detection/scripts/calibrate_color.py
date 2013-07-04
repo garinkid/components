@@ -10,28 +10,31 @@ from time import time
 
 RGB_TOPIC = '/tower_cam3d/rgb/image_color'
 
-def get_image_from_topic():
+def get_image_from_topic(rgb_topic = RGB_TOPIC):
     import roslib
     roslib.load_manifest('edufill_object_detection')
     import rospy
     from sensor_msgs.msg import Image
     from cv_bridge import CvBridge, CvBridgeError
     rospy.init_node('edufill_calibrate_color')
-    msg = rospy.wait_for_message(RGB_TOPIC, Image, 4)
+    msg = rospy.wait_for_message(rgb_topic, Image, 4)
     bridge = CvBridge()
     img = bridge.imgmsg_to_cv(msg, 'bgr8')
     np_img = np.asarray(img)
     return np_img
  
 def do_calibrate_color():
-    from_topic = raw_input('Calibrate from %s [y/n]? ' % RGB_TOPIC)
+    from_topic = raw_input('Calibrate from %s [y/anoter_topic/n]? ' % RGB_TOPIC)
     if str(from_topic) == 'n':
         img_file = raw_input('Image file name? ')
         img = cv2.imread(img_file)
         if img == None: 
             raise Exception('Cannot load image %s' % img_file)
-    else:
+    elif str(from_topic) == 'y':
         img = get_image_from_topic()
+    else:
+        img = get_image_from_topic(from_topic)
+        
     fname = 'params/min_max_hsv.yaml'
     if os.path.isfile(os.getenv('ROS_HOME') + '/' + fname):
         ans = raw_input('%s already exist. Make a backup [y/n]? ' % fname)
