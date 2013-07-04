@@ -33,6 +33,8 @@ DETECT_METHOD_TEMPLATE = 'template'
 DETECT_METHOD = DETECT_METHOD_CONTOUR
 DETECT_USE_EUC_DIST_FILTERING = True
 DETECT_DIST_MAX = 1.5
+CONT_BBOX_SIDES_MIN_RATIO = 0.5
+CONT_TO_BBOX_AREA_MIN_RATIO = 0.3
 DETECT_PERF = False
 DETECT_PERF_FILE = 'detect_perf.txt'
 OUT_DIR = 'edufill_object_detection_out'
@@ -124,11 +126,11 @@ class CubeColorDetector:
 
     def get_contours(self, img, req):
         img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-        if req.color == 'yellow':
+        #if req.color == 'yellow':
             #Yellow Hue area tended to appear past the cube's area, so for Y. cubes move min. Saturation up to YELLOW_HSV_LOW[1]
-            mask = hsv_filter_mask(img_hsv, hsv_range_low = YELLOW_HSV_LOW)
-        else:
-            mask = hsv_filter_mask(img_hsv)
+            #mask = hsv_filter_mask(img_hsv, hsv_range_low = YELLOW_HSV_LOW)
+        #else:
+        mask = hsv_filter_mask(img_hsv, self.hsv_range_min[req.color], self.hsv_range_max[req.color])
         back = calc_back_proj(img_hsv, self.known_histograms[req.color][1].hist, True)
         back &= mask
         back_filt = cv2.medianBlur(back, 5)
@@ -270,6 +272,26 @@ class CubeColorDetector:
             print h
             print self.known_histograms[h][1]
 
+    def load_min_max_hsv(self):
+        self.hsv_range_min = {}
+        self.hsv_range_max = {}
+        for color in self.known_histograms:
+            self.hsv_range_min[color] = np.zeros([3], dtype='uint8')
+            param_name = '~%s_hsv_min/h' % color
+            self.hsv_range_min[color][0] = rospy.get_param(param_name)
+            param_name = '~%s_hsv_min/s' % color
+            self.hsv_range_min[color][1] = rospy.get_param(param_name)
+            param_name = '~%s_hsv_min/v' % color
+            self.hsv_range_min[color][2] = rospy.get_param(param_name)
+
+            self.hsv_range_max[color] = np.zeros([3], dtype='uint8')
+            param_name = '~%s_hsv_max/h' % color
+            self.hsv_range_max[color][0] = rospy.get_param(param_name)
+            param_name = '~%s_hsv_max/s' % color
+            self.hsv_range_max[color][1] = rospy.get_param(param_name)
+            param_name = '~%s_hsv_max/v' % color
+            self.hsv_range_max[color][2] = rospy.get_param(param_name)
+
     def detect_cubes_contour(self, conts_img, conts, back, req):
         if DEBUG:
             print '------------'
@@ -283,7 +305,8 @@ class CubeColorDetector:
             bbox = cv2.boundingRect(conts[0][i])
             max_side = max(bbox[2], bbox[3])
             min_side = min(bbox[2], bbox[3])
-            if 1.0 * min_side / max_side < 0.65 \
+            print 'Ratio:', str(1.0 * min_side / max_side), str(max_side > req.max_size), str(min_side < req.min_size)
+            if 1.0 * min_side / max_side < CONT_BBOX_SIDES_MIN_RATIO \
                or max_side > req.max_size or min_side < req.min_size:
                 continue
             candidates.append((bbox, i))
@@ -313,7 +336,8 @@ class CubeColorDetector:
         #Now, find strong edges
         #Last, check for blob size. A box's blob projection area must be at least 0.5 of the bounding box area
         def big_enough_cont(cont, bbox):
-            return cv2.contourArea(cont) >= 0.5 * bbox[2] * bbox[3]
+            print 'Big Enough Cont:', str(cv2.contourArea(cont) >= 0.5 * bbox[2] * bbox[3])
+            return cv2.contourArea(cont) >= CONT_TO_BBOX_AREA_MIN_RATIO * bbox[2] * bbox[3]
         cubes = [cand[0] for cand in candidates if big_enough_cont(conts[0][cand[1]], cand[0])]
         return cubes
 
@@ -329,6 +353,7 @@ class CubeColorDetector:
        
 def do_detection(rgb_only_camera, if_do_transform):
     ccd = CubeColorDetector(rgb_only_camera, if_do_transform)
+    ccd.load_min_max_hsv()
     ccd.set_rgb_topic(DEF_RGB_TOPIC)
     ccd.set_cloud_topic(DEF_CLOUD_TOPIC)
     ccd.load_hue_histograms()
