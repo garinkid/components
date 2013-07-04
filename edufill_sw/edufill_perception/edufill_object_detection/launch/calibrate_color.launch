@@ -2,7 +2,7 @@
 <launch>
     <arg name="launch_openni" default="false" />
     <env name="ROS_HOME" value="$(find edufill_object_detection)" />
-    <rosparam param="~hsv_file">"param/def_min_max_hsv.yaml"</rosparam>
+    <param name="~hsv_file" value="params/cur_min_max_hsv.yaml"/>
     <group if="$(arg launch_openni)">
         <include file="$(find simple_pcl)/launch/openni.launch" />
     </group>
