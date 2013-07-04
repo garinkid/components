@@ -7,8 +7,10 @@ import os
 from shutil import move
 from time import time
 
-
+DEF_HSV_FILE = 'params/def_min_max_hsv.yaml'
+CUR_HSV_FILE = 'params/cur_min_max_hsv.yaml'
 RGB_TOPIC = '/tower_cam3d/rgb/image_color'
+PARAM_HSV_YAML = '~hsv_file'
 
 def get_image_from_topic(rgb_topic = RGB_TOPIC):
     import roslib
@@ -23,7 +25,7 @@ def get_image_from_topic(rgb_topic = RGB_TOPIC):
     np_img = np.asarray(img)
     return np_img
  
-def do_calibrate_color():
+def do_calibrate_color(hsv_fname):
     from_topic = raw_input('Calibrate from %s [y/anoter_topic/n]? ' % RGB_TOPIC)
     if str(from_topic) == 'n':
         img_file = raw_input('Image file name? ')
@@ -35,7 +37,6 @@ def do_calibrate_color():
     else:
         img = get_image_from_topic(from_topic)
         
-    fname = 'params/min_max_hsv.yaml'
     if os.path.isfile(os.getenv('ROS_HOME') + '/' + fname):
         ans = raw_input('%s already exist. Make a backup [y/n]? ' % fname)
         if ans == 'y':
@@ -44,4 +45,8 @@ def do_calibrate_color():
 
 if __name__ == '__main__':
     os.chdir(os.getenv('ROS_HOME'))
-    do_calibrate_color()
+    hsv_fname = rospy.get_param(PARAM_HSV_YAML, DEF_HSV_FILE)
+    if hsv_fname == DEF_HSV_FILE:
+        rospy.logerr('Cannot use %s for configration. %s must be kept untouched as a default file.' % (hsv_fname, hsv_fname))
+        exit(1)
+    do_calibrate_color(hsv_fname)
