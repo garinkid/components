@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>	
+	
+   <!-- NXT -->
+  <include file="$(find edufill_bringup)/components/nxt/nxt_arm.launch" />
+	<rosparam param="number_of_arm_joints">3</rosparam>
+	<node name="arm_controller_handler" pkg="edufill_arm_cmds" type="arm_controller_handler.py" />  
+
+  <!-- Parameter for States aggregator -->
+  <param name="mobile" value="false" type="String" />
+  <!-- State aggregator -->
+  <include file="$(find edufill_bringup)/components/nxt/joint_states_aggregator.launch" />
+  
+  <!-- Controller -->
+  <!-- POSITION CONTROLLER -->
+  <include file="$(find edufill_bringup)/components/nxt/arm_controller.launch" />
+
+  <!-- TF publisher -->
+  <include file="$(find edufill_bringup)/components/nxt/arm_publisher.launch" />
+
+  <!-- RVIZ -->
+  <include file="$(find edufill_bringup)/components/nxt/rviz_arm.launch" />
+
+
+</launch>

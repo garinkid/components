@@ -3,8 +3,7 @@
     <!-- navigation goals -->
 	<include file="$(find edufill_env_config)/upload_param.launch" />
     
-    <!-- visualize navigation goals -->
-	<node pkg="edufill_tools" type="navigation_goals_as_marker.py" name="edufill_navigation_goals_as_marker"/>
+  
 
 	<arg name="map" default="$(find edufill_env_config)/$(env ROBOT_ENV)/map.yaml" />
 
