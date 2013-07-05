@@ -4,6 +4,7 @@ import rospy
 import roslib; roslib.load_manifest('edufill_arm_cmds') 
 import math
 import brics_actuator
+import os
 from sensor_msgs.msg import JointState
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
 
@@ -73,11 +74,12 @@ def publish_to_nxt(jointState):
     return 'arm move failure'
 
 def handler_callback(data):
-	robot = os.getenv(ROBOT)
-	if robot is "youbot-edufill2":
+	robot = os.getenv('ROBOT')
+	rospy.loginfo(robot)
+	if robot == 'youbot-edufill2':
 		publish_to_youbot(data)
 	else:
-	  publish_to_nxt(data)
+		publish_to_nxt(data)
 
 def handler():
 	rospy.init_node('arm_controller_handler', anonymous=True)
