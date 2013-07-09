@@ -29,6 +29,17 @@
     uri: https://github.com/b-it-bots/albany_vision.git
     version: master
 
+- git:
+    local-name: nxt-stack
+    uri: git@github.com:EduFill/nxt-stack.git
+    version: master
+
+- hg: 
+    local-name: nxt-ros 
+    uri: https://code.google.com/p/foote-ros-pkg.stack-nxt/ 
+    version: default
+
+
 #- git:
 #    local-name: youbot-stack
 #    uri: https://git.ce.utwente.nl/youbot-stack
