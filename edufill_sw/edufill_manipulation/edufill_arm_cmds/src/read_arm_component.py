@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import roslib; roslib.load_manifest('edufill_base_cmds')
+import roslib; roslib.load_manifest('edufill_arm_cmds')
 import rospy
 import brics_actuator.msg
 import actionlib
@@ -22,16 +22,22 @@ def arm_joint_positions():
     rospy.wait_for_service('read_arm_joint_position', 30)
     # call base placement service
     response = joint_srv()
-    response = [response[0],response[1],response[2],response[3],response[4]]
+    joint_positions = [None]*len(response.joint_positions)
+    for i in range(len(response.joint_positions)):
+        joint_positions[i] = response.joint_positions[i]
+    response = joint_positions
     return response
 
 def gripper_joint_positions():
-    joint_srv = rospy.ServiceProxy('/read_arm_joint_position', edufill_srvs.srv.ReadJointPositions) 
+    joint_srv = rospy.ServiceProxy('/read_gripper_joint_position', edufill_srvs.srv.ReadJointPositions) 
     #print "wait for service: read_odometry_data"   
     rospy.wait_for_service('read_arm_joint_position', 30)
     # call base placement service
     response = joint_srv()
-    response = [response[5],response[6]]
+    joint_positions = [None]*len(response.joint_positions)
+    for i in range(len(response.joint_positions)):
+        joint_positions[i] = response.joint_positions[i]
+    response = joint_positions
     return response
   
 
