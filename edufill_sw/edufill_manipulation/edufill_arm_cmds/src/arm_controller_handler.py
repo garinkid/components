@@ -76,7 +76,7 @@ def publish_to_nxt(jointState):
 def handler_callback(data):
 	robot = os.getenv('ROBOT')
 	rospy.loginfo(robot)
-	if robot == 'youbot-edufill2':
+	if robot == 'youbot-edufill':
 		publish_to_youbot(data)
 	else:
 		publish_to_nxt(data)
