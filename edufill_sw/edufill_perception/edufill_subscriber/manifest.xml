@@ -12,6 +12,7 @@
   <depend package="tf" />
   <depend package="geometry_msgs" />
   <depend package="move_base_msgs" />
+  <depend package="nxt_msgs" />
   <depend package="brics_actuator" />
   <depend package="actionlib" />
   <depend package="edufill_relative_movement" />
