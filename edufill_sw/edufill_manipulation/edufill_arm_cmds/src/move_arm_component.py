@@ -14,93 +14,22 @@ from nxt_msgs.msg import JointCommand
 
 # Move arm to joint positions
 def to_joint_positions(joint_angles):
-    if (os.environ.get('ROBOT') == 'nxt-arm'):
-        to_joint_positions_nxt(joint_angles)
-    elif (os.environ.get('ROBOT') == 'youbot-edufill2'):
-        to_joint_positions_youbot(joint_angles)
-
-# Move arm to joint positions for youbot
-def to_joint_positions_youbot(joint_angles):
-    joint_angle_1 = joint_angles[0]
-    joint_angle_2 = joint_angles[1]
-    joint_angle_3 = joint_angles[2]
-    joint_angle_4 = joint_angles[3]
-    joint_angle_5 = joint_angles[4]
-    pub = rospy.Publisher('arm_1/arm_controller/position_command', JointPositions)
-    rospy.sleep(0.5) 
+    numberOfJoints = rospy.get_param('number_of_arm_joints')
+    print numberOfJoints
+    jp = JointState()
+    pub = rospy.Publisher('arm_controller_handler/position_command', JointState)
+    rospy.sleep(0.5)
+    #joint_angles = rospy.get_param('/script_server/arm/initposition')
     try:
-        jp = JointPositions()
-        
-        jv1 = JointValue()
-        jv1.joint_uri = "arm_joint_1"
-        jv1.value = joint_angle_1
-        jv1.unit = "rad"
-        
-        jv2 = JointValue()
-        jv2.joint_uri = "arm_joint_2"
-        jv2.value = joint_angle_2
-        jv2.unit = "rad"
-
-        jv3 = JointValue()
-        jv3.joint_uri = "arm_joint_3"
-        jv3.value = joint_angle_3
-        jv3.unit = "rad"
-        
-        jv4 = JointValue()
-        jv4.joint_uri = "arm_joint_4"
-        jv4.value = joint_angle_4
-        jv4.unit = "rad"
-        
-        jv5 = JointValue()
-        jv5.joint_uri = "arm_joint_5"
-        jv5.value = joint_angle_5
-        jv5.unit = "rad"
-        
-        p = Poison()
-        #print p
-       
-        jp.poisonStamp = p
-        
-        jp.positions = [jv1, jv2, jv3, jv4, jv5]
-        
-        pub.publish(jp)
-
-        return 'arm moved successfully'
-
-    except Exception, e:
-        print e
-        return 'arm move failure'
-
-# Move arm to joint positions for nxt
-def to_joint_positions_nxt(joint_angles):
-    #homing = [0, 2.0735, -2.65635];
-    gear_ratios = [7, 5, 5];
-    joint_angle_1 = joint_angles[0]
-    joint_angle_2 = joint_angles[1]
-    joint_angle_3 = joint_angles[2]
-    pub = rospy.Publisher('position_controller', JointState)
-    rospy.sleep(0.5) 
-    try:
-        # Create msg
-        jp = JointState()
-        # Set message array sizes
-        jp.name = [None]*3
-        jp.position = [None]*3
-        # Fill message
-        jp.name[0] = "arm_joint_1" 
-        jp.position[0] = (joint_angle_1) * gear_ratios[0]
-        jp.name[1] = "arm_joint_2"
-        jp.position[1] = (joint_angle_2) * gear_ratios[1]
-        jp.name[2] = "arm_joint_3"
-        jp.position[2] = (joint_angle_3) * gear_ratios[2]
-        r = rospy.Rate(500)
+        #print jp
+        jp.name = ['arm_joint_'+str(i+1) for i in range(numberOfJoints)]
+        jp.position = [joint_angles[i] for i in range(numberOfJoints)]
         for c in range(1,5):
             pub.publish(jp)
-            r.sleep()
-        return 'arm command move issued successfully'
+            rospy.sleep(0.1)
+        return 'successfully published to arm_controller_handler/position_command'
     except Exception, e:
-        print e
-        return 'arm move failure'
+        return 'error publishing to arm_controller_handler/position_command'
 
 def joint_velocities(joint_velocities):
     joint_velocity_1 = joint_velocities[0]
@@ -182,6 +111,7 @@ def cartesian_velocities(xyzrpy_vel,reference_frame):
 # The poses are define in $(find edufill_default_config)/youbot-edufill1/arm_poses.yaml
 
 def to_pose(pose):
+	numberOfJoints = rospy.get_param('number_of_arm_joints')
 	if type(pose) is not str:
 		print 'pose input should be string'
 		return
@@ -191,10 +121,10 @@ def to_pose(pose):
 
 	pose_list = rospy.get_param('/script_server/arm')
 
-	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is 5:
+	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is numberOfJoints:
 		print 'moving to pose ' + pose 
 		joints = pose_list[pose]
-		to_joint_positions([joints[0], joints[1], joints[2], joints[3], joints[4]])			
+		to_joint_positions(joints)			
 	else:
 		print 'pose ' + pose + ' is not defined'
 		return

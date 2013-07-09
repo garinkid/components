@@ -55,25 +55,32 @@ def publish_to_youbot(jointState):
         return 'arm move failure'
 
 def publish_to_nxt(jointState):
-  pub = rospy.Publisher('position_controller', JointState)
-  rospy.sleep(0.5) 
-  try:
-    # Create msg
-    jp = JointState()
-    jp = jointState
-    # Fill message
-
-    r = rospy.Rate(500)
-    for c in range(1,5):
-      pub.publish(jp)
-      r.sleep()
-
-    return 'arm command move issued successfully'
-  except Exception, e:
-    print e
-    return 'arm move failure'
+    pub = rospy.Publisher('position_controller', JointState)
+    rospy.sleep(0.5) 
+    try:
+        gear_ratios = [7, 5, 5]
+        # Create msg
+        jp = JointState()
+        jp.name = [None]*3
+        jp.position = [None]*3
+        # Fill messag
+        jp.name[0] = "arm_joint_1" 
+        jp.position[0] = (jointState.position[0]) * gear_ratios[0]
+        jp.name[1] = "arm_joint_2"
+        jp.position[1] = (jointState.position[1]) * gear_ratios[1]
+        jp.name[2] = "arm_joint_3"
+        jp.position[2] =  (jointState.position[2]) * gear_ratios[2]
+        r = rospy.Rate(500)
+        for c in range(1,5):
+            pub.publish(jp)
+            r.sleep()
+        return 'arm moved successfully'
+    except Exception, e:
+        print e
+        return 'arm move failure'
 
 def handler_callback(data):
+	
 	robot = os.getenv('ROBOT')
 	rospy.loginfo(robot)
 	if robot == 'youbot-edufill':
