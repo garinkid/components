@@ -1,0 +1,16 @@
+<package>
+  <description brief="edufill_ultrasonic_range">
+
+     edufill_ultrasonic_range
+
+  </description>
+  <author>rhama</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_ultrasonic_range</url>
+  <depend package="rospy"/>
+  <depend package="nxt_msgs"/>
+  <depend package="edufill_srvs"/>
+</package>
+
+
