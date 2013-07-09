@@ -8,7 +8,7 @@
   <!-- manipulation -->
   <include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" /> 
 
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find edufill_hardware_config)/$(env ROBOT)/urdf/robot.urdf.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find edufill_hardware_config)/$(env ROBOT)/urdf/$(env ROBOT).urdf.xacro'" />
 
   <!-- start robot_state_publisher -->
   <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" />
