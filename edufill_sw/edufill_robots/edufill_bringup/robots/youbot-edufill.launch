@@ -2,7 +2,6 @@
 <launch>	
 	
   <!-- upload robot description and params (joint configurations) -->
-  <include file="$(find edufill_default_config)/upload_param.launch" />
 	<rosparam param="number_of_arm_joints">5</rosparam>
 	<node name="arm_controller_handler" pkg="edufill_arm_cmds" type="arm_controller_handler.py" /> 
 
