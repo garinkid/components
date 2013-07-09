@@ -18,6 +18,8 @@
   <depend package="edufill_perception_cmds" />
   <depend package="edufill_bringup"/>
   <depend package="edufill_bringup_sim"/>
+  <depend package="edufill_ultrasonic_range"/>
+  <depend package="edufill_srvs"/>
 
 
 </package>
