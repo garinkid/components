@@ -5,6 +5,9 @@
 	<rosparam param="number_of_arm_joints">5</rosparam>
 	<node name="arm_controller_handler" pkg="edufill_arm_cmds" type="arm_controller_handler.py" /> 
 
+  <!-- manipulation -->
+  <include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" /> 
+
   <param name="robot_description" command="$(find xacro)/xacro.py '$(find edufill_hardware_config)/$(env ROBOT)/urdf/robot.urdf.xacro'" />
 
   <!-- start robot_state_publisher -->
