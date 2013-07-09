@@ -23,10 +23,6 @@
     uri: https://github.com/b-it-bots/cob_command_tools.git
     version: master
 
-- git:
-    local-name: ccny_vision
-    uri: http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git
-    version: master
 
 - git:
     local-name: albany_vision
