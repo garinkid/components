@@ -3,16 +3,29 @@
 import rospy
 import math
 import os
-from geometry_msgs.msg import TwistStamped
 
-import arm_kinematics_geometrical_solution
-import arm_kinematics_analytical_solution
-import brics_actuator.msg
+from geometry_msgs.msg import TwistStamped
 from brics_actuator.msg import JointVelocities, JointPositions, JointValue, Poison 
 from sensor_msgs.msg import JointState
 from nxt_msgs.msg import JointCommand
 
+#from arm_kinematics_analytical_solution import *
+#from arm_kinematics_geometrical_solution import *
+import arm_kinematics
+
 # Move arm to joint positions
+def to_cartesian_pose(xyzrpy,reference_frame,solver):
+		#print solver
+		ks = arm_kinematics.KinematicsSolver(solver)
+		iksolver_state = ks.ik_solution.check_ik_solver_has_solution(xyzrpy,reference_frame)
+		if (iksolver_state):
+			ik_result = ks.ik_solution.get_ik_solution(xyzrpy,reference_frame)
+			status_move = to_joint_positions(ik_result)
+			return status_move          
+		else:
+			return 'no solution found'
+
+
 def to_joint_positions(joint_angles):
     numberOfJoints = rospy.get_param('number_of_arm_joints')
     print numberOfJoints

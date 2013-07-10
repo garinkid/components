@@ -19,10 +19,11 @@
   <depend package="arm_navigation_msgs" />
   <depend package="actionlib" />
   <depend package="edufill_msg" />
-  <depend package="edufill_arm_geometrical_solution" />
-  <depend package="edufill_arm_analytical_solution" />
+  <depend package="edufill_youbot_arm_geometrical_solution" />
+  <depend package="edufill_youbot_arm_analytical_solution" />
   <depend package="nxt_msgs"/>
   <depend package="nxt_ros"/>
+
 </package>
 
 
