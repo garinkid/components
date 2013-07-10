@@ -28,7 +28,7 @@ def to_cartesian_pose(xyzrpy,reference_frame,solver):
 
 def to_joint_positions(joint_angles):
     numberOfJoints = rospy.get_param('number_of_arm_joints')
-    print numberOfJoints
+    rospy.loginfo('Number of Joints: ' + str(numberOfJoints))
     jp = JointState()
     pub = rospy.Publisher('arm_controller_handler/position_command', JointState)
     rospy.sleep(0.5)
@@ -143,7 +143,7 @@ def to_pose(pose):
 	pose_list = rospy.get_param('/script_server/arm')
 
 	if pose_list.has_key(pose) and type(pose_list[pose]) is list and len(pose_list[pose]) is numberOfJoints:
-		print 'moving to pose ' + pose 
+		rospy.loginfo('Arm moving to pose: ' + pose) 
 		joints = pose_list[pose]
 		to_joint_positions(joints)			
 	else:
