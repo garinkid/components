@@ -9,7 +9,7 @@
 #include <Eigen/Core>
 
 #include <nxt_ik_solver.h>
-#include <edufill_nxt_geometrical_solution/ik_service.h>
+#include <edufill_nxt_arm_geometrical_solution/ik_service.h>
 
 
 using namespace std;
@@ -19,7 +19,7 @@ ros::Time call_t;
 ros::Time compute_t;
 ros::Duration busy_t;
 
-bool ik_solution_finder(edufill_nxt_geometrical_solution::ik_service::Request &req, edufill_nxt_geometrical_solution::ik_service::Response &res)
+bool ik_solution_finder(edufill_nxt_arm_geometrical_solution::ik_service::Request &req, edufill_nxt_arm_geometrical_solution::ik_service::Response &res)
 {
   // create vector containing the desired tool cartesian coordinates
   Eigen::Vector3d target_position(3);
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "ik_solver_server");
   ros::NodeHandle n;
 
-  ros::ServiceServer service = n.advertiseService("edufill_nxt_geometrical_solution/ik_service", ik_solution_finder);
+  ros::ServiceServer service = n.advertiseService("edufill_nxt_arm_geometrical_solution/ik_service", ik_solution_finder);
   ROS_INFO("Ready to compute IK solution for desired tool position.");
   ros::spin();
 

@@ -9,7 +9,7 @@
 #include <Eigen/Geometry>
 #include <Eigen/Core>
 
-#include <edufill_nxt_geometrical_solution/ik_service.h>
+#include <edufill_nxt_arm_geometrical_solution/ik_service.h>
 
 using namespace std;
 
@@ -22,8 +22,8 @@ int main(int argc, char **argv)
 
 	// Service
   ros::NodeHandle nh_;
-  ros::ServiceClient client = nh_.serviceClient<edufill_nxt_geometrical_solution::ik_service>("edufill_nxt_geometrical_solution/ik_service");
-  edufill_nxt_geometrical_solution::ik_service srv;
+  ros::ServiceClient client = nh_.serviceClient<edufill_nxt_arm_geometrical_solution::ik_service>("edufill_nxt_arm_geometrical_solution/ik_service");
+  edufill_nxt_arm_geometrical_solution::ik_service srv;
   srv.request.xyz.resize(3);
   
   // Message
@@ -94,7 +94,7 @@ int main(int argc, char **argv)
   }
   else
   {
-    ROS_ERROR("Failed to call service edufill_nxt_geometrical_solution/ik_service");
+    ROS_ERROR("Failed to call service edufill_nxt_arm_geometrical_solution/ik_service");
     return -1;
   }
 

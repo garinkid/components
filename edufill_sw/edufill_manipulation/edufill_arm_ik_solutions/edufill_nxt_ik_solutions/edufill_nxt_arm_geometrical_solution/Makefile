@@ -36,10 +36,10 @@ CMAKE_COMMAND = /usr/bin/cmake
 RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_geometrical_solution
+CMAKE_SOURCE_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_arm_geometrical_solution
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_geometrical_solution
+CMAKE_BINARY_DIR = /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_arm_geometrical_solution
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -66,9 +66,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_geometrical_solution/CMakeFiles /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_geometrical_solution/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_arm_geometrical_solution/CMakeFiles /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_arm_geometrical_solution/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_geometrical_solution/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nemogiftsun/youBot/Edufill/components/edufill_sw/edufill_manipulation/edufill_arm_ik_solutions/edufill_nxt_ik_solutions/edufill_nxt_arm_geometrical_solution/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
