@@ -34,10 +34,10 @@
     uri: git@github.com:EduFill/nxt-stack.git
     version: master
 
-- hg: 
+- git: 
     local-name: nxt-ros 
-    uri: https://code.google.com/p/foote-ros-pkg.stack-nxt/ 
-    version: default
+    uri: git@github.com:EduFill/nxt-ros.git 
+    version: master
 
 
 #- git:
