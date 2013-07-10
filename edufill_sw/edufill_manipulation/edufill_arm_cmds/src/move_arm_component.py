@@ -45,79 +45,87 @@ def to_joint_positions(joint_angles):
         return 'error publishing to arm_controller_handler/position_command'
 
 def joint_velocities(joint_velocities):
-    joint_velocity_1 = joint_velocities[0]
-    joint_velocity_2 = joint_velocities[1]
-    joint_velocity_3 = joint_velocities[2]
-    joint_velocity_4 = joint_velocities[3]
-    joint_velocity_5 = joint_velocities[4]
-    pub = rospy.Publisher('arm_1/arm_controller/velocity_command', JointVelocities)
-    rospy.sleep(0.5) 
-    try:
-        jv = JointVelocities()
-        
-        jv1 = JointValue()
-        jv1.joint_uri = "arm_joint_1"
-        jv1.value = joint_velocity_1
-        jv1.unit = "s^-1 rad"
-        
-        jv2 = JointValue()
-        jv2.joint_uri = "arm_joint_2"
-        jv2.value = joint_velocity_2
-        jv2.unit = "s^-1 rad"
+		robot = os.getenv('ROBOT')
+		if robot == 'youbot-edufill':
+				joint_velocity_1 = joint_velocities[0]
+				joint_velocity_2 = joint_velocities[1]
+				joint_velocity_3 = joint_velocities[2]
+				joint_velocity_4 = joint_velocities[3]
+				joint_velocity_5 = joint_velocities[4]
+				pub = rospy.Publisher('arm_1/arm_controller/velocity_command', JointVelocities)
+				rospy.sleep(0.5) 
+				try:
+						jv = JointVelocities()
 
-        jv3 = JointValue()
-        jv3.joint_uri = "arm_joint_3"
-        jv3.value = joint_velocity_3
-        jv3.unit = "s^-1 rad"
-        
-        jv4 = JointValue()
-        jv4.joint_uri = "arm_joint_4"
-        jv4.value = joint_velocity_4
-        jv4.unit = "s^-1 rad"
-        
-        jv5 = JointValue()
-        jv5.joint_uri = "arm_joint_5"
-        jv5.value = joint_velocity_5
-        jv5.unit = "s^-1 rad"
-        
-        p = Poison()
-        #print p
-       
-        jv.poisonStamp = p
-        
-        jv.velocities = [jv1, jv2, jv3, jv4, jv5]
-       
-        pub.publish(jv)
+						jv1 = JointValue()
+						jv1.joint_uri = "arm_joint_1"
+						jv1.value = joint_velocity_1
+						jv1.unit = "s^-1 rad"
 
-        return 'arm moved successfully'
+						jv2 = JointValue()
+						jv2.joint_uri = "arm_joint_2"
+						jv2.value = joint_velocity_2
+						jv2.unit = "s^-1 rad"
 
-    except Exception, e:
-        print e
-        return 'arm move failure'
+						jv3 = JointValue()
+						jv3.joint_uri = "arm_joint_3"
+						jv3.value = joint_velocity_3
+						jv3.unit = "s^-1 rad"
+
+						jv4 = JointValue()
+						jv4.joint_uri = "arm_joint_4"
+						jv4.value = joint_velocity_4
+						jv4.unit = "s^-1 rad"
+
+						jv5 = JointValue()
+						jv5.joint_uri = "arm_joint_5"
+						jv5.value = joint_velocity_5
+						jv5.unit = "s^-1 rad"
+
+						p = Poison()
+						#print p
+
+						jv.poisonStamp = p
+
+						jv.velocities = [jv1, jv2, jv3, jv4, jv5]
+
+						pub.publish(jv)
+
+						return 'arm moved successfully'
+
+				except Exception, e:
+						print e
+						return 'arm move failure'
+		else:
+				return 'arm motion not possible because of unavailable functionality in '+robot
 
 def cartesian_velocities(xyzrpy_vel,reference_frame):
-    linx  = xyzrpy_vel[0]
-    liny  = xyzrpy_vel[1]
-    linz  = xyzrpy_vel[2]
-    angx  = xyzrpy_vel[3]
-    angy  = xyzrpy_vel[4]
-    angz  = xyzrpy_vel[5]
-    pub = rospy.Publisher('arm_1/arm_cart_control/cartesian_velocity_command',TwistStamped)
-    rospy.sleep(0.5) 
-    try:
-        cv = TwistStamped()
-        cv.header.frame_id = reference_frame
-        cv.twist.linear.x = linx
-        cv.twist.linear.y = liny
-        cv.twist.linear.z = linz
-        cv.twist.angular.x = angx
-        cv.twist.angular.y = angy
-        cv.twist.angular.z = angz
-        pub.publish(cv)
-        return 'cartesian velocity command published'
-    except Exception, e:
-        print e
-        return 'cartesian velocity command not published'
+		robot = os.getenv('ROBOT')
+		if robot == 'youbot-edufill':
+				linx  = xyzrpy_vel[0]
+				liny  = xyzrpy_vel[1]
+				linz  = xyzrpy_vel[2]
+				angx  = xyzrpy_vel[3]
+				angy  = xyzrpy_vel[4]
+				angz  = xyzrpy_vel[5]
+				pub = rospy.Publisher('arm_1/arm_cart_control/cartesian_velocity_command',TwistStamped)
+				rospy.sleep(0.5) 
+				try:
+				    cv = TwistStamped()
+				    cv.header.frame_id = reference_frame
+				    cv.twist.linear.x = linx
+				    cv.twist.linear.y = liny
+				    cv.twist.linear.z = linz
+				    cv.twist.angular.x = angx
+				    cv.twist.angular.y = angy
+				    cv.twist.angular.z = angz
+				    pub.publish(cv)
+				    return 'cartesian velocity command published'
+				except Exception, e:
+				    print e
+				    return 'cartesian velocity command not published'	
+		else:
+				return 'arm motion not possible because of unavailable functionality in '+robot
 
 
 # Move arm to a given pose uploaded to rosparam 'arm_pose'
@@ -141,6 +149,7 @@ def to_pose(pose):
 	else:
 		print 'pose ' + pose + ' is not defined'
 		return
+
 if __name__ == '__main__':
     rospy.init_node('move_arm_component')
     #to_pose('pregrasp_standing_mex')

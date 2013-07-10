@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-#import arm_kinematics_analytical_solution
+import rospy
+import roslib; roslib.load_manifest('edufill_arm_cmds') 
 from youbot_arm_kinematics_analytical_solution import *
 from youbot_arm_kinematics_geometrical_solution import *
-#from nxt_arm_kinematics_
+from nxt_arm_kinematics_geometrical_solution import *
 import sys
 import os
 
