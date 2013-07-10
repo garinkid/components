@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+  
+  <!-- NXT -->
+  <include file="$(find nxt_univr_data)/launch/modules/nxt_base.launch" />
+  
+  <!-- States aggregator and parameters -->
+  <param name="mobile" value="true" type="String" />
+  <include file="$(find nxt_univr_data)/launch/modules/joint_states_aggregator.launch" />
+  
+  <!-- Controller -->
+  <!-- POSITION CONTROLLER -->
+  <include file="$(find nxt_univr_data)/launch/modules/base_controller.launch" />
+
+  <!-- TF publisher -->
+  <include file="$(find nxt_univr_data)/launch/modules/base_publisher.launch" />
+
+  <!-- RVIZ -->
+  <include file="$(find nxt_univr_data)/launch/modules/rviz_base.launch" />
+
+</launch>

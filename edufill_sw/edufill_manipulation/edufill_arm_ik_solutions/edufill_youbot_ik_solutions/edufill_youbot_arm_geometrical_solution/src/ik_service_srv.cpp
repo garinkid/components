@@ -21,7 +21,7 @@
 #include "/usr/include/eigen3/Eigen/src/Core/Matrix.h"
 
 #include <edufill_srvs/ComputeIK.h>
-#include <edufill_arm_geometrical_solution/ik_solver.h>
+#include <edufill_youbot_arm_geometrical_solution/ik_solver.h>
 
 using namespace std;
 using namespace Eigen;

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('edufill_arm_geometrical_solution')
+import roslib; roslib.load_manifest('edufill_youbot_arm_geometrical_solution')
 import rospy
 import threading
 import tf
@@ -17,8 +17,7 @@ import threading
 import numpy
 
 
-
-class GeometricalSolver:
+class youbot_arm_geometrical_solver:
 
 	def __init__(self):
 		self.joint_names = ["arm_joint_1", "arm_joint_2", "arm_joint_3", "arm_joint_4", "arm_joint_5"]

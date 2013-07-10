@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import roslib; roslib.load_manifest('edufill_arm_cmds')
+import roslib; roslib.load_manifest('edufill_youbot_arm_analytical_solution')
 import rospy
 import threading
 import tf
@@ -15,7 +15,7 @@ import arm_navigation_msgs.srv
 import edufill_msg.msg
 #import edufill_arm_navigation.msg
 
-class AnalyticalSolver:
+class youbot_arm_analytical_solver:
 
 	def __init__(self):
 		self.joint_names = ["arm_joint_1", "arm_joint_2", "arm_joint_3", "arm_joint_4", "arm_joint_5"]
