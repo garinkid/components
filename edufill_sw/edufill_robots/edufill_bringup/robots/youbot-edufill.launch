@@ -13,6 +13,9 @@
   <!-- start robot_state_publisher -->
   <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" />
 
+  <!-- start static tranformation for tool tip -->
+  	<node pkg="tf" type="static_transform_publisher" name="gripper_finger_link_broadcaster" args="0.000 0 0.087 3.1416 0 0 gripper_palm_link gripper_finger_link 100" />
+
     <include file="$(find youbot_oodl)/launch/youbot_oodl_driver.launch" />
 
 	<include file="$(find edufill_bringup)/components/youbot/arm.launch" />
