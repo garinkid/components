@@ -144,11 +144,13 @@ class youbot_arm_analytical_solver:
 		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
 		pose.goal.header.frame_id = param[6]
-		pose.goal.pose.position.x = param[0]
-		pose.goal.pose.position.y = param[1]
-		pose.goal.pose.position.z = param[2]
+		point = param[0:6]
+		result_matrix = self.get_input_to_ik(point)
+		(qx, qy, qz, qw) = tf.transformations.quaternion_from_matrix(result_matrix)
 
-		(qx, qy, qz, qw) = tf.transformations.quaternion_from_euler(param[3], param[4], param[5])
+		pose.goal.pose.position.x = result_matrix[0,3]
+		pose.goal.pose.position.y = result_matrix[1,3]
+		pose.goal.pose.position.z = result_matrix[2,3]
 		pose.goal.pose.orientation.x = qx
 		pose.goal.pose.orientation.y = qy
 		pose.goal.pose.orientation.z = qz
