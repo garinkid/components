@@ -21,5 +21,8 @@
   <!-- RVIZ -->
   <include file="$(find edufill_bringup)/components/nxt/rviz_arm.launch" />
 
+  <!-- nxt arm ik-->
+  <include file="$(find edufill_nxt_arm_geometrical_solution)/launch/nxt_ik_geometrical_solution.launch" />
+
 
 </launch>
