@@ -127,6 +127,15 @@ class youbot_arm_analytical_solver:
 			R [i,3] = point_in[i]
 		return R
 
+	def get_tranformation_matrix_tool_tip_to_arm_link_5(self,target_frame = "gripper_finger_link"):
+
+		header = std_msgs.msg.Header()
+		header.frame_id = "arm_link_5"
+		header.stamp =  rospy.Time()
+		self.listener.waitForTransform(target_frame, header.frame_id, rospy.Time(), rospy.Duration(5.0))
+		B = self.listener.asMatrix(target_frame, header)
+		return B
+
 	def create_pose(self, param):
 		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
