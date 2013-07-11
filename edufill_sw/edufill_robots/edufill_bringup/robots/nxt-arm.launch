@@ -6,6 +6,9 @@
 	<rosparam param="number_of_arm_joints">3</rosparam>
 	<node name="arm_controller_handler" pkg="edufill_arm_cmds" type="arm_controller_handler.py" />  
 
+  <!-- upload default params for nxt-arm-->
+  <include file="$(find edufill_default_config)/$(env ROBOT)/upload_param.launch" />
+
   <!-- Parameter for States aggregator -->
   <param name="mobile" value="false" type="String" />
   <!-- State aggregator -->
