@@ -119,6 +119,14 @@ class youbot_arm_analytical_solver:
 		R = matrix([[math.cos(p)*math.cos(y),-math.cos(p)*math.sin(y),math.sin(p),0],[ math.cos(r)*math.sin(y) + math.cos(y)*math.sin(p)*math.sin(r), math.cos(r)*math.cos(y) - math.sin(p)*math.sin(r)*math.sin(y), -math.cos(p)*math.sin(r),0],[ math.sin(r)*math.sin(y) - math.cos(r)*math.cos(y)*math.sin(p), math.cos(y)*math.sin(r) + math.cos(r)*math.sin(p)*math.sin(y),  math.cos(p)*math.cos(r),0],[0,0,0,1]])
 		return R
 
+	def get_tranformation_matrix_of_point(self, point_in):
+
+		T = tf.transformations.translation_matrix([point_in[0],point_in[1],point_in[2]])            
+		R = self.get_rotation_matrix(point_in[3],point_in[4],point_in[5])
+		for i in xrange(0,3):
+			R [i,3] = point_in[i]
+		return R
+
 	def create_pose(self, param):
 		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
