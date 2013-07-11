@@ -54,11 +54,33 @@ if __name__=="__main__":
     # result = kinematics_solver.get_ik_solution([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0")[0.6, 0, 0.5, 0, 1.5708, 1]
     # print result
     #### 6.(change mode) to_cartesian_pose([x,y,z,roll,pitch,yaw], reference_frame)
-    ##### Return True if solution exist else False
-    kinematics_solver = KinematicsSolver(GeometricalSolver())
+    #### Return True if solution exist else False
+    # Zero position
+    # x =  0.057
+    # y =  0.0
+    # z = 0.622
+    # roll = 0
+    # pitch = 0
+    # yaw = math.pi
+    # Pregrasp position
+    x =  0.3 + 0.024
+    y =  0.0
+    z =  0.0 + 0.096
+    roll = math.pi
+    pitch = 0.4
+    yaw = 0
+    # Grasp from floor on front
+    # x =  0.3 
+    # y =  0.0
+    # z =  - 0.1
+    # roll = math.pi
+    # pitch = 0.4
+    # yaw = 0
+    kinematics_solver = KinematicsSolver("analytical")
+    # kinematics_solver = KinematicsSolver("geometrical")
     print "IK"
-    if kinematics_solver.check_ik_solver_has_solution([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0"):
-        joint_angles = kinematics_solver.get_ik_solution([0.057, 0, 0.535, 0, 0, 0], "/arm_link_0")
+    if kinematics_solver.check_ik_solver_has_solution([x, y, z, roll, pitch, yaw], "/arm_link_0"):
+        joint_angles = kinematics_solver.get_ik_solution([x, y, z, roll, pitch, yaw], "/arm_link_0")
         #print joint_angles 
         move_arm_component.to_joint_positions(joint_angles)
         ik_result = True
