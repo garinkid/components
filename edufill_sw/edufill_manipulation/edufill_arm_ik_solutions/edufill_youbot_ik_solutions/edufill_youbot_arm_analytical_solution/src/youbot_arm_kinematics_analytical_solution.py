@@ -15,6 +15,10 @@ import arm_navigation_msgs.srv
 import edufill_msg.msg
 #import edufill_arm_navigation.msg
 
+import tf
+import tf.transformations
+from std_msgs.msg import Header
+
 class youbot_arm_analytical_solver:
 
 	def __init__(self):
@@ -47,6 +51,9 @@ class youbot_arm_analytical_solver:
 
 		# a planning scene must be set before using the constraint-aware ik!
 		self.send_planning_scene()
+
+		self.listener = tf.TransformListener()
+
 
 	#callback function: when a joint_states message arrives, save the values
 	def joint_states_callback(self, msg):
