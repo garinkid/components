@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+	<!-- upload robot and env params -->
+	<include file="$(find edufill_default_config)/$(env ROBOT)/upload_param.launch" />
 	
 	<include file="$(find youbot_description)/launch/control/youbot_gripper_control.launch" />
 		<rosparam param="number_of_arm_joints">5</rosparam>
