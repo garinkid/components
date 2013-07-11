@@ -114,6 +114,11 @@ class youbot_arm_analytical_solver:
 		print resp.solution.joint_state.position
 		return (resp.solution.joint_state.position, resp.error_code.val == arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS)
 
+	def get_rotation_matrix(self, r,p,y):
+
+		R = matrix([[math.cos(p)*math.cos(y),-math.cos(p)*math.sin(y),math.sin(p),0],[ math.cos(r)*math.sin(y) + math.cos(y)*math.sin(p)*math.sin(r), math.cos(r)*math.cos(y) - math.sin(p)*math.sin(r)*math.sin(y), -math.cos(p)*math.sin(r),0],[ math.sin(r)*math.sin(y) - math.cos(r)*math.cos(y)*math.sin(p), math.cos(y)*math.sin(r) + math.cos(r)*math.sin(p)*math.sin(y),  math.cos(p)*math.cos(r),0],[0,0,0,1]])
+		return R
+
 	def create_pose(self, param):
 		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
