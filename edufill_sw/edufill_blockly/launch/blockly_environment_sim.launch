@@ -12,9 +12,6 @@
         <!-- manipulation -->
 	<include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" />
 
-	<include file="$(find edufill_arm_geometrical_solution)/launch/arm_geometry_solution.launch" />
-        <!-- perception 
-                <include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />-->
 
 	<include file="$(find edufill_subscriber)/launch/edufill_subscriber.launch" />
 
