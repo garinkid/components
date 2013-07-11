@@ -18,3 +18,4 @@ stack.xml.bak
 *.aux
 *.log
 *.toc
+__init__.py

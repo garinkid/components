@@ -15,6 +15,14 @@ import arm_navigation_msgs.srv
 import edufill_msg.msg
 #import edufill_arm_navigation.msg
 
+import tf
+import tf.transformations
+from std_msgs.msg import Header
+
+import math
+from numpy import linalg
+from numpy import matrix
+
 class youbot_arm_analytical_solver:
 
 	def __init__(self):
@@ -47,6 +55,9 @@ class youbot_arm_analytical_solver:
 
 		# a planning scene must be set before using the constraint-aware ik!
 		self.send_planning_scene()
+
+		self.listener = tf.TransformListener()
+
 
 	#callback function: when a joint_states message arrives, save the values
 	def joint_states_callback(self, msg):
@@ -103,15 +114,43 @@ class youbot_arm_analytical_solver:
 		print resp.solution.joint_state.position
 		return (resp.solution.joint_state.position, resp.error_code.val == arm_navigation_msgs.msg.ArmNavigationErrorCodes.SUCCESS)
 
+	def get_rotation_matrix(self, r,p,y):
+
+		R = matrix([[math.cos(p)*math.cos(y),-math.cos(p)*math.sin(y),math.sin(p),0],[ math.cos(r)*math.sin(y) + math.cos(y)*math.sin(p)*math.sin(r), math.cos(r)*math.cos(y) - math.sin(p)*math.sin(r)*math.sin(y), -math.cos(p)*math.sin(r),0],[ math.sin(r)*math.sin(y) - math.cos(r)*math.cos(y)*math.sin(p), math.cos(y)*math.sin(r) + math.cos(r)*math.sin(p)*math.sin(y),  math.cos(p)*math.cos(r),0],[0,0,0,1]])
+		return R
+
+	def get_tranformation_matrix_of_point(self, point_in):
+
+		T = tf.transformations.translation_matrix([point_in[0],point_in[1],point_in[2]])            
+		R = self.get_rotation_matrix(point_in[3],point_in[4],point_in[5])
+		for i in xrange(0,3):
+			R [i,3] = point_in[i]
+		return R
+
+	def get_tranformation_matrix_tool_tip_to_arm_link_5(self,target_frame = "gripper_finger_link"):
+
+		header = std_msgs.msg.Header()
+		header.frame_id = "arm_link_5"
+		header.stamp =  rospy.Time()
+		self.listener.waitForTransform(target_frame, header.frame_id, rospy.Time(), rospy.Duration(5.0))
+		B = self.listener.asMatrix(target_frame, header)
+		return B
+
+	def get_input_to_ik(self,point_in,target_frame = "gripper_finger_link"):
+		mult = matrix.dot(self.get_tranformation_matrix_of_point(point_in),self.get_tranformation_matrix_tool_tip_to_arm_link_5(target_frame))
+		return mult
+
 	def create_pose(self, param):
 		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
 		pose.goal.header.frame_id = param[6]
-		pose.goal.pose.position.x = param[0]
-		pose.goal.pose.position.y = param[1]
-		pose.goal.pose.position.z = param[2]
+		point = param[0:6]
+		result_matrix = self.get_input_to_ik(point)
+		(qx, qy, qz, qw) = tf.transformations.quaternion_from_matrix(result_matrix)
 
-		(qx, qy, qz, qw) = tf.transformations.quaternion_from_euler(param[3], param[4], param[5])
+		pose.goal.pose.position.x = result_matrix[0,3]
+		pose.goal.pose.position.y = result_matrix[1,3]
+		pose.goal.pose.position.z = result_matrix[2,3]
 		pose.goal.pose.orientation.x = qx
 		pose.goal.pose.orientation.y = qy
 		pose.goal.pose.orientation.z = qz
