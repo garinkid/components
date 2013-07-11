@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+  
+  <!-- NXT -->
+  <include file="$(find edufill_bringup)/components/nxt/nxt_base.launch"  />
+  
+  <!-- States aggregator and parameters -->
+  <param name="mobile" value="true" type="String" />
+  <include file="$(find edufill_bringup)/components/nxt/joint_states_aggregator.launch" />
+  
+  <!-- Controller -->
+  <!-- POSITION CONTROLLER -->
+  <include file="$(find edufill_bringup)/components/nxt/base_controller.launch" />
+
+  <!-- TF publisher -->
+  <include file="$(find edufill_bringup)/components/nxt/base_publisher.launch" />
+
+  <!-- RVIZ -->
+  <include file="$(find edufill_bringup)/components/nxt/rviz_base.launch" />
+
+</launch>

@@ -5,5 +5,5 @@
     <node pkg="rviz" name="rviz" type="rviz" />
   
     <arg name="gui" default="True" />
-    <param name="robot_description" textfile="$(find nxt_univr_data)/urdf/lego_base.urdf"/>
+    <param name="robot_description" textfile="$(find edufill_hardware_config)/nxt-base/urdf/nxt-base.urdf"/>
 </launch>
