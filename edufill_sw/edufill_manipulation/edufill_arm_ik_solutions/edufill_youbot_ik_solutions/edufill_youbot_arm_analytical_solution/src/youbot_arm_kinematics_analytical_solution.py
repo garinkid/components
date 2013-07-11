@@ -136,6 +136,10 @@ class youbot_arm_analytical_solver:
 		B = self.listener.asMatrix(target_frame, header)
 		return B
 
+	def get_input_to_ik(self,point_in,target_frame = "gripper_finger_link"):
+		mult = matrix.dot(self.get_tranformation_matrix_of_point(point_in),self.get_tranformation_matrix_tool_tip_to_arm_link_5(target_frame))
+		return mult
+
 	def create_pose(self, param):
 		pose = edufill_msg.msg.MoveToCartesianPoseGoal()
 		pose.goal.header.stamp = rospy.Time.now()
