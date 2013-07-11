@@ -16,8 +16,12 @@ class KinematicsSolver:
 		elif (os.getenv('ROBOT') == 'nxt-arm'):
 			self.robot_arm_ik_solver = 'nxt_arm_'+solver+'_solver'		
 		current_module = sys.modules[__name__]
-		print dir(current_module)
-		self.ik_solution = getattr(current_module,self.robot_arm_ik_solver)()
+		#print dir(current_module)
+		if(hasattr(current_module,self.robot_arm_ik_solver)):
+			self.ik_solution = getattr(current_module,self.robot_arm_ik_solver)()
+		else:
+			raise Exception("The robot has no requested functionality")
+      
 
 
 	def check_ik_solver_has_solution(self,xyzrpy,reference_frame):

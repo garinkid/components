@@ -14,16 +14,22 @@ from nxt_msgs.msg import JointCommand
 import arm_kinematics
 
 # Move arm to joint positions
-def to_cartesian_pose(xyzrpy,reference_frame,solver):
+def to_cartesian_pose(xyzrpy,reference_frame,solver='analytical'):
 		#print solver
-		ks = arm_kinematics.KinematicsSolver(solver)
+		try:
+				ks = arm_kinematics.KinematicsSolver(solver)
+		except Exception, e:
+				rospy.loginfo('%s',e)
+				return False
 		iksolver_state = ks.ik_solution.check_ik_solver_has_solution(xyzrpy,reference_frame)
 		if (iksolver_state):
 			ik_result = ks.ik_solution.get_ik_solution(xyzrpy,reference_frame)
+			rospy.loginfo('arm moved to the cartesian goal requested')
 			status_move = to_joint_positions(ik_result)
-			return status_move          
+			return True          
 		else:
-			return 'no solution found'
+			rospy.loginfo('no solution found')
+			return False
 
 
 def to_joint_positions(joint_angles):
@@ -40,9 +46,9 @@ def to_joint_positions(joint_angles):
         for c in range(1,5):
             pub.publish(jp)
             rospy.sleep(0.1)
-        return 'successfully published to arm_controller_handler/position_command'
+        rospy.loginfo('successfully published to arm_controller_handler/position_command')
     except Exception, e:
-        return 'error publishing to arm_controller_handler/position_command'
+        rospy.loginfo('error publishing to arm_controller_handler/position_command')
 
 def joint_velocities(joint_velocities):
 		robot = os.getenv('ROBOT')
