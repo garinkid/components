@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
 
 <launch>
-  
+
+  <!-- upload default params for nxt-base-->
+  <include file="$(find edufill_default_config)/$(env ROBOT)/upload_param.launch" />
   <!-- NXT -->
   <include file="$(find edufill_bringup)/components/nxt/nxt_base.launch"  />
   
