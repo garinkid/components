@@ -108,13 +108,14 @@ def distances(angles):
 def get_x_y(angles_distances):
     y = []
     x = []
-    for i in angles_distances[1]:
-        for j in angles_distances[0]:
-            x.append(i * math.sin(j))
-            if j == 0:
-                y.append(i)
-            else:
-                y.append((x[-1] * math.cos(j))/math.sin(j))
+    t = 0 
+    for (angles,distances) in zip(angles_distances[0], angles_distances[1]):
+        x.append(distances * math.sin(angles))
+        if angles == 0:
+            y.append(distances)
+        else:
+            y.append((x[-1] * math.cos(angles))/math.sin(angles))
+        t = t + 1
     return [x,y]
 
 def wall_existance(side_coordinates):
