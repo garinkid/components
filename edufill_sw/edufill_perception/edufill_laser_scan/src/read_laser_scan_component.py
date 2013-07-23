@@ -88,9 +88,9 @@ def distances(angles):
     ranges_from_first_angle_to_last = []
     angles_from_first_angle_to_last = []
     if abs(angles[0]) > laser_data.angle_max and abs(angles[0]) > laser_data.angle_min:
-        print "First angel out of range"
+        rospy.logerr("First angel out of range")
     if abs(angles[1]) > laser_data.angle_max and abs(angles[1]) > laser_data.angle_min:
-        print "Last angel out of range"
+        rospy.logerr("Last angel out of range")
     close_angle_first = min(angles_list, key=lambda x:abs(x-angles[0]))
     close_angle_last = min(angles_list, key=lambda x:abs(x-angles[1]))
     first_angle_distance_id = angles_list.index(close_angle_first)
@@ -168,7 +168,7 @@ def check_wall(side,distance=0.4):
             resp = get_wall(0.0,distance)
             return resp
     else:
-        print "Input data is not correct"    
+        rospy.logerr("Input data is not correct")    
     # return distance_to_wall
 
 
