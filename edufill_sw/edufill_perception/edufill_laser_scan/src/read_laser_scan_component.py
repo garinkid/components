@@ -105,19 +105,6 @@ def distances(angles):
         angles_from_first_angle_to_last += [angles_list[i]]
     return zip(angles_from_first_angle_to_last,ranges_from_first_angle_to_last)
 
-def check_wall_1(side,distance=0.4):
-    angle_max = 1.56
-    if side == "left":
-        resp = is_wall(angle_max,distance)
-        return resp
-    elif side == "right":
-        resp = is_wall(-angle_max,distance)
-        return resp
-    elif side == "front":
-        resp = is_wall(0.0,distance)
-        return resp
-    else:
-        print "Input data is not correct"
 def get_x_y(angles_distances):
     y = []
     x = []
