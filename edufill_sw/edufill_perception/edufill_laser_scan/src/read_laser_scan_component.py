@@ -85,6 +85,7 @@ def distances(angles):
     resolution = get_resolution()
     angles_list_distances = get_angles_distances()
     angles_list = angles_list_distances[0]
+    distances_list = angles_list_distances[1]
     ranges_from_first_angle_to_last = []
     angles_from_first_angle_to_last = []
     if abs(angles[0]) > laser_data.angle_max and abs(angles[0]) > laser_data.angle_min:
@@ -100,7 +101,7 @@ def distances(angles):
         last_angle_distance_id = first_angle_distance_id
         first_angle_distance_id = temp 
     for i in range(first_angle_distance_id,last_angle_distance_id):
-        ranges_from_first_angle_to_last += [laser_data.ranges[i]]
+        ranges_from_first_angle_to_last += [distances_list[i]]
     for i in range(first_angle_distance_id,last_angle_distance_id):
         angles_from_first_angle_to_last += [angles_list[i]]
     return zip(angles_from_first_angle_to_last,ranges_from_first_angle_to_last)
