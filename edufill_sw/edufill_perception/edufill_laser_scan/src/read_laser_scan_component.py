@@ -49,7 +49,7 @@ def get_angles_distances():
         angles_list_plus += [angle]
     angles_list = angles_list_minus + angles_list_plus
     for i in range(0,len(laser_data.ranges)):
-        if laser_data.ranges[i] < 0.0001:
+        if laser_data.ranges[i] < 0.008:
             filtered_angles_list.append(angles_list[i])
             filtered_ranges.append(5.0)	    
 	else:
