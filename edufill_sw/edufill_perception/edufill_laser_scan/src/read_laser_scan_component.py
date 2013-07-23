@@ -139,21 +139,21 @@ def check_wall(side,distance=0.4):
         angles_and_distances_to_wall = zip(*distances([angle_max,angle_max-0.15]))
         x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[0])
-        if exist == True :
+        if exist == True:
             resp = get_wall(angle_max,distance)
             return resp
     elif side == "right":
         angles_and_distances_to_wall = zip(*distances([-angle_max,-angle_max+0.15]))
         x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[0])
-        if exist == True :
+        if exist == True:
             resp = get_wall(-angle_max,distance)
             return resp
     elif side == "front":
         angles_and_distances_to_wall = zip(*distances([0.2,-0.2]))
 	x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[1])
-        if exist == True :
+        if exist == True:
             resp = get_wall(0.0,distance)
             return resp
     else:
@@ -168,7 +168,6 @@ def get_wall(angle,distance):
     angles_list = angles_list_distances[0]
     close_angle = min(angles_list, key=lambda x:abs(x-angle))
     for a,d in ranges_and_angles():
-        # print d
         if close_angle == a and distance > d:
             return True
         elif close_angle == a and distance < d:
