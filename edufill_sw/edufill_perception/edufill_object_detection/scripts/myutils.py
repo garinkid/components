@@ -20,7 +20,7 @@ from cv import Scalar
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import re
-from sys import exit
+from sys import exit, stderr
 
 from cv2.cv import CV_FOURCC
 import numpy as np
@@ -152,7 +152,7 @@ def GUIMinMaxHSV(img_in):
             print MinMaxAvgHSV(frame, points[0][0], points[0][1], points[1][0], points[1][1])
             points = []
         if mouse_events[cv2.EVENT_LBUTTONDOWN]:
-            points.append((mouse_x, mouse_y))
+            points.append(np.array([mouse_x, mouse_y], dtype='uint16'))
         clear_events_mouse()
     cv2.destroyWindow('wnd')
     cv2.waitKey(1000)
@@ -163,7 +163,8 @@ def cv_u8c3point_inv(p):
 def draw_contour(img, points):
     for p in points:
         try:#some points may appear outside the image boundaries
-            img[p[::-1]] = cv_u8c3point_inv(img[p[::-1]])
+            p_rev = p[::-1]
+            img[p_rev[0]][p_rev[1]] = [0, 0, 0]#cv_u8c3point_inv(img[p[::-1]])
         except:
             pass
 
@@ -209,8 +210,11 @@ def GUICalibrateHSV(img_in, fname):
                  }
     contour_selected = False
     sub_state = None
+    def debug_state(state, points, events):
+        print 'State: %s, points: %s, mouse_events: %s' % (state, str(points), str(events))
     while True:
-        key = cv2.waitKey(10)
+        #debug_state(state, points, mouse_events)
+        key = cv2.waitKey(5)
         if key == 27:#Esc
             break
         key_events[key] = True
@@ -256,7 +260,7 @@ def GUICalibrateHSV(img_in, fname):
             cv2.destroyWindow(wnd_name)
             while True:
                 try:
-                    color = raw_input('color [r, g, b, c, m, y]> ')
+                    color = raw_input('colour [r, g, b, c, m, y]> ')
                     color = color_strs[color]
                 except KeyError, e:
                     print 'Invalid color: %s. Avaliable colors are: r, g, b, c, m, y. Retry.' % color
@@ -281,27 +285,44 @@ def GUICalibrateHSV(img_in, fname):
             draw_debug_messages(disp_frame, labels[state], font_size = 1.0)
             cv2.imshow(wnd_name, disp_frame)
             state = 'zoom1'
+            clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
             hsv_min = 255 * np.ones([3], dtype='uint8')
             hsv_max = np.zeros([3], dtype='uint8')
             points = []
-        elif mouse_events[cv2.EVENT_LBUTTONDOWN] and state == 'zoom1':
-            state = 'zoom2'
-        elif mouse_events[cv2.EVENT_LBUTTONUP] and state == 'zoom2':
-            if len(points) < 2:
-                state = 'zoom1'
-                continue
-            clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
-            #only store two diagonal edge points of the rectangle
-            points = [points[0], points[-1]]
-            disp_frame = frame.copy()
-            zoomed_frame = disp_frame[points[0][1]:points[1][1], points[0][0]:points[1][0]]
-            state = 'hsv_select_roi'
-            draw_debug_messages(zoomed_frame, labels[state], font_size = 1.0)
-            cv2.imshow(wnd_name, zoomed_frame)
-            sub_state = 'cont_not_selected'
-            points = []
-        if mouse_events[cv2.EVENT_LBUTTONDOWN]:
-            points.append((mouse_x, mouse_y))
+        elif state == 'zoom1':
+            if len(points) == 1:
+                state = 'zoom2'
+        elif state == 'zoom2':
+            if len(points) == 2:
+                if np.linalg.norm(points[0] - points[1]) > 2:
+                    clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
+                    #only store two diagonal edge points of the rectangle
+                    points = [points[0], points[-1]]
+                    disp_frame = frame.copy()
+                    zoomed_frame = disp_frame[points[0][1]:points[1][1], points[0][0]:points[1][0]]
+                    state = 'hsv_select_roi'
+                    sub_state = 'cont_not_selected'
+                    draw_debug_messages(zoomed_frame, labels[state], font_size = 1.0)
+                    cv2.imshow(wnd_name, zoomed_frame)
+                    points = []
+                else:
+                    print >>stderr, 'Zoom area too small'
+                    clear_events_mouse([cv2.EVENT_LBUTTONDOWN, cv2.EVENT_LBUTTONUP])
+                    points = []
+                    state = 'zoom1'
+        #Here we store points' coordinates in the image according to the needs of the current state
+        do_append = False
+        if state == 'zoom1':
+            if mouse_events[cv2.EVENT_LBUTTONDOWN]:
+                do_append = True
+        elif state == 'zoom2':
+            if mouse_events[cv2.EVENT_LBUTTONUP]:
+                do_append = True
+        elif state == 'hsv_select_roi' and sub_state == 'cont_select':
+            if len(points) == 0 or np.all(np.array([mouse_x, mouse_y]) != points[len(points) - 1]):
+                do_append = True
+        if do_append:
+            points.append(np.array([mouse_x, mouse_y], dtype='uint16'))
         #clear_events_mouse()
     cv2.destroyWindow(wnd_name)
     cv2.waitKey(1000)

@@ -25,7 +25,7 @@ def get_image_from_topic(rgb_topic = RGB_TOPIC):
     return np_img
  
 def do_calibrate_color(hsv_fname):
-    from_topic = raw_input('Calibrate from %s [y/anoter_topic/n]? ' % RGB_TOPIC)
+    from_topic = raw_input('Calibrate from %s [y/<another_topic>/f]? ' % RGB_TOPIC)
     if str(from_topic) == 'n':
         img_file = raw_input('Image file name? ')
         img = cv2.imread(img_file)

@@ -1,32 +1,32 @@
 green_hsv_min:
-  h: 6
-  s: 67
-  v: 71
+  h: 41
+  s: 24
+  v: 83
 green_hsv_max:
-  h: 90
-  s: 209
-  v: 155
-blue_hsv_min:
-  h: 0
-  s: 0
-  v: 119
-blue_hsv_max:
-  h: 125
-  s: 120
-  v: 255
+  h: 76
+  s: 164
+  v: 161
 yellow_hsv_min:
-  h: 20
-  s: 176
-  v: 192
+  h: 18
+  s: 72
+  v: 195
 yellow_hsv_max:
   h: 26
-  s: 254
-  v: 251
+  s: 255
+  v: 241
 red_hsv_min:
   h: 0
-  s: 128
-  v: 119
+  s: 167
+  v: 120
 red_hsv_max:
   h: 179
-  s: 254
-  v: 196
+  s: 255
+  v: 197
+blue_hsv_min:
+  h: 109
+  s: 94
+  v: 87
+blue_hsv_max:
+  h: 120
+  s: 246
+  v: 172
