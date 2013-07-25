@@ -10,14 +10,12 @@
   <url>http://ros.org/wiki/edufill_2dnav</url>
 
   <!--RAW depedencies-->
-  <depend package="edufill_tools"/>
   <depend package="edufill_env_config"/>
   <depend package="map_server"/>
   <depend package="amcl"/>
   <depend package="robot_pose_ekf"/>
   <depend package="youbot_navigation_common"/>
   <depend package="move_base"/>
-  <depend package="edufill_tools"/>
   <depend package="tf"/>
   
   <!--Navigation Dependencies-->

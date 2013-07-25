@@ -1,0 +1,9 @@
+initposition:       [0, 0, 0]
+
+zeroposition:       [0, -0.5, 2.7]
+
+arm_out_of_view:       [0, -0.2, 1.2]
+
+arm_pregrasp_laying:       [0,-1.0,1.2]
+
+arm_pregrasp_standing:       [0,-0.6,1.5]

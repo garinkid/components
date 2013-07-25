@@ -31,14 +31,12 @@ class simple_move_base
   
   private:
     void odomCallback(const nav_msgs::Odometry::ConstPtr& omsg);
-    void setGoal(const geometry_msgs::PoseStamped::ConstPtr& pmsg);
     bool moveToRelativePose(edufill_srvs::MoveToRelativePos::Request  &req,
                               edufill_srvs::MoveToRelativePos::Response &res);
     
     ros::NodeHandle nh_;
     
     ros::Subscriber youbot_odom_sub;
-    ros::Subscriber youbot_goal_sub;
     ros::Publisher twist_pub;
     
       ros::ServiceServer service;
@@ -103,8 +101,7 @@ simple_move_base::simple_move_base()
   d_vx = 0.0175;
   d_vy = 0.0175;
   d_omega = 0.1;
-  
-  youbot_goal_sub = nh_.subscribe<geometry_msgs::PoseStamped>("move_base_simple/goal",10, &simple_move_base::setGoal, this);
+
   youbot_odom_sub = nh_.subscribe<nav_msgs::Odometry>("odom",10, &simple_move_base::odomCallback, this);
   twist_pub = nh_.advertise<geometry_msgs::Twist>("cmd_vel",10);
 
@@ -169,23 +166,7 @@ bool simple_move_base::moveToRelativePose(edufill_srvs::MoveToRelativePos::Reque
   
   return true;
 }
-void simple_move_base::setGoal(const geometry_msgs::PoseStamped::ConstPtr& msg)
-{
-    arrived = false;
-  // get the goal cartesian data
-  x_g = msg->pose.position.x;
-  y_g = msg->pose.position.y;
-  z_g = msg->pose.position.z;
-  
-  // get the goal orientation data
-  goal_quat.x = msg->pose.orientation.x;
-  goal_quat.y = msg->pose.orientation.y;
-  goal_quat.z = msg->pose.orientation.z;
-  goal_quat.w = msg->pose.orientation.w;
-  theta_g = tf::getYaw(goal_quat);
 
-  printf("Goal set: [%f %f]; theta: [%f]\n",simple_move_base::x_g,simple_move_base::y_g,simple_move_base::theta_g);
-}
 
 void simple_move_base::odomCallback(const nav_msgs::Odometry::ConstPtr& msg)
 {   

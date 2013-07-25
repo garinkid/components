@@ -49,7 +49,7 @@ def get_angles_distances():
         angles_list_plus += [angle]
     angles_list = angles_list_minus + angles_list_plus
     for i in range(0,len(laser_data.ranges)):
-        if laser_data.ranges[i] < 0.0001:
+        if laser_data.ranges[i] < 0.008:
             filtered_angles_list.append(angles_list[i])
             filtered_ranges.append(5.0)	    
 	else:
@@ -85,12 +85,13 @@ def distances(angles):
     resolution = get_resolution()
     angles_list_distances = get_angles_distances()
     angles_list = angles_list_distances[0]
+    distances_list = angles_list_distances[1]
     ranges_from_first_angle_to_last = []
     angles_from_first_angle_to_last = []
     if abs(angles[0]) > laser_data.angle_max and abs(angles[0]) > laser_data.angle_min:
-        print "First angel out of range"
+        rospy.logerr("First angel out of range")
     if abs(angles[1]) > laser_data.angle_max and abs(angles[1]) > laser_data.angle_min:
-        print "Last angel out of range"
+        rospy.logerr("Last angel out of range")
     close_angle_first = min(angles_list, key=lambda x:abs(x-angles[0]))
     close_angle_last = min(angles_list, key=lambda x:abs(x-angles[1]))
     first_angle_distance_id = angles_list.index(close_angle_first)
@@ -100,34 +101,22 @@ def distances(angles):
         last_angle_distance_id = first_angle_distance_id
         first_angle_distance_id = temp 
     for i in range(first_angle_distance_id,last_angle_distance_id):
-        ranges_from_first_angle_to_last += [laser_data.ranges[i]]
+        ranges_from_first_angle_to_last += [distances_list[i]]
     for i in range(first_angle_distance_id,last_angle_distance_id):
         angles_from_first_angle_to_last += [angles_list[i]]
     return zip(angles_from_first_angle_to_last,ranges_from_first_angle_to_last)
 
-def check_wall_1(side,distance=0.4):
-    angle_max = 1.56
-    if side == "left":
-        resp = is_wall(angle_max,distance)
-        return resp
-    elif side == "right":
-        resp = is_wall(-angle_max,distance)
-        return resp
-    elif side == "front":
-        resp = is_wall(0.0,distance)
-        return resp
-    else:
-        print "Input data is not correct"
 def get_x_y(angles_distances):
     y = []
     x = []
-    for i in angles_distances[1]:
-        for j in angles_distances[0]:
-            x.append(i * math.sin(j))
-            if j == 0:
-                y.append(i)
-            else:
-                y.append((x[-1] * math.cos(j))/math.sin(j))
+    t = 0 
+    for (angles,distances) in zip(angles_distances[0], angles_distances[1]):
+        x.append(distances * math.sin(angles))
+        if angles == 0:
+            y.append(distances)
+        else:
+            y.append((x[-1] * math.cos(angles))/math.sin(angles))
+        t = t + 1
     return [x,y]
 
 def wall_existance(side_coordinates):
@@ -144,31 +133,33 @@ def wall_existance(side_coordinates):
     else:
         return "Not a wall"
 
-def check_wall(side,distance=0.4):
+def check_wall(side,distance=0.6):
     angle_max = 1.56
     if side == "left":
         angles_and_distances_to_wall = zip(*distances([angle_max,angle_max-0.15]))
         x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[0])
-        if exist:
+        if exist == True:
             resp = get_wall(angle_max,distance)
             return resp
     elif side == "right":
         angles_and_distances_to_wall = zip(*distances([-angle_max,-angle_max+0.15]))
         x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[0])
-        if exist:
+        if exist == True:
             resp = get_wall(-angle_max,distance)
             return resp
     elif side == "front":
         angles_and_distances_to_wall = zip(*distances([0.2,-0.2]))
 	x_y = get_x_y(angles_and_distances_to_wall)
         exist = wall_existance(x_y[1])
-        if exist:
+        if exist == True:
             resp = get_wall(0.0,distance)
             return resp
     else:
-        print "Input data is not correct"    
+        rospy.logerr("Input data is not correct") 
+        return False   
+   
     # return distance_to_wall
 
 
@@ -177,7 +168,6 @@ def get_wall(angle,distance):
     angles_list = angles_list_distances[0]
     close_angle = min(angles_list, key=lambda x:abs(x-angle))
     for a,d in ranges_and_angles():
-        # print d
         if close_angle == a and distance > d:
             return True
         elif close_angle == a and distance < d:

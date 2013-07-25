@@ -23,15 +23,22 @@
     uri: https://github.com/b-it-bots/cob_command_tools.git
     version: master
 
-- git:
-    local-name: ccny_vision
-    uri: http://robotics.ccny.cuny.edu/git/ccny-ros-pkg/ccny_vision.git
-    version: master
 
 - git:
     local-name: albany_vision
     uri: https://github.com/b-it-bots/albany_vision.git
     version: master
+
+- git:
+    local-name: nxt-stack
+    uri: git@github.com:EduFill/nxt-stack.git
+    version: master
+
+- git: 
+    local-name: nxt-ros 
+    uri: git@github.com:EduFill/nxt-ros.git 
+    version: master
+
 
 #- git:
 #    local-name: youbot-stack

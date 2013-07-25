@@ -2,7 +2,7 @@
 
 <launch>
     <node pkg="nxt_ros" name="nxt_ros_base" type="nxt_ros.py"  output="screen" respawn="true">
-        <rosparam command="load" file="$(find nxt_univr_data)/yaml/lego_base.yaml" />
+        <rosparam command="load" file="$(find edufill_hardware_config)/nxt-base/config/nxt-base.yaml" />
     </node>
     
     <param name="base_parameters/r_wheel_joint" value="motor_joint_right" type="str" />

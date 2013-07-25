@@ -12,6 +12,7 @@
   <depend package="hbrs_msgs" />
 <depend package="std_msgs" />
 <depend package="nav_msgs" /> 
+<depend package="nxt_msgs" />
 <depend package="edufill_msg" />
 
 </package>

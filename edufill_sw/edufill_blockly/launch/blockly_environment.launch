@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
-        <!-- base components -->
-    	<include file="$(find edufill_bringup)/robots/robot.launch" />
+  <!-- base components -->
+  <include file="$(find edufill_bringup)/robots/robot.launch" />
 
 	<!-- upload robot and env params 
 	<include file="$(find edufill_default_config)/upload_param.launch" />
@@ -15,8 +15,8 @@
 
 
 
-        <!-- manipulation -->
-		<include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" /> 
+    <!-- manipulation move to robot 
+		<include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" />  -->
 
         <!-- perception 
 		<include file="$(find edufill_object_detection)/ros/launch/object_segmentation.launch" />-->
