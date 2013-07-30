@@ -31,7 +31,7 @@ def twist(base_velocity):
 def to_pose(pose):
     x = pose[0]
     y = pose[1]
-    yaw = pose[2] 
+    yaw = pose[5] 
     try: 
 
         # convert to pose message
