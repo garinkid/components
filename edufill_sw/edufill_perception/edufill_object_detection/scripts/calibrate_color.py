@@ -26,7 +26,7 @@ def get_image_from_topic(rgb_topic = RGB_TOPIC):
  
 def do_calibrate_color(hsv_fname):
     from_topic = raw_input('Calibrate from %s [y/<another_topic>/f]? ' % RGB_TOPIC)
-    if str(from_topic) == 'n':
+    if str(from_topic) == 'f':
         img_file = raw_input('Image file name? ')
         img = cv2.imread(img_file)
         if img == None: 
@@ -37,7 +37,7 @@ def do_calibrate_color(hsv_fname):
         img = get_image_from_topic(from_topic)
         
     if os.path.isfile(os.getenv('ROS_HOME') + '/' + hsv_fname):
-        ans = raw_input('%s already exist. Make a backup [y/n]? ' % hsv_fname)
+        ans = raw_input('%s already exists. Make a backup [y/n]? ' % hsv_fname)
         if ans == 'y':
             move(hsv_fname, hsv_fname + '_' + str(time()))
     GUICalibrateHSV(img, hsv_fname)
