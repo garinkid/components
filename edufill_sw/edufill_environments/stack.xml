@@ -1,0 +1,9 @@
+<stack>
+  <description brief="edufill_environments">edufill_environments</description>
+  <author>Maintained by Nemo Giftsun</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_environments</url>
+  <depend stack="ros" />
+
+</stack>

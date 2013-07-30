@@ -1,0 +1,24 @@
+<package>
+  <description brief="edufill_object_detection">
+
+     edufill_object_detection
+
+  </description>
+  <author>alex</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufilll_object_detection</url>
+  <depend package="geometry_msgs"/>
+  <depend package="sensor_msgs"/>
+  <depend package="opencv2"/>
+  <depend package="cv_bridge"/>
+  <depend package="image_transport"/>
+  <depend package="image_geometry"/>
+  <depend package="pcl"/>
+  <depend package="pcl_ros"/>
+  <depend package="tf"/>
+
+
+</package>
+
+

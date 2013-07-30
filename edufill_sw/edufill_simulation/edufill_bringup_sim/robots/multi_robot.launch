@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<launch>
+	<param name="/use_sim_time" value="true" />
+	<rosparam command="load" ns="/simulation/objects" file="$(find edufill_env_config)/$(env ROBOT_ENV)/simulation_object_locations.yaml"/>
+	
+	<!-- upload robot and env params -->
+	<include file="$(find edufill_default_config)/upload_param.launch" />
+	<include file="$(find edufill_env_config)/upload_param.launch" />
+
+    <!-- start gazebo with GUI and load environment -->
+    <include file="$(find edufill_gazebo_world)/ros/launch/brsu-home-multi.launch" />
+
+  <!-- BEGIN ROBOT 1-->
+  <group ns="robot1">
+    <param name="tf_prefix" value="robot1_tf" />
+    <include file="$(find edufill_bringup_sim)/robots/one_robot.launch" >
+      <arg name="init_pose" value="-x 0.0 -y 0.0 -z 0.1" />
+      <arg name="robot_name"  value="robot1" />
+    </include>
+  </group>
+
+  <!-- BEGIN ROBOT 1-->
+  <group ns="robot2">
+    <param name="tf_prefix" value="robot2_tf" />
+    <include file="$(find edufill_bringup_sim)/robots/one_robot.launch" >
+      <arg name="init_pose" value="-x -0.5 -y -0.5 -z 0.1" />
+      <arg name="robot_name"  value="robot2" />
+    </include>
+  </group>
+
+
+
+    <!-- start gui -->
+    <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/>
+	
+    
+</launch>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="launch_openni" default="false" />
+    <env name="ROS_HOME" value="$(find edufill_object_detection)" />
+    <param name="~hsv_file" value="params/cur_min_max_hsv.yaml"/>
+    <group if="$(arg launch_openni)">
+        <include file="$(find simple_pcl)/launch/openni.launch" />
+    </group>
+    <node pkg="edufill_object_detection" type="calibrate_color.py" name="edufill_calibrate_color" output="screen" required="true">
+            <!--rosparam command="load" file="$(find edufill_object_detection)/params/params.yaml" /-->
+            <!--remap from="/tower_cam3d/rgb/image_color" to="/camera/rgb/image_rect_color" /-->
+    </node>
+</launch>

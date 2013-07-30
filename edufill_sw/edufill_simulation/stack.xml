@@ -1,0 +1,9 @@
+<stack>
+  <description brief="edufill_simulation">edufill_simulation</description>
+  <author>Maintained by Nemo Giftsun</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_simulation</url>
+  <depend stack="ros" />
+
+</stack>

@@ -1,0 +1,14 @@
+<package>
+  <description brief="edufill_robot_description">
+
+     edufill_robot_description
+
+  </description>
+  <author>Nemo Giftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_robot_description</url>
+
+</package>
+
+

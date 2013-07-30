@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>	
+
+  <!-- upload default params for nxt-base-->
+  <include file="$(find edufill_default_config)/$(env ROBOT)/upload_param.launch" />	
+
+  <!-- upload robot description and params (joint configurations) -->
+	<rosparam param="number_of_arm_joints">5</rosparam>
+	<node name="arm_controller_handler" pkg="edufill_arm_cmds" type="arm_controller_handler.py" /> 
+
+  <!-- manipulation -->
+  <include file="$(find edufill_arm_cmds)/launch/simple_manipulation.launch" /> 
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find edufill_hardware_config)/$(env ROBOT)/urdf/$(env ROBOT).urdf.xacro'" />
+
+  <!-- start robot_state_publisher -->
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher" output="screen" />
+
+  <!-- start static tranformation for tool tip -->
+  	<node pkg="tf" type="static_transform_publisher" name="gripper_finger_link_broadcaster" args="0.000 0 0.087 3.1416 0 0 gripper_palm_link gripper_finger_link 100" />
+
+    <include file="$(find youbot_oodl)/launch/youbot_oodl_driver.launch" />
+
+	<include file="$(find edufill_bringup)/components/youbot/arm.launch" />
+
+	
+	<include file="$(find edufill_teleop)/ros/launch/teleop_joypad.launch" />		
+
+	<include file="$(find edufill_bringup)/components/youbot/base_front_hokuyo_node.launch" />
+
+
+
+</launch>

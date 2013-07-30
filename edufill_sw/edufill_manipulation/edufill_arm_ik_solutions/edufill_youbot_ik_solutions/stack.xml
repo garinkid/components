@@ -1,0 +1,11 @@
+<stack>
+  <description brief="edufill_youbot_ik_solutions">edufill_youbot_ik_solutions</description>
+  <author>Maintained by Nemo Giftsun</author>
+  <license>BSD</license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_youbot_ik_solutions</url>
+
+  <depend stack="ros" />
+  <depend stack="edufill_youbot_ik_solutions" />
+
+</stack>

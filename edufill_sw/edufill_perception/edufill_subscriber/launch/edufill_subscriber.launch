@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+	<node pkg="edufill_subscriber" type="read_perception_cmd.py" name="read_perception_cmd" cwd="node" respawn="false" output="screen" /> 
+
+
+</launch>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+
+  <include file="$(find edufill_bringup)/robots/$(env ROBOT).launch" />
+
+</launch>

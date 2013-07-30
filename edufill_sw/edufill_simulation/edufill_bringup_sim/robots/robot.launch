@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+	<param name="use_sim_time" value="true" />
+	<rosparam command="load" ns="/simulation/objects" file="$(find edufill_env_config)/$(env ROBOT_ENV)/simulation_object_locations.yaml"/>
+	
+    <!-- start gazebo with GUI and load environment -->
+    <include file="$(find edufill_gazebo_world)/ros/launch/$(env ROBOT_ENV).launch" />
+
+    <!-- load robot into gazebo -->
+    <include file="$(find edufill_bringup_sim)/robots/$(env ROBOT).launch" />
+
+    <!-- start gui -->
+    <node name="gazebo_gui" pkg="gazebo" type="gui" respawn="false" output="screen"/> 
+    
+</launch>

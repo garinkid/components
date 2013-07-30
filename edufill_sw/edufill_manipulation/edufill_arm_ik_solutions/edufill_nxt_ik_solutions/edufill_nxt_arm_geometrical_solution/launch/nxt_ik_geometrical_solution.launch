@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+
+<launch>
+<node pkg="edufill_nxt_arm_geometrical_solution" type="nxt_ik_solver_service" name="nxt_ik_solver_service" cwd="node" respawn="false" output="screen" /> 
+</launch>

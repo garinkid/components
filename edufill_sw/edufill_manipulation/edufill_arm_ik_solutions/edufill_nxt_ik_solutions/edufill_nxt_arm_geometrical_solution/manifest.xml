@@ -1,0 +1,19 @@
+<package>
+  <description brief="edufill_nxt_geometrical_solution">
+
+     edufill_nxt_arm_geometrical_solution
+
+  </description>
+  <author>nemogiftsun</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/edufill_nxt_arm_geometrical_solution</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="nxt_ros"/>
+  <depend package="nxt_msgs"/>
+
+
+</package>
+
+
