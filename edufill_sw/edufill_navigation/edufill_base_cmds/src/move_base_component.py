@@ -2,9 +2,9 @@
 import roslib; roslib.load_manifest('edufill_base_cmds')
 import rospy
 import brics_actuator.msg
-import actionlib
 import sys
 import tf
+import actionlib
 import math
 import edufill_srvs.srv
 import std_srvs.srv
@@ -12,9 +12,6 @@ import std_srvs.srv
 from geometry_msgs.msg import *
 from move_base_msgs.msg import *
 
-# msg imports
-from geometry_msgs.msg import *
-from move_base_msgs.msg import *
 
 
 def twist(base_velocity):
@@ -61,7 +58,7 @@ def to_pose(pose):
         return 'success'
 
     except Exception, e:
-        rospy.logerr("service call <<%s>> failed: %s", self.move_base_relative_srv_name, e)  
+        rospy.logerr("service call <<%s>> failed: %s", action_server_name, e)  
         return 'srv_call_failed'
 
 def to_goal(goal):
