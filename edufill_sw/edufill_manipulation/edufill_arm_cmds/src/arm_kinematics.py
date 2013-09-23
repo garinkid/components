@@ -73,24 +73,25 @@ class KinematicsSolver:
       
 
 	def check_ik_solver_has_solution(self,xyzrpy,reference_frame):
-		'''
 		try:
 			return self.ik_solution.check_ik_solver_has_solution(xyzrpy,reference_frame)
 		except:
 			rospy.logerr("The robot has no requested functionality")
-		'''
-		return self.ik_solution.check_ik_solver_has_solution(xyzrpy,reference_frame)
 
 	def get_ik_solution(self,xyzrpy,reference_frame):
-		'''
 		joint_angles = []
 		try:
 			joint_angles = self.ik_solution.get_ik_solution(xyzrpy,reference_frame)
 		except:
 			rospy.logerr("The robot has no requested functionality/the solver does not have any solution")
-		'''
-		joint_angles = self.ik_solution.get_ik_solution(xyzrpy,reference_frame)
 		return joint_angles
+	def get_fk_solution(self, joint_config):
+                fk_solution = []
+                try:
+                        fk_solution = self.ik_solution.get_fk_solution(joint_config)
+                except:
+                        rospy.logerr("The robot has no requested functionality/the solver does not have any solution")
+                return fk_solution
 
 
 if __name__=="__main__":

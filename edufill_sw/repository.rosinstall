@@ -1,6 +1,6 @@
 - git:
     local-name: hbrs-ros-pkg
-    uri: git@github.com:b-it-bots/hbrs-ros-pkg.git
+    uri: https://github.com/EduFill/hbrs-ros-pkg.git
     version: master
 
 - git:
@@ -31,12 +31,12 @@
 
 - git:
     local-name: nxt-stack
-    uri: git@github.com:EduFill/nxt-stack.git
+    uri: https://github.com/EduFill/nxt-stack.git
     version: master
 
 - git: 
     local-name: nxt-ros 
-    uri: git@github.com:EduFill/nxt-ros.git 
+    uri: https://github.com/EduFill/nxt-ros.git
     version: master
 
 
@@ -67,5 +67,5 @@
 - git:
     local-name: third-party-software
     uri: https://github.com/b-it-bots/third-party-software.git
-    version: master
+    version: fuerte
 
